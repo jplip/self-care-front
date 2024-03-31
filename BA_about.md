@@ -4,7 +4,8 @@ title: About Us
 permalink: /about/
 ---
 
-Timeline: https://github.com/users/iKAN2025/projects/4
+[Timeline](https://github.com/users/iKAN2025/projects/4) 
+
 
 
 We plan to have:
@@ -19,10 +20,10 @@ We plan to have:
 - Sleep
 
 
-Check out individual pages with github logos on the bottom of the page/or here:
+Check out individual pages with CPT documenation here  or see github logos on the bottom of the page:
 
 
-Isabel : https://ikan2025.github.io/Nighthawk-Pages/
+[Isabel](https://ikan2025.github.io/Nighthawk-Pages//2023/08/16/blog.html)
 
 
 
