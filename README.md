@@ -1,4 +1,12 @@
-# IMPORTANT
+
+
+
+
+
+
+
+
+<!-- # IMPORTANT
 
 - Go to settings and configure pages, deploy from the branch, and then select the root folder. IF YOU DO NOT DO THIS YOUR PAGE WILL NOT BUILD. 
 
@@ -180,4 +188,4 @@ bundle install
 - `compsci.md` - this is the "Computer Science Lab Notebook" page and is the link `https://nighthawkcoders.github.io/student/compsci`.  It contains the Title and Number of units on the page.
 - `_data/compsci.yml` - this contains the supporting data that helps organize the units on the page.
 - `_layouts`\schedule.html - this contains code, in the Liquid language, that generates the HTML for all the rows and columns.
-- fyi, the schedule.html could work for another type of page.  For instance, you could make a csa.md, _data/csa.yml, and tag files with `csa: {week: 0}` under courses.
+- fyi, the schedule.html could work for another type of page.  For instance, you could make a csa.md, _data/csa.yml, and tag files with `csa: {week: 0}` under courses. -->
