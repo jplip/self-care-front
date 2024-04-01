@@ -1,7 +1,7 @@
 ---
 permalink: /diary
 ---
-<script>
+<style>
 /* Add some styling for the surrounding box */
   #diary-title-container {
     background-image: url('https://files.catbox.moe/1m85ow.png');
@@ -43,7 +43,7 @@ permalink: /diary
   .diary-buttons:hover {
       background-color: #0056b3; /* Darker background color on hover */
   }
-</script>
+</style>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
