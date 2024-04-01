@@ -41,7 +41,7 @@ permalink: /Register/
                 "dob": dob
                 // Add other form fields as needed
             };            
-            fetch('http://127.0.0.1:8240/api/users/create', {
+            fetch('http://127.0.0.1:8086/api/users/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
