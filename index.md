@@ -2,8 +2,8 @@
 layout: home
 search_exclude: true
 ---
-A modified blog for CSA Based on Fastpages- Tirth Thakkar & Haseeb Beg   
 
+Brought to you by Justin, Bella, Lindsey, Hannah, Prakruti and Vibha! 🌿🌿
 
 
 # Posts
