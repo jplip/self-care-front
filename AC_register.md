@@ -50,7 +50,7 @@ permalink: /Register/
             })
              .then(response => {
                  if (response.ok) {
-                    window.location.href = '/frontTri2/login/'; // Redirect upon successful user creation
+                    window.location.href = 'https://jplip.github.io/self-care-front/login/'; // Redirect upon successful user creation
                 } else {
                     console.error('User creation failed');
                     alert("User Creation failed. Try again.");
