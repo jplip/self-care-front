@@ -1,11 +1,16 @@
 # CSP course meta data
 Unit1:
-  title: Build a Lab Notebook
-  description:  Install Tools.  Design lab notebook.  Learn GitHub Pages. Work with Pair (pair name). 
-  start: 0
-  end: 3
+  title: Data Structures
+  description: This is the beginning of a college course following outline of CS113 Data Structures from Mira Costa CC.  Topics, using Python, include searching, sorting, hashing, algorithms, analysis, object-oriented design, collections, lists, stacks, queues, trees, sets, dictionaries, and graphs.
+  start: 25
+  end: 29
 Unit2:
-  title: Learn Language
-  description: Learn (JavaScript|Python|Java).  Start Agile development process.
-  start: 4
-  end: 7
+  title: AP Weeks
+  description: Activities will be focused on supporting students in test preparations, including student teaching.  Days that are not focused on test preparation will be focused on planning for year end project/portfolio.
+  start: 30
+  end: 32
+Unit3:
+  title: Passion Project and N@tM
+  description: Presenting accomplishments for the year by creating a passion project for N@tM.  This project will serve as the year end final exam.
+  start: 33
+  end: 36
