@@ -24,6 +24,7 @@ Check out individual pages with CPT documenation here  or see github logos on th
 
 
 [Isabel](https://ikan2025.github.io/Nighthawk-Pages//2023/08/16/blog.html)
+[Lindsay](https://lin-ct.github.io/stu2/2024/03/08/Individual_Seed_IPYNB_2_.html)
 
 
 
