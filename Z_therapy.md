@@ -1,4 +1,5 @@
 ---
+layout: base
 permalink: /therapy
 ---
 <style>
