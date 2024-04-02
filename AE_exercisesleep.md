@@ -23,7 +23,6 @@ permalink: /tracking/
         </form>
     </div>
     <script>
-        const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
         console.log(userIDFromLocalStorage);
         const userNameFromLocalStorage = localStorage.getItem('loggedInUserName');
         document.getElementById('exerciseForm').addEventListener('submit', function (event) {
