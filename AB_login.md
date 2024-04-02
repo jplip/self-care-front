@@ -53,8 +53,8 @@ permalink: /login/
                 }
             })
             .then(data => {
-               const loggedInUserName = data.user.name;
-               const loggedInUserId = data.user.id;
+               const loggedInUserName = data.id;
+               const loggedInUserId = data.name;
                console.log(loggedInUserName);
                localStorage.setItem('loggedInUserName', loggedInUserName);
                localStorage.setItem('loggedInUserId', loggedInUserId);
