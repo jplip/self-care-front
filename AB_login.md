@@ -104,7 +104,12 @@ permalink: /login/
                console.log(loggedInUserName);
                localStorage.setItem('loggedInUserName', loggedInUserName);
                localStorage.setItem('loggedInUserId', loggedInUserId);
-               window.location.href = '/dashboard';
+               document.getElementById('userDisplayName').textContent = `Welcome, ${loggedInUserName}!`;
+                document.getElementById('loginForm').style.display = 'none';
+                const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
+                console.log(userIDFromLocalStorage);
+                document.getElementById('updateButton').style.display = 'block';
+               
             })
             .catch(error => {
                 document.getElementById('error').textContent = error.message;
