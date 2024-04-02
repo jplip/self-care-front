@@ -60,8 +60,8 @@ permalink: /login/
                localStorage.setItem('loggedInUserId', loggedInUserId);
                 document.getElementById('userDisplayName').textContent = `Welcome, ${loggedInUserName}!`;
                 document.getElementById('loginForm').style.display = 'none';
-                const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
-                console.log(userIDFromLocalStorage);
+                // const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
+                // console.log(userIDFromLocalStorage);
                 document.getElementById('updateButton').style.display = 'block';
             })
             .catch(error => {
