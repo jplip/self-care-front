@@ -71,8 +71,6 @@ permalink: /tracking/
                         .catch(error => {
                             console.error('Error:', error);
                         });
-                    const binaryDuration = decimalToBinary(duration);
-                    displayBinaryBadge(binaryDuration);
                 })
                 .catch(error => {
                     console.error('Error:', error);
