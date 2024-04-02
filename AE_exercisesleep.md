@@ -3,7 +3,6 @@ layout: base
 title: Exercise/Sleep
 permalink: /tracking/
 --- 
-![Alt text](images/exerciseheader.png)
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -81,7 +80,6 @@ permalink: /tracking/
 </body>
 </html>
 
-![Alt text](images/Sleep Tracker Logo.png)
 <meta charset="UTF-8">
 <title>Sleep Tracker</title>
 <div id="selectedAscii"></div>
