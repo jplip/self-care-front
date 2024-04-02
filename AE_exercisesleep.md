@@ -3,12 +3,6 @@ layout: base
 title: Exercise/Sleep
 permalink: /tracking/
 --- 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Exercise</title>
-</head>
-<body>
 
 ![Alt text](images/exercise.png)
 
