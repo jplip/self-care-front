@@ -6,56 +6,105 @@ search_exclude: false
 permalink: depression
 courses: {compsci: {week: 26}}
 ---
-<!-- Inputs -->
-<div>
-    <form>
-        <p><label>
-            Age:
-            <input id="age">
-        </label></p>
-        <p><label>
-            Stress Level:
-            <input id="stress">
-        </label></p>
-        <p><label>
-            Daily Exercise (Hours):
-            <input id="exercise">
-        </label></p>
-        <p><label>
-            Daily Sleep (Hours):
-            <input id="sleep">
-        </label></p>
-    </form>
-</div>
 
-<!-- Has to stay outside the div above to function -->
-<button onclick="predict()">Submit</button>
-<p id="depressed"></p>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depression</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .form-control {
+            margin-bottom: 15px;
+        }
+        .form-control label {
+            font-weight: bold;
+        }
+        .form-control input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-control button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .form-control button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Depression</h1>
+        <form>
+            <div class="form-control">
+                <label for="age">Age:</label>
+                <input id="age" type="number">
+            </div>
+            <div class="form-control">
+                <label for="stress">Stress Level:</label>
+                <input id="stress" type="number">
+            </div>
+            <div class="form-control">
+                <label for="exercise">Daily Exercise (Hours):</label>
+                <input id="exercise" type="number">
+            </div>
+            <div class="form-control">
+                <label for="sleep">Daily Sleep (Hours):</label>
+                <input id="sleep" type="number">
+            </div>
+        </form>
+        <button onclick="predict()" class="form-control">Submit</button>
+        <p class="result" id="depressed"></p>
+    </div>
 
-
-<script>
-    function predict() {
-        var data = {
-            "age": parseFloat(document.getElementById("age").value),
-            "stress": parseFloat(document.getElementById("stress").value),
-            "exercise": parseFloat(document.getElementById("exercise").value),
-            "sleep": parseFloat(document.getElementById("sleep").value),
-        };
-        var options = {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        };
-        fetch("http://127.0.0.1:8086/api/predict/", options)
-            .then(response => response.json())
-            .then(result => {
-                //used to get calculations of depression
-                document.getElementById("depressed").innerHTML = result;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
-</script>
+    <script>
+        function predict() {
+            var data = {
+                "age": parseFloat(document.getElementById("age").value),
+                "stress": parseFloat(document.getElementById("stress").value),
+                "exercise": parseFloat(document.getElementById("exercise").value),
+                "sleep": parseFloat(document.getElementById("sleep").value),
+            };
+            var options = {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
+            fetch("http://127.0.0.1:8086/api/predict/", options)
+                .then(response => response.json())
+                .then(result => {
+                    document.getElementById("depressed").innerHTML = result;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+</body>
+</html>
