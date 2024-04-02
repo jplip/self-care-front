@@ -31,7 +31,7 @@ permalink: /tracking/
             const exerciseType = document.getElementById('exerciseType').value;
             const duration = document.getElementById('duration').value;
             const exerciseDate = document.getElementById('exerciseDate').value;
-            fetch(`http://127.0.0.1:8240/api/users/${userIDFromLocalStorage}`)
+            fetch(`http://127.0.0.1:8086/api/users/${userIDFromLocalStorage}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
@@ -40,7 +40,7 @@ permalink: /tracking/
                 })
                 .then(data => {
                     const originalExerciseData = Array.isArray(data.exercise) ? data.exercise : [];
-                    const originalSleepData = Array.isArray(data.tracking) ? data.tracking : [];
+                    const originalSleepData = Array.isArray(data.sleep) ? data.sleep : [];
                     const exercise = {
                         "exerciseType": exerciseType,
                         "duration": duration,
@@ -57,7 +57,7 @@ permalink: /tracking/
                         "tracking": originalSleepData
                     };
                     var jsonData = JSON.stringify(data2);
-                    fetch(`http://127.0.0.1:8240/api/users/${userIDFromLocalStorage}`, {
+                    fetch(`http://127.0.0.1:8086/api/users/${userIDFromLocalStorage}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'
@@ -115,7 +115,7 @@ permalink: /tracking/
         const sleepHours = document.getElementById('sleepHours').value;
         const quality = document.getElementById('quality').value;
         const sleepDate = document.getElementById('sleepDate').value;
-        fetch(`http://127.0.0.1:8240/api/users/${userIDFromLocalStorage}`)
+        fetch(`http://127.0.0.1:8086/api/users/${userIDFromLocalStorage}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
@@ -143,7 +143,7 @@ permalink: /tracking/
                         "tracking": updatedSleepData
                     };
                     var jsonData = JSON.stringify(data2);
-                    fetch(`http://127.0.0.1:8240/api/users/${userIDFromLocalStorage}`, {
+                    fetch(`http://127.0.0.1:8086/api/users/${userIDFromLocalStorage}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'
