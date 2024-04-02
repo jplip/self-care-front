@@ -52,9 +52,10 @@ permalink: /login/
                     }
                 }
             })
-            .then(data => {
+            .then(data => { 
                const loggedInUserName = data.name;
                const loggedInUserId = data.id;
+               //not showing up on my login why?
                console.log(loggedInUserName);
                localStorage.setItem('loggedInUserName', loggedInUserName);
                localStorage.setItem('loggedInUserId', loggedInUserId);
