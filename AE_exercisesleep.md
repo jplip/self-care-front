@@ -23,6 +23,7 @@ permalink: /tracking/
         </form>
     </div>
     <script>
+        const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
         console.log(userIDFromLocalStorage);
         const userNameFromLocalStorage = localStorage.getItem('loggedInUserName');
         document.getElementById('exerciseForm').addEventListener('submit', function (event) {
@@ -53,7 +54,7 @@ permalink: /tracking/
                         "dob": "10/12/13",
                         "age": "16",
                         "exercise": updatedExerciseData,
-                        "tracking": originalSleepData
+                        "sleep": originalSleepData
                     };
                     var jsonData = JSON.stringify(data2);
                     fetch(`http://127.0.0.1:8086/api/users/${userIDFromLocalStorage}`, {
@@ -119,7 +120,7 @@ permalink: /tracking/
                     return response.json();
                 })
                 .then(data => {
-                    const originalSleepData = Array.isArray(data.tracking) ? data.tracking : [];
+                    const originalSleepData = Array.isArray(data.sleep) ? data.sleep : [];
                     console.log(originalSleepData)
                     const originalExerciseData = Array.isArray(data.exercise) ? data.exercise : [];
                     const sleep = {
@@ -136,7 +137,7 @@ permalink: /tracking/
                         "dob": "10/12/13",
                         "age": "16",
                         "exercise": originalExerciseData,
-                        "tracking": updatedSleepData
+                        "sleep": updatedSleepData
                     };
                     var jsonData = JSON.stringify(data2);
                     fetch(`http://127.0.0.1:8086/api/users/${userIDFromLocalStorage}`, {
