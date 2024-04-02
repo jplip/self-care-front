@@ -4,43 +4,106 @@ title: Register
 permalink: /Register/
 --- 
 
+
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration</title>
-    <div class="purple-form">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .form-control {
+            margin-bottom: 15px;
+        }
+        .form-control label {
+            font-weight: bold;
+        }
+        .form-control input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-control input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        .form-control input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .error-message {
+            color: red;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
         <h1>User Registration</h1>
-        <form id="registrationForm">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required><br><br>     
-            <label for="uid">Username</label>  
-            <input type="text" id="uid" name="uid" required><br><br>
-            <label for="password">Password</label> 
-            <input type="password" id="password" name="password" required><br><br>
-            <label for="confirmPassword">Confirm Password</label> 
-            <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
-            <label for="dob">Date of Birth</label>
-            <input type="text" id="dob" name="dob" required><br><br>
+        <form id="registrationForm" class="form-control">
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>  
+            <div>
+                <label for="uid">Username:</label>
+                <input type="text" id="uid" name="uid" required>
+            </div>   
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div> 
+            <div>
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+            </div> 
+            <div>
+                <label for="dob">Date of Birth:</label>
+                <input type="text" id="dob" name="dob" required>
+            </div> 
             <input type="submit" value="Create User">
+            <div id="error" class="error-message"></div>
         </form>
     </div>
+
     <script>
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent form submission
-            const name = document.getElementById('name').value;// DEFINE VALUES
-            const uid =  document.getElementById('uid').value;
+            const name = document.getElementById('name').value;
+            const uid = document.getElementById('uid').value;
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
             const dob = document.getElementById('dob').value;
+            
             if (password !== confirmPassword) {
-                alert("Passwords do not match");
+                document.getElementById('error').textContent = "Passwords do not match";
                 return;
             }
+            
             const formData = {
-                "name": name,
-                "uid": uid,
-                "password": password,
-                "dob": dob
-                // Add other form fields as needed
-            };            
+                name: name,
+                uid: uid,
+                password: password,
+                dob: dob
+            };
+            
             fetch('http://127.0.0.1:8086/api/users/create', {
                 method: 'POST',
                 headers: {
@@ -48,12 +111,12 @@ permalink: /Register/
                 },
                 body: JSON.stringify(formData)
             })
-             .then(response => {
-                 if (response.ok) {
-                    window.location.href = 'https://jplip.github.io/self-care-front/login/'; // Redirect upon successful user creation
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = 'https://jplip.github.io/self-care-front/login/';
                 } else {
+                    document.getElementById('error').textContent = "User Creation failed. Try again.";
                     console.error('User creation failed');
-                    alert("User Creation failed. Try again.");
                 }
             })
             .catch(error => {
@@ -61,4 +124,5 @@ permalink: /Register/
             });
         });
     </script>
+</body>
 </html>
