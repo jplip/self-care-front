@@ -1,0 +1,92 @@
+---
+layout: base
+permalink: /sleepgraph/
+title:  Sleep Graphs
+search_exclude: true
+---
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Exercise Graph</title>
+    <!-- Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Style the chart container */
+        #exerciseChartContainer {
+            width: 3000px;
+            height: 3000px;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Chart container -->
+    <div id="exerciseChartContainer">
+        <canvas id="exerciseChart"></canvas>
+    </div>
+
+    <script>
+        // Replace 'userID' with the ID of the specific user you want to fetch data for
+        const userIDFromLocalStorage = localStorage.getItem('loggedInUserId'); // Replace 'user123' with an actual user ID
+
+        // Fetch exercise data for the specific user from the server API
+        fetch(`http://127.0.0.1:8086/api/users/${userIDFromLocalStorage}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(userData => {
+                // Log the fetched data to the console for inspection
+                console.log('Fetched User Data:', userData);
+
+                // Extract exercise data from the user's exercise array
+                const exerciseData = userData.sleep || [];
+
+                // Extract dates and durations from the exercise data
+                const exerciseDates = exerciseData.map(sleep => sleep.sleepDate);
+                const exerciseDurations = exerciseData.map(sleep => parseInt(sleep.sleepHours)); // Parse duration to an integer
+
+                // Create the chart using Chart.js
+                const ctx = document.getElementById('exerciseChart').getContext('2d');
+                const exerciseChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: exerciseDates,
+                        datasets: [{
+                            label: 'Hours of Sleep ',
+                            data: exerciseDurations,
+                            backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: false, // Ensure responsiveness is turned off
+                        maintainAspectRatio: false, // Avoid maintaining aspect ratio
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Sleep(Hours)'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Date'
+                                }
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                // Handle error if the request fails
+            });
+    </script>
+</body>
+</html>

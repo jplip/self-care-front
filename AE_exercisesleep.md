@@ -79,7 +79,7 @@ permalink: /tracking/
                 });
         });
     </script>
-    <iframe src="https://jplip.github.io/frontTri2/exercisegraph/" width="800" height="600" frameborder="0"></iframe>
+    <iframe src="https://jplip.github.io/self-care-front/sleepgraph/" width="800" height="600" frameborder="0"></iframe>
 </body>
 </html>
 
@@ -87,7 +87,6 @@ permalink: /tracking/
 <meta charset="UTF-8">
 <title>Sleep Tracker</title>
 <div id="selectedAscii"></div>
-<script src="https://jplip.github.io/frontTri2/assets/js/exercise.js" defer></script>
 <div class="purple-form">
     <form id="sleepForm">
         <label for="sleepHours">Hours of Sleep:</label>
@@ -163,7 +162,7 @@ permalink: /tracking/
                 });
         });
      </script>
- <iframe src="https://jplip.github.io/frontTri2/sleepgraph/" width="800" height="600" frameborder="0"></iframe>
+ <iframe src="https://jplip.github.io/self-care-front/sleepgraph/" width="800" height="600" frameborder="0"></iframe>
     
 <html>
 
