@@ -9,6 +9,7 @@ permalink: /tracking/
     <title>Exercise</title>
 </head>
 <body>
+![Alt text](images/exercise.png)
 <div class="purple-form">
         <div id="binaryDurationBadge" class="binary-badge"></div>
         <form id="exerciseForm">
@@ -79,7 +80,7 @@ permalink: /tracking/
     <iframe src="https://jplip.github.io/self-care-front/exercisegraph/" width="800" height="600" frameborder="0"></iframe>
 </body>
 </html>
-
+![Alt text](images/sleep.png)
 <meta charset="UTF-8">
 <title>Sleep Tracker</title>
 <div id="selectedAscii"></div>
