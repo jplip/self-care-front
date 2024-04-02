@@ -5,7 +5,8 @@ permalink: /tracking/
 --- 
 
 ![Alt text](images/exercise.png)
-
+<html>
+<body>
 <div class="purple-form">
         <div id="binaryDurationBadge" class="binary-badge"></div>
         <form id="exerciseForm">
