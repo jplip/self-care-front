@@ -9,7 +9,9 @@ permalink: /tracking/
     <title>Exercise</title>
 </head>
 <body>
+
 ![Alt text](images/exercise.png)
+
 <div class="purple-form">
         <div id="binaryDurationBadge" class="binary-badge"></div>
         <form id="exerciseForm">
