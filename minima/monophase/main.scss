@@ -7,3 +7,7 @@
 @media (prefers-color-scheme: dark) {
   @import "highlight-dark";
 }
+
+html, body, input, textarea, select, button {
+  background-color: #841919 !important;
+}

@@ -1,22 +1,19 @@
-title: Wellness Tracker
+title: wellness tracker 🌱 
 description: "August 2023 to June 2024"
 owner_name: Justin
 github_username: jplip
-github_repo: "Wellness Tracker"
+github_repo: "self-care-front"
 baseurl: "/self-care-front"
 remote_theme: jekyll/minima
 minima:
   social_links:
-    - { platform: github, user_url: "https://github.com/Lin-cT"}
-    - { platform: github, user_url: "https://github.com/jplip"}
-    - { platform: github, user_url: "https://github.com/iKAN2025"}
-    - { platform: github, user_url: "https://github.com/hanr12"}
-    - { platform: github, user_url: "https://github.com/parkib"}
-    - { platform: github, user_url: "https://github.com/vibha-yganji"}
+    - { platform: github, user_url: "https://github.com/nighthawkcoders"}
+    - { platform: github, user_url: "https://github.com/Tirth-Thakkar"}
+    - { platform: github, user_url: "https://github.com/h4seeb-cmd"}
 # remote_theme: pages-themes/dinky@v0.2.0
 # remote_theme: pages-themes/minimal@v0.2.0
 # remote_theme: pages-themes/hacker@v0.2.0
-# remote_theme: pages-themes/cayman@v0.2.0
+#remote_theme: pages-themes/cayman@v0.2.0
 # remote_theme: pages-themes/time-machine@v0.2.0
 plugins:
 - jekyll-remote-theme
