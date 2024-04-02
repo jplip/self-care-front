@@ -102,8 +102,8 @@ permalink: /tracking/
 </div>
 
 <script>
-    const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
-    const userNameFromLocalStorage = localStorage.getItem('loggedInUserName');
+    // const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
+    // const userNameFromLocalStorage = localStorage.getItem('loggedInUserName');
     console.log(userIDFromLocalStorage);
     document.getElementById('sleepForm').addEventListener('submit', function (event) {
         event.preventDefault();
