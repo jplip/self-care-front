@@ -68,6 +68,7 @@ permalink: /login/
             <div id="error" class="error-message"></div>
         </form>
     </div>
+    <div id="userDisplayName"></div>
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(event) {
