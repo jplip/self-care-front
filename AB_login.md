@@ -69,7 +69,6 @@ permalink: /login/
         </form>
     </div>
     <div id="userDisplayName"></div>
-
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent form submission
@@ -84,7 +83,8 @@ permalink: /login/
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(loginData)
+                body: JSON.stringify(loginData),
+                credentials: 'include'
             })
             .then(response => {
                 if (response.ok) {
@@ -110,7 +110,6 @@ permalink: /login/
                 const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
                 console.log(userIDFromLocalStorage);
                 document.getElementById('updateButton').style.display = 'block';
-               
             })
             .catch(error => {
                 document.getElementById('error').textContent = error.message;
