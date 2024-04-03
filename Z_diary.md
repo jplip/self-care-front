@@ -95,7 +95,7 @@ function diary() {
         credentials: 'include'
     };
     // Send the text data to the backend
-    fetch('http://127.0.0.1:8010/api/users/diary', options)
+    fetch('http://127.0.0.1:8086/api/users/diary', options)
     // LocaL: http://127.0.0.1:8010/api/users/diary
     // Deployed: https://SanDiegoTravel.stu.nighthawkcodingsociety.com/api/users/diary
         .then(response => {
@@ -128,7 +128,7 @@ function fetchDiary() {
     },
     credentials: 'include'
     };
-    fetch("http://127.0.0.1:8010/api/users/diary", options)
+    fetch("http://127.0.0.1:8086/api/users/diary", options)
     // Local: http://127.0.0.1:8010/api/users/diary
     // Deployed: https://SanDiegoTravel.stu.nighthawkcodingsociety.com/api/users/diary
     .then(response => {
