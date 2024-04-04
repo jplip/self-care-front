@@ -82,10 +82,27 @@
             color: #333;
             font-size: 16px;
         }
+
+        /* Style for home button */
+        #homeButton {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 16px;
+            text-decoration: none;
+            color: #333;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f2f2f2;
+        }
     </style>
 </head>
 
 <body>
+    <!-- Home button linking to index.html -->
+    <a id="homeButton" href="index.html">Home</a>
+
     <div class="container">
         <h1>Am I in danger of a stroke?</h1>
         <form id="strokeForm">
@@ -178,4 +195,5 @@
         }
     </script>
 </body>
+
 </html>
