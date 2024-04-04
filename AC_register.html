@@ -85,10 +85,6 @@
                 <label for="confirmPassword">Confirm Password:</label>
                 <input type="password" id="confirmPassword" name="confirmPassword" required>
             </div> 
-            <div>
-                <label for="dob">Date of Birth:</label>
-                <input type="text" id="dob" name="dob" required>
-            </div> 
             <input type="submit" value="Create User">
             <div id="error" class="error-message"></div>
         </form>
@@ -101,7 +97,6 @@
             const uid = document.getElementById('uid').value;
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
-            const dob = document.getElementById('dob').value;
             
             if (password !== confirmPassword) {
                 document.getElementById('error').textContent = "Passwords do not match";
@@ -112,7 +107,6 @@
                 name: name,
                 uid: uid,
                 password: password,
-                dob: dob
             };
             
             fetch('http://127.0.0.1:8086/api/users/create', {
