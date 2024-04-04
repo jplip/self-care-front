@@ -23,7 +23,7 @@
     color: white;
     }
     .title-container {
-    background-image: url('https://files.catbox.moe/1o92g3.png');
+    background-image: url('https://files.catbox.moe/r45qwu.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: top;
@@ -58,7 +58,7 @@
     }
     /* Styling for therapy */
     #therapy-title-container {
-    background-image: url('https://files.catbox.moe/8uvnzn.png');
+    background-image: url('https://files.catbox.moe/r45qwu.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: top;
@@ -89,11 +89,7 @@
         height: 20px; /* Adjust height as needed */
     }
 </style>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Locations for Therapy</title>
+<title>Therapy</title>
 </head>
 <body class='sandiego-background'>
 <div id='therapy-title-container'>
@@ -105,10 +101,9 @@
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Family Friendly</th>
-                <th>Adult Friendly</th>
-                <th>Indoors</th>
-                <th>Outdoors</th>
+                <th>Location</th>
+                <th>Specialization</th>
+                <th>Therapists</th>
             </tr>
         </thead>
         <tbody>
@@ -144,9 +139,7 @@ function displayTherapyTable() {
             'Content-Type': 'application/json;charset=utf-8'
         },
     };
-    fetch("http://127.0.0.1:8086/api/therapy/", options)
-    // Local: http://127.0.0.1:8010/api/therapy/
-    // Deployed: https://SanDiegoTravel.stu.nighthawkcodingsociety.com/api/therapy/
+    fetch("http://127.0.0.1:8086/api/therapy", options)
     .then(response => {
         if (response.ok) {
             return response.json();
@@ -155,37 +148,25 @@ function displayTherapyTable() {
         }
     })
     .then(data => {
-            const tableBody = document.querySelector("#therapy-table tbody");
-            tableBody.innerHTML = ""; // Clear the existing table data
-            data.forEach(therapy => {
-                const row = tableBody.insertRow();
-                const nameCell = row.insertCell(0);
-                const familyFriendlyCell = row.insertCell(1);
-                const adultFriendlyCell = row.insertCell(2);
-                const indoorsCell = row.insertCell(3);
-                const outdoorsCell = row.insertCell(4);
-                
-                nameCell.textContent = therapy.name;
-                familyFriendlyCell.innerHTML = therapy.family === "True" ? '<img src="https://files.catbox.moe/u818q8.png">' : '<img src="https://files.catbox.moe/jcffjn.png">';
-                adultFriendlyCell.innerHTML = therapy.adult === "True" ? '<img src="https://files.catbox.moe/u818q8.png">' : '<img src="https://files.catbox.moe/jcffjn.png">';
-                indoorsCell.innerHTML = therapy.indoors === "True" ? '<img src="https://files.catbox.moe/u818q8.png">' : '<img src="https://files.catbox.moe/jcffjn.png">';
-                outdoorsCell.innerHTML = therapy.outdoors === "True" ? '<img src="https://files.catbox.moe/u818q8.png">' : '<img src="https://files.catbox.moe/jcffjn.png">';
-            });
-        })
+        const tableBody = document.querySelector("#therapy-table tbody");
+        tableBody.innerHTML = ""; // Clear the existing table data
+        data.forEach(therapy => {
+            const row = tableBody.insertRow();
+            const nameCell = row.insertCell(0);
+            const locationCell = row.insertCell(1);
+            const specializationCell = row.insertCell(2);
+            const therapistsCell = row.insertCell(3);
+                    
+            nameCell.textContent = therapy.name;
+            locationCell.textContent = therapy.location;
+            specializationCell.textContent = therapy.specialization;
+            therapistsCell.textContent = therapy.therapists;
+        });
+    })
         .catch(error => {
             console.error('Error:', error);
             alert(error);
         });
 }
 window.onload = displayTherapyTable;
-
-function goHome() {
-    window.location.href = "http://127.0.0.1:4200/travel_project/home";
-}
-function goWeather() {
-    window.location.href = "http://127.0.0.1:4200/travel_project/weather";
-}
-function goItinerary() {
-    window.location.href = "http://127.0.0.1:4200/travel_project/itinerary";
-}
 </script>
