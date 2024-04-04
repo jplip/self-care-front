@@ -1,54 +1,75 @@
 <img src="green-aesthetic-anime-water-lilies-vcrsd0e596ed8rmk.gif" alt="Floating GIF" style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100%; z-index: -1; pointer-events: none;">
-<html>
-<style>
-/* Add some styling for the surrounding box */
-  #diary-title-container {
-    background-image: url('https://files.catbox.moe/1m85ow.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: top;
-    color: black; /* Black text */
-    padding: 50px 20px;
-    text-align: center;
-  }
-  #diary {
-    width: 70%; /* Adjust width as needed */
-    margin: 0 auto; /* Center the textarea */
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-  }
-  /* Center text inside diary-container */
-  .diary-container {
-    text-align: center;
-  }
-  /* Style the data container */
-  .data-container {
-    border: 2px solid #ccc; /* Border style */
-    padding: 20px; /* Padding inside the container */
-    margin: 20px auto; /* Center the container */
-    max-width: 600px; /* Maximum width of the container */
-  }
-  .diary-buttons {
-    padding: 10px 20px; /* Padding around the button text */
-    background-color: #007bff; /* Button background color */
-    color: white; /* Button text color */
-    border: none; /* Remove button border */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Show pointer cursor on hover */
-    transition: background-color 0.3s ease; /* Smooth transition for background color */
-  }
-  /* Hover effect for the button */
-  .diary-buttons:hover {
-      background-color: #0056b3; /* Darker background color on hover */
-  }
-</style>
+
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Diary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("https://files.catbox.moe/1m85ow.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: top;
+        }
+
+        #diary-title-container {
+            background-image: url('https://files.catbox.moe/1m85ow.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: top;
+            color: black; /* Black text */
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        #diary {
+            width: 70%; /* Adjust width as needed */
+            margin: 0 auto; /* Center the textarea */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        /* Center text inside diary-container */
+        .diary-container {
+            text-align: center;
+        }
+
+        /* Style the data container */
+        .data-container {
+            border: 2px solid #ccc; /* Border style */
+            padding: 20px; /* Padding inside the container */
+            margin: 20px auto; /* Center the container */
+            max-width: 600px; /* Maximum width of the container */
+        }
+
+        .diary-buttons {
+            padding: 10px 20px; /* Padding around the button text */
+            background-color: #007bff; /* Button background color */
+            color: white; /* Button text color */
+            border: none; /* Remove button border */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Show pointer cursor on hover */
+            transition: background-color 0.3s ease; /* Smooth transition for background color */
+        }
+
+        /* Hover effect for the button */
+        .diary-buttons:hover {
+            background-color: #0056b3; /* Darker background color on hover */
+        }
+    </style>
 </head>
+
 <body class='sandiego-background'>
+    <!-- Home button linking to index.html -->
+    <a id="homeButton" href="index.html" style="position: fixed; top: 20px; left: 20px; font-size: 16px; text-decoration: none; color: #333; padding: 5px 10px; border: 1px solid #ccc; border-radius: 4px; background-color: #f2f2f2;">Home</a>
+
     <div id='diary-title-container'>
         <h1 class='title'>Personal Diary</h1>
     </div>
@@ -64,90 +85,95 @@
         <br>
         <button class="diary-buttons" onclick="fetchDiary()">Load Personal Diary</button>
         <p id="error"></p>
-    <div class="data-container">
-        <h2 id='subtitle'>Your Diary:</h2>
-        <div id="data"></div>
+        <div class="data-container">
+            <h2 id='subtitle'>Your Diary:</h2>
+            <div id="data"></div>
+        </div>
     </div>
-    </div>
-<script>
-  //Updating text
-function diary() {
-    // Get the text content from the textarea
-    let text = document.getElementById("diary").value;
-    // Create an object with the text data and a unique UID (timestamp)
-    let data = {
-        "diary": text
-    };
-    // Configure fetch options
-    let options = {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify(data),
-        credentials: 'include'
-    };
-    // Send the text data to the backend
-    fetch('http://127.0.0.1:8086/api/users/diary', options)
-    // LocaL: http://127.0.0.1:8010/api/users/diary
-    // Deployed: https://SanDiegoTravel.stu.nighthawkcodingsociety.com/api/users/diary
-        .then(response => {
-            if (response.ok) {
-                // Handle successful submission
-                document.getElementById("error").innerHTML = "Diary updated!";
-                // Fetch updated images after submission
-                fetchDiary()
-            } else {
-                // Handle submission error
-                return response.json().then(errorData => {
-                    if (errorData && errorData.message) {
-                        document.getElementById("error").innerHTML = errorData.message;
+
+    <script>
+        //Updating text
+        function diary() {
+            // Get the text content from the textarea
+            let text = document.getElementById("diary").value;
+            // Create an object with the text data and a unique UID (timestamp)
+            let data = {
+                "diary": text
+            };
+            // Configure fetch options
+            let options = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(data),
+                credentials: 'include'
+            };
+            // Send the text data to the backend
+            fetch('http://127.0.0.1:8086/api/users/diary', options)
+            // LocaL: http://127.0.0.1:8010/api/users/diary
+            // Deployed: https://SanDiegoTravel.stu.nighthawkcodingsociety.com/api/users/diary
+                .then(response => {
+                    if (response.ok) {
+                        // Handle successful submission
+                        document.getElementById("error").innerHTML = "Diary updated!";
+                        // Fetch updated images after submission
+                        fetchDiary()
                     } else {
-                        document.getElementById("error").innerHTML = "Error submitting diary";
+                        // Handle submission error
+                        return response.json().then(errorData => {
+                            if (errorData && errorData.message) {
+                                document.getElementById("error").innerHTML = errorData.message;
+                            } else {
+                                document.getElementById("error").innerHTML = "Error submitting diary";
+                            }
+                        });
                     }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    document.getElementById("error").innerHTML = "Error submitting diary";
                 });
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            document.getElementById("error").innerHTML = "Error submitting diary";
-        });
-}
-function fetchDiary() {
-    let options = {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-    },
-    credentials: 'include'
-    };
-    fetch("http://127.0.0.1:8086/api/users/diary", options)
-    // Local: http://127.0.0.1:8010/api/users/diary
-    // Deployed: https://SanDiegoTravel.stu.nighthawkcodingsociety.com/api/users/diary
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            throw new Error('Network response was not ok.');
         }
-    })
-    .then(response => {
-        let dataContainer = document.getElementById("data");
-        // Clear previous data
-        dataContainer.innerHTML = "";
-        // Split the data by "///" to get individual diary items
-        let diaryItems = response.split("///");
-        // Iterate over each item and create a row for display
-        diaryItems.forEach(item => {
-            let row = document.createElement("div");
-            row.textContent = item.trim(); // Trim to remove any extra whitespace
-            // Append row to the container
-            dataContainer.appendChild(row);
-        });
-    })
-    .catch(error => {
-        console.error('Error fetching diary:', error);
-        // Handle error
-    });
-}
-</script>
+
+        function fetchDiary() {
+            let options = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                credentials: 'include'
+            };
+            fetch("http://127.0.0.1:8086/api/users/diary", options)
+            // Local: http://127.0.0.1:8010/api/users/diary
+            // Deployed: https://SanDiegoTravel.stu.nighthawkcodingsociety.com/api/users/diary
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Network response was not ok.');
+                    }
+                })
+                .then(response => {
+                    let dataContainer = document.getElementById("data");
+                    // Clear previous data
+                    dataContainer.innerHTML = "";
+                    // Split the data by "///" to get individual diary items
+                    let diaryItems = response.split("///");
+                    // Iterate over each item and create a row for display
+                    diaryItems.forEach(item => {
+                        let row = document.createElement("div");
+                        row.textContent = item.trim(); // Trim to remove any extra whitespace
+                        // Append row to the container
+                        dataContainer.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching diary:', error);
+                    // Handle error
+                });
+        }
+    </script>
+</body>
+
+</html>
