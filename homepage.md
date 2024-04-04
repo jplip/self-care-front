@@ -1,14 +1,6 @@
----
-layout: home
-search_exclude: true
----
-
-Brought to you by Justin, Bella, Lindsey, Prakruti, Hannah, and Vibha!
-
-
 <img src="green-aesthetic-anime-water-lilies-vcrsd0e596ed8rmk.gif" alt="Floating GIF" style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100%; z-index: -1; pointer-events: none;">
-<html>
 
+<html>
 <head>
     <style>
         .rectangle2 {
@@ -73,13 +65,12 @@ Brought to you by Justin, Bella, Lindsey, Prakruti, Hannah, and Vibha!
             color: #333; /* Change the text color */
             text-align: center; /* Change the alignment */
             margin-top: 20px; /* Change the top margin */
-            margin-bottom: 20px; /* Add margin at the bottom */
         }
         .image-container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            margin: 20px 0;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin: 20px 0;
         }
         .image-container img {
             max-width: 600px;
@@ -91,7 +82,7 @@ Brought to you by Justin, Bella, Lindsey, Prakruti, Hannah, and Vibha!
 <body>
     <div id='rectangle2' class='rectangle2'>
         <div class="dropdown">
-            <button class='button predictions' onclick="location.href='//https://jplip.github.io/self-care-front/homepage';';">Predictions</button>
+            <button class='button artists' onclick="location.href='//https://jplip.github.io/self-care-front/homepage';';">Artists</button>
             <div class="dropdown-content">
                 <a href="Z_depression.md">Depression</a>
                 <a href="2024-03-10-Stroke-Detection.md">Stroke</a>
@@ -101,14 +92,17 @@ Brought to you by Justin, Bella, Lindsey, Prakruti, Hannah, and Vibha!
             </div>
         </div>
         <div class="dropdown">
-            <button class='button self-care' onclick="location.href='//https://jplip.github.io/self-care-front/homepage';">Self Care</button>
-        </div>
+            <button class='button arthub' onclick="location.href='//https://jplip.github.io/self-care-front/homepage';">ArtHub</button>
+            <div class="dropdown-content">
+                <a href="artquiz.html">Art Quiz</a>
+            </div>
+        <!--</div>
         <button class='button' id='museums' onclick="location.href='//ellierozen.github.io/arthubfrontend-/geocoding';">Museums</button>
-    </div>
-    <!-- pngs -->
-    <h1>Ways To Take Care of Yourself</h1>
-    <div class="image-container">
-        <!--<table>
+        </div>-->
+        <!-- pngs -->
+        <h1>Ways To Take Care of Yourself</h1>
+            <div class="image-container">
+                <table>
             <tr>
                 <td><img src="" alt="Image 1 Description"></td>
                 <td><img src="" alt="Image 2 Description"></td>
@@ -117,9 +111,10 @@ Brought to you by Justin, Bella, Lindsey, Prakruti, Hannah, and Vibha!
                 <td><img src="" alt="Image 3 Description"></td>
                 <td><img src="" alt="Image 4 Description"></td>
             </tr>
-        </table>-->
-    </div>
+        </table>
+        </div>
 
     <!-- Add other sections and content for your homepage here -->
+
 </body>
 </html>
