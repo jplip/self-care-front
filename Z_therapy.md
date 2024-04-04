@@ -97,12 +97,6 @@ permalink: /therapy
 <title>Locations for Therapy</title>
 </head>
 <body class='sandiego-background'>
-    <header class="header">
-        <button onclick="goHome()" >......</button>
-        <button onclick="goWeather()">.......</button>
-        <button onclick="goItinerary()">.......</button>
-    </header>
-
 <div id='therapy-title-container'>
     <h1 class='title'>Where to Find Therapy:</h1>
 </div>
