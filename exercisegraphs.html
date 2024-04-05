@@ -28,7 +28,7 @@ search_exclude: true
     <script>
         // Get user ID from Local Storage
         const userIDFromLocalStorage = localStorage.getItem('loggedInUserId'); 
-
+        console.log(userIDFromLocalStorage)
         // Fetch exercise data for the specific user from the server API
         fetch(`http://127.0.0.1:8086/api/users/${userIDFromLocalStorage}`)
             .then(response => {
