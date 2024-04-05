@@ -101,7 +101,7 @@
             })
             .then(response => {
                 if (response.ok) {
-                    return response.json();
+                    window.location.href = "update";
                 } else {
                     if (response.status === 401) {
                         throw new Error('Wrong username or password. Please retype.');

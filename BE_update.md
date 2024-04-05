@@ -71,7 +71,8 @@ permalink: /update/
 
 <script>
 	const apiUrl = "http://127.0.0.1:8086/api/users/";
-	// const apiUrl = ""
+	// const apiUrl = "http://127.0.0.1:8240/api/users/";
+    // const apiUrl = "https://devops.nighthawkcodingsociety.com/api/users/";
 	let users = [];
 
 	function fetchUsers() {
