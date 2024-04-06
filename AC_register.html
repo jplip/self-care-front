@@ -1,134 +1,133 @@
-
+---
+layout: base
+title: Registration
+permalink: /registration
+---
 <img src="green-aesthetic-anime-water-lilies-vcrsd0e596ed8rmk.gif" alt="Floating GIF" style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100%; z-index: -1; pointer-events: none;">
-<html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .form-control {
-            margin-bottom: 15px;
-        }
-        .form-control label {
-            font-weight: bold;
-        }
-        .form-control input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .form-control input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-        }
-        .form-control input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-        .error-message {
-            color: red;
-            margin-top: 5px;
-        }
-        /* Style for home button */
-        #homeButton {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            font-size: 16px;
-            text-decoration: none;
-            color: #333;
-            padding: 5px 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background-color: #f2f2f2;
-        }
-    </style>
-</head>
-<body>
-    <!-- Home button linking to index.html -->
-    <a id="homeButton" href="index.html">Home</a>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Registration</title>
 
-    <div class="container">
-        <h1>User Registration</h1>
-        <form id="registrationForm" class="form-control">
-            <div>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-            </div>  
-            <div>
-                <label for="uid">Username:</label>
-                <input type="text" id="uid" name="uid" required>
-            </div>   
-            <div>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-            </div> 
-            <div>
-                <label for="confirmPassword">Confirm Password:</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" required>
-            </div> 
-            <input type="submit" value="Create User">
-            <div id="error" class="error-message"></div>
-        </form>
-    </div>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .form-control {
+        margin-bottom: 15px;
+    }
+    .form-control label {
+        font-weight: bold;
+    }
+    .form-control input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    .form-control input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+    }
+    .form-control input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+    .error-message {
+        color: red;
+        margin-top: 5px;
+    }
+    /* Style for home button */
+    #homeButton {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        font-size: 16px;
+        text-decoration: none;
+        color: #333;
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #f2f2f2;
+    }
+</style>
 
-    <script>
-        document.getElementById('registrationForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent form submission
-            const name = document.getElementById('name').value;
-            const uid = document.getElementById('uid').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if (password !== confirmPassword) {
-                document.getElementById('error').textContent = "Passwords do not match";
-                return;
+<!-- Home button linking to index.html -->
+<a id="homeButton" href="index">Home</a>
+
+<div class="container">
+    <h1>User Registration</h1>
+    <form id="registrationForm" class="form-control">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>  
+        <div>
+            <label for="uid">Username:</label>
+            <input type="text" id="uid" name="uid" required>
+        </div>   
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div> 
+        <div>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+        </div> 
+        <input type="submit" value="Create User">
+        <div id="error" class="error-message"></div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+        const name = document.getElementById('name').value;
+        const uid = document.getElementById('uid').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        
+        if (password !== confirmPassword) {
+            document.getElementById('error').textContent = "Passwords do not match";
+            return;
+        }
+        
+        const formData = {
+            name: name,
+            uid: uid,
+            password: password,
+        };
+        
+        fetch('http://127.0.0.1:8086/api/users/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = 'login';
+            } else {
+                document.getElementById('error').textContent = "User Creation failed. Try again.";
+                console.error('User creation failed');
             }
-            
-            const formData = {
-                name: name,
-                uid: uid,
-                password: password,
-            };
-            
-            fetch('http://127.0.0.1:8086/api/users/create', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(response => {
-                if (response.ok) {
-                    window.location.href = 'AB_login.html';
-                } else {
-                    document.getElementById('error').textContent = "User Creation failed. Try again.";
-                    console.error('User creation failed');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
         });
-    </script>
-</body>
-</html>
+    });
+</script>

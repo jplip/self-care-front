@@ -1,6 +1,6 @@
 ---
 layout: base
-permalink: /update/
+permalink: /update
 --- 
 <style>
 	.modal-backdrop {

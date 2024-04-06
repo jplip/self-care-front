@@ -1,133 +1,132 @@
-<html lang="en">
+---
+layout: base
+title: Depression
+permalink: /depression
+---
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Depression</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-image: url("green-aesthetic-anime-water-lilies-vcrsd0e596ed8rmk.gif");
-            background-position: 50% 0;
-            background-size: cover;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Depression</title>
 
-        .container {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin: 20px;
-        }
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-image: url("green-aesthetic-anime-water-lilies-vcrsd0e596ed8rmk.gif");
+        background-position: 50% 0;
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+    }
 
-        .form-control {
-            margin-bottom: 15px;
-        }
+    .container {
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin: 20px;
+    }
 
-        .form-control label {
-            font-weight: bold;
-        }
+    .form-control {
+        margin-bottom: 15px;
+    }
 
-        .form-control input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
+    .form-control label {
+        font-weight: bold;
+    }
 
-        .form-control button {
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
+    .form-control input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
 
-        .form-control button:hover {
-            background-color: #45a049;
-        }
+    .form-control button {
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
 
-        .result {
-            margin-top: 20px;
-            font-weight: bold;
-        }
+    .form-control button:hover {
+        background-color: #45a049;
+    }
 
-        /* Style for home button */
-        #homeButton {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            font-size: 16px;
-            text-decoration: none;
-            color: #333;
-            padding: 5px 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background-color: #f2f2f2;
-        }
-    </style>
-</head>
+    .result {
+        margin-top: 20px;
+        font-weight: bold;
+    }
 
-<body>
-    <!-- Home button linking to index.html -->
-    <a id="homeButton" href="index.html">Home</a>
+    /* Style for home button */
+    #homeButton {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        font-size: 16px;
+        text-decoration: none;
+        color: #333;
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #f2f2f2;
+    }
+</style>
 
-    <div class="container">
-        <h1>Depression</h1>
-        <form>
-            <div class="form-control">
-                <label for="age">Age:</label>
-                <input id="age" type="number">
-            </div>
-            <div class="form-control">
-                <label for="stress">Stress Level:</label>
-                <input id="stress" type="number">
-            </div>
-            <div class="form-control">
-                <label for="exercise">Daily Exercise (Hours):</label>
-                <input id="exercise" type="number">
-            </div>
-            <div class="form-control">
-                <label for="sleep">Daily Sleep (Hours):</label>
-                <input id="sleep" type="number">
-            </div>
-        </form>
-        <button onclick="predict()" class="form-control">Submit</button>
-        <p class="result" id="depressed"></p>
-    </div>
+<!-- Home button linking to index.html -->
+<a id="homeButton" href="index">Home</a>
 
-    <script>
-        function predict() {
-            var data = {
-                "age": parseFloat(document.getElementById("age").value),
-                "stress": parseFloat(document.getElementById("stress").value),
-                "exercise": parseFloat(document.getElementById("exercise").value),
-                "sleep": parseFloat(document.getElementById("sleep").value),
-            };
-            var options = {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            };
-            fetch("http://127.0.0.1:8086/api/predict/", options)
-                .then(response => response.json())
-                .then(result => {
-                    document.getElementById("depressed").innerHTML = result;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
-    </script>
-</body>
+<div class="container">
+    <h1>Depression</h1>
+    <form>
+        <div class="form-control">
+            <label for="age">Age:</label>
+            <input id="age" type="number">
+        </div>
+        <div class="form-control">
+            <label for="stress">Stress Level:</label>
+            <input id="stress" type="number">
+        </div>
+        <div class="form-control">
+            <label for="exercise">Daily Exercise (Hours):</label>
+            <input id="exercise" type="number">
+        </div>
+        <div class="form-control">
+            <label for="sleep">Daily Sleep (Hours):</label>
+            <input id="sleep" type="number">
+        </div>
+    </form>
+    <button onclick="predict()" class="form-control">Submit</button>
+    <p class="result" id="depressed"></p>
+</div>
 
-</html>
+<script>
+    function predict() {
+        var data = {
+            "age": parseFloat(document.getElementById("age").value),
+            "stress": parseFloat(document.getElementById("stress").value),
+            "exercise": parseFloat(document.getElementById("exercise").value),
+            "sleep": parseFloat(document.getElementById("sleep").value),
+        };
+        var options = {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        fetch("http://127.0.0.1:8086/api/predict/", options)
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById("depressed").innerHTML = result;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+</script>

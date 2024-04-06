@@ -1,137 +1,139 @@
+---
+layout: base
+title: Therapy
+permalink: /therapy
+---
 
-<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Therapy</title>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Therapy</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-image: url("green-aesthetic-anime-water-lilies-vcrsd0e596ed8rmk.gif");
-            background-position: 50% 0;
-            background-size: cover;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-        }
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-image: url("green-aesthetic-anime-water-lilies-vcrsd0e596ed8rmk.gif");
+        background-position: 50% 0;
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+    }
 
-        .header {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 10px 0;
-        }
+    .header {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 10px 0;
+    }
 
-        .header button {
-            background-color: white;
-            color: black;
-            border: 2px solid black;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-        }
+    .header button {
+        background-color: white;
+        color: black;
+        border: 2px solid black;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+    }
 
-        .header button:hover {
-            background-color: black;
-            color: white;
-        }
+    .header button:hover {
+        background-color: black;
+        color: white;
+    }
 
-        .title-container {
-            background-image: url('https://files.catbox.moe/r45qwu.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: top;
-            color: black; /* Black text */
-            padding: 50px 20px;
-            text-align: center;
-        }
+    .title-container {
+        background-image: url('https://files.catbox.moe/r45qwu.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: top;
+        color: black; /* Black text */
+        padding: 50px 20px;
+        text-align: center;
+    }
 
-        .container {
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: justify;
-        }
+    .container {
+        padding: 20px;
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: justify;
+    }
 
-        .title {
-            margin-bottom: 20px;
-            background-color: rgba(255, 255, 255, 0.7); /* Opaque white background */
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
+    .title {
+        margin-bottom: 20px;
+        background-color: rgba(255, 255, 255, 0.7); /* Opaque white background */
+        display: inline-block;
+        padding: 10px 20px;
+        border-radius: 10px;
+        text-align: center;
+    }
 
-        .subtitle {
-            margin-top: 30px;
-            text-align: center;
-        }
+    .subtitle {
+        margin-top: 30px;
+        text-align: center;
+    }
 
-        .paragraph {
-            margin-bottom: 20px;
-        }
+    .paragraph {
+        margin-bottom: 20px;
+    }
 
-        /* Styling for therapy */
-        #therapy-title-container {
-            background-image: url('https://files.catbox.moe/r45qwu.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: top;
-            color: black; /* Black text */
-            padding: 50px 20px;
-            text-align: center;
-        }
+    /* Styling for therapy */
+    #therapy-title-container {
+        background-image: url('https://files.catbox.moe/r45qwu.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: top;
+        color: black; /* Black text */
+        padding: 50px 20px;
+        text-align: center;
+    }
 
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
 
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
 
-        input[type=text] {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            box-sizing: border-box;
-        }
+    input[type=text] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+    }
 
-        img {
-            width: 20px; /* Adjust width as needed */
-            height: 20px; /* Adjust height as needed */
-        }
+    img {
+        width: 20px; /* Adjust width as needed */
+        height: 20px; /* Adjust height as needed */
+    }
 
-        /* Style for home button */
-        #homeButton {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            font-size: 16px;
-            text-decoration: none;
-            color: #333;
-            padding: 5px 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background-color: #f2f2f2;
-        }
-    </style>
-</head>
+    /* Style for home button */
+    #homeButton {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        font-size: 16px;
+        text-decoration: none;
+        color: #333;
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #f2f2f2;
+    }
+</style>
 
 <body class='sandiego-background'>
     <!-- Home button linking to index.html -->
-    <a id="homeButton" href="index.html">Home</a>
+    <a id="homeButton" href="index">Home</a>
 
     <div id='therapy-title-container'>
         <h1 class='title'>Where to Find Therapy:</h1>
@@ -212,5 +214,3 @@
         window.onload = displayTherapyTable;
     </script>
 </body>
-
-</html>

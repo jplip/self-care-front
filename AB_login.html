@@ -1,133 +1,134 @@
+---
+layout: base
+title: Login
+permalink: /login
+---
 <img src="green-aesthetic-anime-water-lilies-vcrsd0e596ed8rmk.gif" alt="Floating GIF" style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100%; z-index: -1; pointer-events: none;">
-<html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .form-control {
-            margin-bottom: 15px;
-        }
-        .form-control label {
-            font-weight: bold;
-        }
-        .form-control input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .form-control input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-        }
-        .form-control input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-        .error-message {
-            color: red;
-            margin-top: 5px;
-        }
-        /* Style for home button */
-        #homeButton {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            font-size: 16px;
-            text-decoration: none;
-            color: #333;
-            padding: 5px 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background-color: #f2f2f2;
-        }
-    </style>
-</head>
-<body>
-    <!-- Home button -->
-    <a id="homeButton" href="index.html">Home</a>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
 
-    <div class="container">
-        <h1>Login</h1>
-        <form id="loginForm" class="form-control">
-            <div>
-                <label for="uid">Username:</label>
-                <input type="text" id="uid" name="uid" required>
-            </div>      
-            <div>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-            </div>     
-            <input type="submit" value="Login">
-            <div id="error" class="error-message"></div>
-        </form>
-    </div>
-    <div id="userDisplayName"></div>
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent form submission
-            const uid = document.getElementById('uid').value;
-            const password = document.getElementById('password').value;
-            const loginData = {
-                uid: uid,
-                password: password
-            };
-            fetch('http://127.0.0.1:8086/api/users/authenticate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(loginData),
-                credentials: 'include'
-            })
-            .then(response => {
-                if (response.ok) {
-                    window.location.href = "update";
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .form-control {
+        margin-bottom: 15px;
+    }
+    .form-control label {
+        font-weight: bold;
+    }
+    .form-control input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    .form-control input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+    }
+    .form-control input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+    .error-message {
+        color: red;
+        margin-top: 5px;
+    }
+    /* Style for home button */
+    #homeButton {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        font-size: 16px;
+        text-decoration: none;
+        color: #333;
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #f2f2f2;
+    }
+</style>
+
+<!-- Home button -->
+<a id="homeButton" href="index">Home</a>
+
+<div class="container">
+    <h1>Login</h1>
+    <form id="loginForm" class="form-control">
+        <div>
+            <label for="uid">Username:</label>
+            <input type="text" id="uid" name="uid" required>
+        </div>      
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>     
+        <input type="submit" value="Login">
+        <div id="error" class="error-message"></div>
+    </form>
+</div>
+<div id="userDisplayName"></div>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+        const uid = document.getElementById('uid').value;
+        const password = document.getElementById('password').value;
+        const loginData = {
+            uid: uid,
+            password: password
+        };
+        fetch('http://127.0.0.1:8086/api/users/authenticate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(loginData),
+            credentials: 'include'
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = "update";
+            } else {
+                if (response.status === 401) {
+                    throw new Error('Wrong username or password. Please retype.');
+                } else if (response.status === 404) {
+                    throw new Error('Username or password not found. Please register first.');
                 } else {
-                    if (response.status === 401) {
-                        throw new Error('Wrong username or password. Please retype.');
-                    } else if (response.status === 404) {
-                        throw new Error('Username or password not found. Please register first.');
-                    } else {
-                        throw new Error('Login failed');
-                    }
+                    throw new Error('Login failed');
                 }
-            })
-            .then(data => {
-               const loggedInUserName = data.name;
-               const loggedInUserId = data.id;
-               console.log(loggedInUserName);
-               localStorage.setItem('loggedInUserName', loggedInUserName);
-               localStorage.setItem('loggedInUserId', loggedInUserId);
-               document.getElementById('userDisplayName').textContent = `Welcome, ${loggedInUserName}!`;
-                document.getElementById('loginForm').style.display = 'none';
-                const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
-                console.log(userIDFromLocalStorage);
-                document.getElementById('updateButton').style.display = 'block';
-            })
-            .catch(error => {
-                document.getElementById('error').textContent = error.message;
-            });
+            }
+        })
+        .then(data => {
+            const loggedInUserName = data.name;
+            const loggedInUserId = data.id;
+            console.log(loggedInUserName);
+            localStorage.setItem('loggedInUserName', loggedInUserName);
+            localStorage.setItem('loggedInUserId', loggedInUserId);
+            document.getElementById('userDisplayName').textContent = `Welcome, ${loggedInUserName}!`;
+            document.getElementById('loginForm').style.display = 'none';
+            const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
+            console.log(userIDFromLocalStorage);
+            document.getElementById('updateButton').style.display = 'block';
+        })
+        .catch(error => {
+            document.getElementById('error').textContent = error.message;
         });
-    </script>
-</body>
-</html>
+    });
+</script>
