@@ -74,7 +74,7 @@ permalink: /tracking/
                 });
         });
     </script>
-    <iframe src="https://jplip.github.io/self-care-front/exercisegraph/" width="800" height="600" frameborder="0"></iframe>
+    <iframe src="{{site.baseurl}}/exercisegraph" width="800" height="600" frameborder="0"></iframe>
 </body>
 </html>
 ![Alt text](images/sleep.png)
@@ -156,7 +156,7 @@ permalink: /tracking/
                 });
         });
      </script>
- <iframe src="https://jplip.github.io/self-care-front/sleepgraph/" width="800" height="600" frameborder="0"></iframe>
+ <iframe src="{{site.baseurl}}/sleepgraph" width="800" height="600" frameborder="0"></iframe>
     
 <html>
 
