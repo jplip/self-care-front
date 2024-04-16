@@ -5,13 +5,13 @@ title:  Sleep Graphs
 search_exclude: true
 ---
 <meta charset="UTF-8">
-<title>User Exercise Graph</title>
+<title>User Sleep Graph</title>
 <!-- Chart.js library -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
     /* Style the chart container */
-    #exerciseChartContainer {
+    #sleepChartContainer {
         width: 3000px;
         height: 3000px;
         margin: 20px auto;
@@ -19,15 +19,14 @@ search_exclude: true
 </style>
 
 <!-- Chart container -->
-<div id="exerciseChartContainer">
-    <canvas id="exerciseChart"></canvas>
+<div id="sleepChartContainer">
+    <canvas id="sleepChart"></canvas>
 </div>
-
 <script>
-    // Replace 'userID' with the ID of the specific user you want to fetch data for
-    const userIDFromLocalStorage = localStorage.getItem('loggedInUserId'); // Replace 'user123' with an actual user ID
+    // Get user ID from Local Storage
+    const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
 
-    // Fetch exercise data for the specific user from the server API
+    // Fetch sleep data for the specific user from the server API
     fetch(`http://127.0.0.1:8086/api/users/${userIDFromLocalStorage}`)
         .then(response => {
             if (!response.ok) {
@@ -39,24 +38,43 @@ search_exclude: true
             // Log the fetched data to the console for inspection
             console.log('Fetched User Data:', userData);
 
-            // Extract exercise data from the user's exercise array
-            const exerciseData = userData.sleep || [];
+            // Extract sleep data from the user's sleep array
+            const sleepData = userData.sleep || [];
 
-            // Extract dates and durations from the exercise data
-            const exerciseDates = exerciseData.map(sleep => sleep.sleepDate);
-            const exerciseDurations = exerciseData.map(sleep => parseInt(sleep.sleepHours)); // Parse duration to an integer
+            // Create an object to store total duration for each day
+            const totalDurationByDay = {};
+
+            // Iterate over sleep data to calculate total duration for each day
+            for (let i = 0; i < sleepData.length; i++) {
+                const sleep = sleepData[i];
+                const date = sleep.sleepDate;
+                const duration = parseFloat(sleep.sleepHours) || 0; // Parse hours to a floating point number, default to 0 if not provided
+
+                // Check if entry for this date already exists
+                if (totalDurationByDay[date]) {
+                    // Add duration to existing total for this date
+                    totalDurationByDay[date] += duration;
+                } else {
+                    // Initialize total duration for this date
+                    totalDurationByDay[date] = duration;
+                }
+            }
+
+            // Extract dates and total sleep hours from the total duration by day object
+            const sleepDates = Object.keys(totalDurationByDay);
+            const sleepHours = Object.values(totalDurationByDay);
 
             // Create the chart using Chart.js
-            const ctx = document.getElementById('exerciseChart').getContext('2d');
-            const exerciseChart = new Chart(ctx, {
+            const ctx = document.getElementById('sleepChart').getContext('2d');
+            const sleepChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: exerciseDates,
+                    labels: sleepDates,
                     datasets: [{
-                        label: 'Hours of Sleep ',
-                        data: exerciseDurations,
-                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
+                        label: 'Total Sleep Duration',
+                        data: sleepHours,
+                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
                         borderWidth: 1
                     }]
                 },
@@ -68,7 +86,7 @@ search_exclude: true
                             beginAtZero: true,
                             title: {
                                 display: true,
-                                text: 'Sleep(Hours)'
+                                text: 'Sleep (Hours)'
                             }
                         },
                         x: {

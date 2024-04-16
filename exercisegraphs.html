@@ -42,9 +42,31 @@ search_exclude: true
             // Extract exercise data from the user's exercise array
             const exerciseData = userData.exercise || [];
 
-            // Extract dates and durations from the exercise data
-            const exerciseDates = exerciseData.map(exercise => exercise.exerciseDate);
-            const exerciseDurations = exerciseData.map(exercise => parseInt(exercise.duration)); // Parse duration to an integer
+            // Create an object to store total duration for each day
+            const totalDurationByDay = {};
+
+            // Iterate over exercise data to calculate total duration for each day
+            for (let i = 0; i < exerciseData.length; i++) {
+                const exercise = exerciseData[i];
+                const date = exercise.exerciseDate;
+                const duration = parseInt(exercise.duration) || 0; // Parse duration to an integer, default to 0 if not provided
+
+                // Check if entry for this date already exists
+                if (totalDurationByDay[date]) {
+                    // Add duration to existing total for this date
+                    totalDurationByDay[date] += duration;
+                } else {
+                    // Initialize total duration for this date
+                    totalDurationByDay[date] = duration;
+                }
+            }
+
+            // Sort the total duration by day
+            const sortedTotalDurationByDay = Object.entries(totalDurationByDay).sort((a, b) => a[0].localeCompare(b[0]));
+
+            // Extract dates and durations from sorted total duration by day
+            const exerciseDates = sortedTotalDurationByDay.map(([date, _]) => date);
+            const exerciseDurations = sortedTotalDurationByDay.map(([_, duration]) => duration);
 
             // Create the chart using Chart.js
             const ctx = document.getElementById('exerciseChart').getContext('2d');
@@ -53,7 +75,7 @@ search_exclude: true
                 data: {
                     labels: exerciseDates,
                     datasets: [{
-                        label: 'Exercise Duration',
+                        label: 'Total Exercise Duration',
                         data: exerciseDurations,
                         backgroundColor: 'rgba(54, 162, 235, 0.5)',
                         borderColor: 'rgba(54, 162, 235, 1)',
@@ -68,7 +90,7 @@ search_exclude: true
                             beginAtZero: true,
                             title: {
                                 display: true,
-                                text: 'Duration (minutes)'
+                                text: 'Total Duration (minutes)'
                             }
                         },
                         x: {
