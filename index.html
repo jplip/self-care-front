@@ -85,7 +85,7 @@
             </div>
         </div>
         <button class='button' onclick="location.href='self-care';">More Info</button>
-        <button class='button' onclick="deleteAllCookies()">Clear All Cookies</button>
+        <button class='button' onclick="logout()">Logout</button>
     </div>
     <h1>Ways To Take Care of Yourself</h1>
     <div class="image-container">
@@ -110,7 +110,26 @@
 </body>
 
 <script>
-    function deleteAllCookies() {
-        //blank
+    function logout() {
+        // Clear local storage
+        localStorage.removeItem('loggedInUserName');
+        localStorage.removeItem('loggedInUserId');
+
+        // Make a fetch request to clear cookies
+        fetch('http://127.0.0.1:8086/api/users/logout', {
+            method: 'POST',
+            credentials: 'include'
+        })
+        .then(response => {
+            if (response.ok) {
+                // Redirect to the login page after successful logout
+                window.location.href = "login"; // Redirect to the login page
+            } else {
+                throw new Error('Failed to logout');
+            }
+        })
+        .catch(error => {
+            console.error('Logout error:', error);
+        });
     }
 </script>
