@@ -4,6 +4,7 @@ permalink: /sleepgraph/
 title:  Sleep Graphs
 search_exclude: true
 ---
+<html>
 <meta charset="UTF-8">
 <title>User Sleep Graph</title>
 <!-- Chart.js library -->
@@ -12,8 +13,8 @@ search_exclude: true
 <style>
     /* Style the chart container */
     #sleepChartContainer {
-        width: 3000px;
-        height: 3000px;
+        width: 2000px;
+        height: 2000px;
         margin: 20px auto;
     }
 </style>
@@ -22,6 +23,14 @@ search_exclude: true
 <div id="sleepChartContainer">
     <canvas id="sleepChart"></canvas>
 </div>
+
+
+
+
+
+
+
+
 <script>
     // Get user ID from Local Storage
     const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
@@ -44,25 +53,48 @@ search_exclude: true
             // Create an object to store total duration for each day
             const totalDurationByDay = {};
 
-            // Iterate over sleep data to calculate total duration for each day
+            // Iterate over sleep data to calculate total duration for each day and color based on quality
             for (let i = 0; i < sleepData.length; i++) {
                 const sleep = sleepData[i];
                 const date = sleep.sleepDate;
                 const duration = parseFloat(sleep.sleepHours) || 0; // Parse hours to a floating point number, default to 0 if not provided
+                const quality = sleep.quality.toLowerCase();
+
+                // Determine color based on sleep quality
+                let color;
+                switch (quality) {
+                    case 'excellent':
+                        color = 'rgba(75, 192, 192, 0.5)';
+                        break;
+                    case 'good':
+                        color = 'rgba(54, 162, 235, 0.5)';
+                        break;
+                    case 'fair':
+                        color = 'rgba(255, 206, 86, 0.5)';
+                        break;
+                    case 'poor':
+                        color = 'rgba(255, 99, 132, 0.5)';
+                        break;
+                    default:
+                        color = 'rgba(0, 0, 0, 0.5)';
+                }
 
                 // Check if entry for this date already exists
                 if (totalDurationByDay[date]) {
                     // Add duration to existing total for this date
-                    totalDurationByDay[date] += duration;
+                    totalDurationByDay[date].duration += duration;
+                    // Adjust color based on sleep quality
+                    totalDurationByDay[date].color = color;
                 } else {
-                    // Initialize total duration for this date
-                    totalDurationByDay[date] = duration;
+                    // Initialize total duration and color for this date
+                    totalDurationByDay[date] = { duration, color };
                 }
             }
 
-            // Extract dates and total sleep hours from the total duration by day object
+            // Extract dates, total sleep hours, and colors from the total duration by day object
             const sleepDates = Object.keys(totalDurationByDay);
-            const sleepHours = Object.values(totalDurationByDay);
+            const sleepHours = Object.values(totalDurationByDay).map(item => item.duration);
+            const colors = Object.values(totalDurationByDay).map(item => item.color);
 
             // Create the chart using Chart.js
             const ctx = document.getElementById('sleepChart').getContext('2d');
@@ -73,8 +105,8 @@ search_exclude: true
                     datasets: [{
                         label: 'Total Sleep Duration',
                         data: sleepHours,
-                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: colors,
+                        borderColor: colors.map(color => color.replace('0.5', '1')), // Make border color opaque
                         borderWidth: 1
                     }]
                 },
@@ -104,3 +136,4 @@ search_exclude: true
             // Handle error if the request fails
         });
 </script>
+</html>

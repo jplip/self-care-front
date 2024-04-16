@@ -77,9 +77,15 @@ permalink: /tracking/
     <iframe src="{{site.baseurl}}/exercisegraph" width="800" height="600" frameborder="0"></iframe>
 </body>
 </html>
+
+
 ![Alt text](images/sleep.png)
+
 <meta charset="UTF-8">
 <title>Sleep Tracker</title>
+
+<img src="legend.png" alt="Legend Image">
+
 <div id="selectedAscii"></div>
 <div class="purple-form">
     <form id="sleepForm">
