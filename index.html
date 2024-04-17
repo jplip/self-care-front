@@ -85,21 +85,51 @@
             </div>
         </div>
         <button class='button' onclick="location.href='self-care';">More Info</button>
+        <button class='button' onclick="logout()">Logout</button>
     </div>
     <h1>Ways To Take Care of Yourself</h1>
     <div class="image-container">
         <table>
             <tr>
                 <tr>
-                    <td><a href="tracking"><img src="exercise.jpg" alt="Image 1 Description"></a></td>
+                    <td><a href="tracking"><img src="dumbell.gif" alt="Image 1 Description"></a></td>
                     <td><a href="self-care"><img src="giphy.gif" alt="Image 2 Description"></a></td> 
                 </tr>
                 <tr>
                     <td><a href="depression"><img src="giphy3.gif" alt="Image 3 Description"></a></td>
                     <td><a href="diary"><img src="giphy4.gif" alt="Image 4 Description"></a></td>
                 </tr>
+                <tr>
+                    <td><a href="titanic"><img src="boat.gif" alt="Image 3 Description"></a></td>
+                    <td><a href="heartattack"><img src="heart.gif" alt="Image 4 Description"></a></td>
+                </tr>
             </tr>
         </table>
     </div>
     <!-- Add other sections and content for your homepage here -->
 </body>
+
+<script>
+    function logout() {
+        // Clear local storage
+        localStorage.removeItem('loggedInUserName');
+        localStorage.removeItem('loggedInUserId');
+
+        // Make a fetch request to clear cookies
+        fetch('http://127.0.0.1:8086/api/users/logout', {
+            method: 'POST',
+            credentials: 'include'
+        })
+        .then(response => {
+            if (response.ok) {
+                // Redirect to the login page after successful logout
+                window.location.href = "login"; // Redirect to the login page
+            } else {
+                throw new Error('Failed to logout');
+            }
+        })
+        .catch(error => {
+            console.error('Logout error:', error);
+        });
+    }
+</script>
