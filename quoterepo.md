@@ -9,7 +9,6 @@ permalink: /quote-repo/
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Quote Repository</title>
-   <link rel="stylesheet" href="{{site.baseurl}}/assets/css/style.css"> 
    <style>
    body {
        background-color: #fae5de;
@@ -71,9 +70,6 @@ permalink: /quote-repo/
 
        <button onclick="submitQuote()">Submit</button>
    </div>
-
-   <script src="{{site.baseurl}}/assets/js/three.r134.min.js"></script>
-   <script src="{{site.baseurl}}/assets/js/vanta.clouds.min.js"></script>
    <script>
        function submitQuote() {
            const quote = document.getElementById('quote').value;
@@ -112,19 +108,6 @@ permalink: /quote-repo/
            document.getElementById('opinion').value = '';
        }
 
-       // Initialize clouds animation
-       VANTA.CLOUDS ({
-           el: "#animation",
-           mouseControls: true,
-           touchControls: true,
-           gyroControls: false,
-           skyColor: 0xf9d1d1,
-           cloudColor: 0xbba2a8,
-           cloudShadowColor: 0x905167,
-           sunColor: 0x845d66,
-           sunGlareColor: 0x5e2610,
-           speed: 0.80
-       });
    </script>
 </body>
 </html>
