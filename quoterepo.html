@@ -57,7 +57,7 @@ permalink: /quote-repo/
         }
 
         input[type="submit"] {
-            background-color: #4CAF50;
+            background-color: #8455a5;
             color: white;
             cursor: pointer;
             padding: 14px 20px;
@@ -65,10 +65,11 @@ permalink: /quote-repo/
             border-radius: 8px;
             font-size: 1.1rem;
             transition: background-color 0.3s ease;
+            margin-right: 10px;
         }
 
         input[type="submit"]:hover {
-            background-color: #45a049;
+            background-color: #8455a5;
         }
 
         .error-message {
@@ -105,6 +106,23 @@ permalink: /quote-repo/
             pointer-events: none;
             opacity: 0.5;
         }
+
+        /* Style for the "View Quotes" button */
+        .view-quotes-button {
+            background-color: #8455a5;
+            color: white;
+            cursor: pointer;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .view-quotes-button:hover {
+            background-color: #684085;
+        }
     </style>
 </head>
 
@@ -126,6 +144,9 @@ permalink: /quote-repo/
             <textarea id="opinion" name="opinion" placeholder="Write your opinion on the quote" required></textarea>
 
             <input type="submit" value="Submit">
+
+            <!-- View Quotes button -->
+            <input type="button" class="view-quotes-button" value="View Quotes" onclick="window.location.href='https://jplip.github.io/self-care-front/view/'">
         </form>
     </div>
     <script>
