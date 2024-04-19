@@ -84,7 +84,7 @@ permalink: /login
     </form>
 </div>
 <div id="userDisplayName"></div>
-
+``
 <script>
     document.getElementById('loginForm').addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent form submission
@@ -104,7 +104,7 @@ permalink: /login
         })
         .then(response => {
             if (response.ok) {
-                window.location.href = "update";
+                console.log("Good")
             } else {
                 if (response.status === 401) {
                     throw new Error('Wrong username or password. Please retype.');
