@@ -1,135 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Times+New+Roman&display=swap" rel="stylesheet">
 <style>
-    .rectangle2 {
-        background-color: #f4ced1;
-        height: 56px;
-        width: fill;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    .button {
-        color: #000000;
-        font-size: 30px;
-        font-family: Roboto;
-        line-height: auto;
-        border-style: hidden;
-        outline: none;
-        background: none;
-        border: none;
-        cursor: pointer;
-    }
-    .button:hover {
-        text-decoration: underline;
-    }
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
-    }
-    .dropdown-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-    }
-    .dropdown:hover .dropdown-content {
-        display: block;
-    }
-    h1 {
-        font-size: 40px; /* Change the font size */
-        color: #333; /* Change the text color */
-        text-align: center; /* Change the alignment */
-        margin-top: 20px; /* Change the top margin */
-        margin-bottom: 20px; /* Add margin at the bottom */
-    }
-    .image-container {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        margin: 20px 0;
-    }
-    .image-container img {
-        max-width: 400px;
-        max-height: 400px;
-        margin: 10px;
-    }
-</style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', serif;
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    min-height: 100vh;
+    position: relative;
+    background-image: url('e285661a023fb83c8d7f975980422c22.gif');
+    background-size: cover;
+}
 
-<body style="background-image: url('enter'); background-position: 50% 0; background-size: cover; background-attachment: fixed; background-repeat: no-repeat;">
-    <div id='rectangle2' class='rectangle2'>
-        <div class="dropdown">
-            <button class='button predictions' onclick="location.href='index';">MLs & Projects</button>
-            <div class="dropdown-content">
-                <a href="depression">Depression</a>
-                <a href="stroke">Stroke</a>
-                <a href="heartattack">Heart Attack</a>
-                <a href="titanic">Titanic</a>
-                <a href="diary">Diary</a>
-                <a href="tracking">Exercise and sleep</a>
-                <!-- Add more artist links as needed -->
-            </div>
-        </div>
-        <div class="dropdown">
-            <button class='button self-care' onclick="location.href='index';">Wellness Tracker 🌱</button>
-            <div class="dropdown-content">
-                <a href="login">Login</a>
-                <a href="registration">Register</a>
-                <a href="self-care">Self Care Info</a>
-            </div>
-        </div>
-        <button class='button' onclick="location.href='self-care';">More Info</button>
-        <button class='button' onclick="logout()">Logout</button>
+
+.top-buttons {
+    text-align: center; /* Align buttons in the center */
+}
+
+
+.button {
+    padding: 8px 16px;
+    background-color: #fff; /* White color */
+    color: #4CAF50; /* Green color */
+    text-decoration: none;
+    border: 2px solid #4CAF50; /* Green border */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+
+.button:hover {
+    background-color: #4CAF50; /* Green color */
+    color: #fff; /* White color */
+}
+
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 80px;
+    height: 100%;
+    background-color: #303030;
+    overflow: hidden;
+    transition: width 0.3s;
+    z-index: 1;
+}
+
+
+.sidebar.active {
+    width: 200px;
+}
+
+
+.menu-icon {
+    display: block;
+    text-align: center;
+    padding: 20px 0;
+    color: #fff;
+    cursor: pointer;
+}
+
+
+.menu-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: none; /* Initially hide menu items */
+}
+
+
+.sidebar.active .menu-list {
+    display: block; /* Display menu items when sidebar is active */
+}
+
+
+.menu-item {
+    padding: 15px 0;
+    color: #fff;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+
+.menu-item:hover {
+    background-color: #444;
+}
+
+
+.main-content {
+    text-align: center;
+    flex: 1;
+    padding: 20px;
+    color: #fff; /* White color */
+}
+
+
+.image-container {
+    margin-top: 50px; /* Adjusted margin-top */
+    text-align: center;
+}
+
+
+.image-container table {
+    margin: 0 auto;
+}
+
+
+.image-container img {
+    width: 300px;
+    height: 300px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff; /* White background */
+}
+
+
+.image-container img:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+
+.welcome-text {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+.welcome-text h1 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #4CAF50; /* Green color */
+}
+
+
+.welcome-text p {
+    font-size: 18px;
+    color: #4CAF50; /* Green color */
+}
+</style>
+</head>
+<body>
+
+
+<div class="sidebar" id="sidebar">
+    <div class="menu-icon" onclick="toggleSidebar()">
+        <div>&#9776;</div>
     </div>
-    <h1>Ways To Take Care of Yourself</h1>
+    <ul class="menu-list">
+        <li class="menu-item"><a href="depression" style="color: #fff; text-decoration: none;">Depression</a></li>
+        <li class="menu-item"><a href="stroke" style="color: #fff; text-decoration: none;">Stroke</a></li>
+        <li class="menu-item"><a href="heartattack" style="color: #fff; text-decoration: none;">Heart Attack</a></li>
+        <li class="menu-item"><a href="titanic" style="color: #fff; text-decoration: none;">Titanic</a></li>
+        <li class="menu-item"><a href="diary" style="color: #fff; text-decoration: none;">Diary</a></li>
+        <li class="menu-item"><a href="tracking" style="color: #fff; text-decoration: none;">Exercise and Sleep</a></li>
+    </ul>
+</div>
+
+
+<div class="main-content">
+    <button class="button">
+        <h1><span style="color: #000000;">Welcome to The Wellness Tracker ! 🌱</span></h1>
+        <p>Stay motivated and keep track of your wellness journey.</p>
+    </button>
+
+
+    <div class="top-buttons" style="margin-top: 20px;">
+        <a href="login" class="button">Login</a>
+        <a href="registration" class="button">Register</a>
+        <a href="self-care" class="button">Self Care Info</a>
+    </div>
+   
+
+
     <div class="image-container">
         <table>
             <tr>
-                <tr>
-                    <td><a href="tracking"><img src="dumbell.gif" alt="Image 1 Description"></a></td>
-                    <td><a href="self-care"><img src="giphy.gif" alt="Image 2 Description"></a></td> 
-                </tr>
-                <tr>
-                    <td><a href="depression"><img src="giphy3.gif" alt="Image 3 Description"></a></td>
-                    <td><a href="diary"><img src="giphy4.gif" alt="Image 4 Description"></a></td>
-                </tr>
-                <tr>
-                    <td><a href="titanic"><img src="boat.gif" alt="Image 3 Description"></a></td>
-                    <td><a href="heartattack"><img src="heart.gif" alt="Image 4 Description"></a></td>
-                </tr>
+                <td><a href="tracking"><img src="dumbell.gif" alt="Image 1 Description"></a></td>
+                <td><a href="self-care"><img src="giphy.gif" alt="Image 2 Description"></a></td>
+                <td><a href="depression"><img src="giphy3.gif" alt="Image 3 Description"></a></td>
+            </tr>
+            <tr>
+                <td><a href="diary"><img src="giphy4.gif" alt="Image 4 Description"></a></td>
+                <td><a href="titanic"><img src="boat.gif" alt="Image 5 Description"></a></td>
+                <td><a href="heartattack"><img src="heart.gif" alt="Image 6 Description"></a></td>
             </tr>
         </table>
     </div>
     <!-- Add other sections and content for your homepage here -->
-</body>
+</div>
+
 
 <script>
-    function logout() {
-        // Clear local storage
-        localStorage.removeItem('loggedInUserName');
-        localStorage.removeItem('loggedInUserId');
-
-        // Make a fetch request to clear cookies
-        fetch('http://127.0.0.1:8086/api/users/logout', {
-            method: 'POST',
-            credentials: 'include'
-        })
-        .then(response => {
-            if (response.ok) {
-                // Redirect to the login page after successful logout
-                window.location.href = "login"; // Redirect to the login page
-            } else {
-                throw new Error('Failed to logout');
-            }
-        })
-        .catch(error => {
-            console.error('Logout error:', error);
-        });
-    }
+function toggleSidebar() {
+    var sidebar = document.getElementById("sidebar");
+    sidebar.classList.toggle("active");
+}
 </script>
+
+
+</body>
+</html>
