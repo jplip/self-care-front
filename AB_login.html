@@ -104,6 +104,8 @@ permalink: /login
         })
         .then(response => {
             if (response.ok) {
+                return response.json();
+                window.location.href = '/update';
                 console.log("Good")
             } else {
                 if (response.status === 401) {
