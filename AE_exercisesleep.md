@@ -135,9 +135,6 @@ permalink: /tracking/
                     const data2 = {
                         "id": userIDFromLocalStorage,
                         "name": userNameFromLocalStorage, 
-                        "uid": "life",
-                        "dob": "10/12/13",
-                        "age": "16",
                         "exercise": originalExerciseData,
                         "sleep": updatedSleepData
                     };

@@ -119,6 +119,7 @@ permalink: /login
             const loggedInUserName = data.name;
             const loggedInUserId = data.id;
             console.log(loggedInUserName);
+            console.log(loggedInUserName);
             localStorage.setItem('loggedInUserName', loggedInUserName);
             localStorage.setItem('loggedInUserId', loggedInUserId);
             document.getElementById('userDisplayName').textContent = `Welcome, ${loggedInUserName}!`;
