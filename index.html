@@ -169,7 +169,7 @@ body {
 
 <div class="main-content">
     <button class="button">
-        <h1><span style="color: #000000;">Welcome to The Wellness Tracker ! 🌱</span></h1>
+        <h1><span style="color: #000000;">welcome to the wellness tracker 🌱</span></h1>
         <p>Stay motivated and keep track of your wellness journey.</p>
     </button>
 
@@ -178,6 +178,7 @@ body {
         <a href="login" class="button">Login</a>
         <a href="registration" class="button">Register</a>
         <a href="self-care" class="button">Self Care Info</a>
+        <a href="logout()" class="button">Logout</a>
     </div>
    
 
@@ -209,4 +210,31 @@ function toggleSidebar() {
 
 
 </body>
+
+<script>
+    function logout() {
+        // Clear local storage
+        localStorage.removeItem('loggedInUserName');
+        localStorage.removeItem('loggedInUserId');
+
+
+        // Make a fetch request to clear cookies
+        fetch('http://127.0.0.1:8086/api/users/logout', {
+            method: 'POST',
+            credentials: 'include'
+        })
+        .then(response => {
+            if (response.ok) {
+                // Redirect to the login page after successful logout
+                window.location.href = "login"; // Redirect to the login page
+            } else {
+                throw new Error('Failed to logout');
+            }
+        })
+        .catch(error => {
+            console.error('Logout error:', error);
+        });
+    }
+</script>
+
 </html>
