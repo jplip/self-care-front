@@ -84,7 +84,7 @@ permalink: /tracking/
 <meta charset="UTF-8">
 <title>Sleep Tracker</title>
 
-<img src="legend.png" alt="Legend Image">
+![Alt text](legend.png)
 
 <div id="selectedAscii"></div>
 <div class="purple-form">

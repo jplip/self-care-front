@@ -1,99 +1,195 @@
 ---
 layout: base
 title: Quote Repository
-permalink: /quote
+permalink: /quote-repo/
 ---
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quote Repository</title>
-<link rel="stylesheet" href="{{site.baseurl}}/assets/css/style.css">
 
-<style>
-body {
-    background-color: #fae5de;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-.container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-h1 {
-    text-align: center;
-}
-textarea {
-    width: 100%;
-    height: 200px;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    resize: none;
-}
-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #c96f7f;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-button:hover {
-    background-color: #b85f6f;
-}
-</style>
+<html lang="en">
 
-<div class="container" id="animation">
-    <h1>Motivational Quote Repository</h1>
-    <label for="quote">Motivational Quote:</label>
-    <input type="text" id="quote" placeholder="Enter your quote">
-    <label for="quote-author">Quote By:</label>
-    <input type="text" id="quote-author" placeholder="Enter the quote author">
-    <label for="opinion">Your Opinion:</label>
-    <textarea id="opinion" placeholder="Write your opinion on the quote"></textarea>
-    <button onclick="submitQuote()">Submit</button>
-</div>
-
-<script src="{{site.baseurl}}/assets/js/three.r134.min.js"></script>
-<script src="{{site.baseurl}}/assets/js/vanta.clouds.min.js"></script>
-<script>
-    function submitQuote() {
-        const quote = document.getElementById('quote').value;
-        const quoteAuthor = document.getElementById('quote-author').value;
-        const opinion = document.getElementById('opinion').value;
-        if (!quote || !quoteAuthor || !opinion) {
-            alert("Please fill in all fields");
-            return;
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote Repository</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
         }
-        const quoteObject = {
-            quote: quote,
-            quote_author: quoteAuthor,
-            opinion: opinion
-        };
-        fetch('http://localhost:8086/quote-repository', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(quoteObject),
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert(data.message);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred while submitting the quote.');
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            resize: none;
+        }
+
+        input[type="submit"] {
+            background-color: #8455a5;
+            color: white;
+            cursor: pointer;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #8455a5;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 5px;
+        }
+
+        #homeButton {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 1rem;
+            text-decoration: none;
+            color: #333;
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f2f2f2;
+            z-index: 999;
+        }
+
+        #animation {
+            position: relative;
+            z-index: 1;
+        }
+
+        .background-animation {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        /* Style for the "View Quotes" button */
+        .view-quotes-button {
+            background-color: #8455a5;
+            color: white;
+            cursor: pointer;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .view-quotes-button:hover {
+            background-color: #684085;
+        }
+    </style>
+</head>
+
+<body>
+    <a id="homeButton" href="index">Home</a>
+    <div class="background-animation">
+        <img src="green-aesthetic-anime-water-lilies-vcrsd0e596ed8rmk.gif" alt="Floating GIF">
+    </div>
+    <div class="container" id="animation">
+        <h1>Motivational Quote Repository</h1>
+        <form id="quoteForm">
+            <label for="quote">Motivational Quote:</label>
+            <input type="text" id="quote" name="quote" placeholder="Enter your quote" required>
+
+            <label for="quote-author">Quote By:</label>
+            <input type="text" id="quote-author" name="quote-author" placeholder="Enter the quote author" required>
+
+            <label for="opinion">Your Opinion:</label>
+            <textarea id="opinion" name="opinion" placeholder="Write your opinion on the quote" required></textarea>
+
+            <input type="submit" value="Submit">
+
+            <!-- View Quotes button -->
+            <input type="button" class="view-quotes-button" value="View Quotes" onclick="window.location.href='https://jplip.github.io/self-care-front/view/'">
+        </form>
+    </div>
+    <script>
+        document.getElementById('quoteForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            submitQuote();
         });
-        document.getElementById('quote').value = '';
-        document.getElementById('quote-author').value = '';
-        document.getElementById('opinion').value = '';
-    }
-</script>
+
+        function submitQuote() {
+            const quote = document.getElementById('quote').value;
+            const quoteAuthor = document.getElementById('quote-author').value;
+            const opinion = document.getElementById('opinion').value;
+
+            if (!quote || !quoteAuthor || !opinion) {
+                alert("Please fill in all fields");
+                return;
+            }
+
+            const quoteObject = {
+                quote: quote,
+                quote_author: quoteAuthor,
+                opinion: opinion
+            };
+
+            fetch('http://localhost:8086/quote-repository', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(quoteObject),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while submitting the quote.');
+                });
+
+            document.getElementById('quoteForm').reset();
+        }
+    </script>
+</body>
+
+</html>
