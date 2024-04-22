@@ -119,7 +119,7 @@ permalink: /registration
         })
         .then(response => {
             if (response.ok) {
-                window.location.href = 'login';
+                // window.location.href = 'login'; -->
             } else {
                 document.getElementById('error').textContent = "User Creation failed. Try again.";
                 console.error('User creation failed');
