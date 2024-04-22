@@ -1,0 +1,214 @@
+---
+layout: base
+title: Hotlines
+permalink: /hotline
+---
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotlines</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa; /* Light gray background */
+        }
+
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+            background-color: #343a40; /* Dark background for header */
+        }
+
+        .header button {
+            background-color: #dc3545; /* Red button background */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .header button:hover {
+            background-color: #c82333; /* Darker red on hover */
+        }
+
+        .title-container {
+            background-color: #f8f9fa; /* Light gray background */
+            color: #343a40; /* Dark gray text color */
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .title {
+            margin-bottom: 20px;
+            background-color: #343a40; /* Dark background for title */
+            color: white;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: justify;
+            background-color: white; /* White background for main content */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow */
+        }
+
+        .subtitle {
+            margin-top: 30px;
+            text-align: center;
+            color: #6c757d; /* Gray subtitle color */
+        }
+
+        .paragraph {
+            margin-bottom: 20px;
+            color: #343a40; /* Dark gray paragraph text color */
+        }
+
+        #homeButton {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 16px;
+            text-decoration: none;
+            color: #343a40; /* Dark gray text color */
+            padding: 5px 10px;
+            border: 1px solid #343a40; /* Dark gray border */
+            border-radius: 4px;
+            background-color: #f8f9fa; /* Light gray background */
+        }
+
+        input[type=text] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #ced4da; /* Light gray border */
+            border-radius: 5px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden; /* Hide overflow content */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow */
+        }
+
+        th, td {
+            border: 1px solid #dee2e6; /* Lighter gray border */
+            padding: 8px;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa; /* Alternate row background color */
+        }
+
+        tr:hover {
+            background-color: #f1f1f1; /* Lighter gray on hover */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Home button linking to index.html -->
+    <a id="homeButton" href="index">Home</a>
+
+    <div class='header'>
+        <button onclick="window.location.href='contact.html'">Contact Us</button>
+    </div>
+
+    <div class='title-container'>
+        <h1 class='title'>Hotlines:</h1>
+    </div>
+
+    <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for hotlines...">
+    <div class="container">
+        <table id="hotline-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Hotlines</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table body will be populated dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function searchTable() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("hotline-table");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0]; // Change index to match the column you want to search
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        function displayHotlineTable() {
+            let options = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+            };
+            fetch("http://127.0.0.1:8086/api/hotline/", options)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Network response was not ok.');
+                    }
+                })
+                .then(data => {
+                    const tableBody = document.querySelector("#hotline-table tbody");
+                    tableBody.innerHTML = ""; // Clear the existing table data
+                    data.forEach(hotline => {
+                        const row = tableBody.insertRow();
+                        const nameCell = row.insertCell(0);
+                        const hotlineCell = row.insertCell(1);
+
+                        nameCell.textContent = hotline.name;
+                        hotlineCell.textContent = hotline.hotline;
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert(error);
+                });
+        }
+        window.onload = displayHotlineTable;
+    </script>
+</body>
+
+</html>
