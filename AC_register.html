@@ -3,7 +3,6 @@ layout: base
 title: Registration
 permalink: /registration
 ---
-<img src="enter" alt="Floating GIF" style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100%; z-index: -1; pointer-events: none;">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>User Registration</title>
@@ -125,6 +124,10 @@ permalink: /registration
                 document.getElementById('error').textContent = "User Creation failed. Try again.";
                 console.error('User creation failed');
             }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Response:', data); // Log the response JSON
         })
         .catch(error => {
             console.error('Error:', error);
