@@ -182,7 +182,7 @@ permalink: /hotline
                     'Content-Type': 'application/json;charset=utf-8'
                 },
             };
-            fetch("http://127.0.0.1:8086/api/hotline/", options)
+            fetch("http://127.0.0.1:8086/api/hotlines/", options)
                 .then(response => {
                     if (response.ok) {
                         return response.json();
@@ -199,7 +199,7 @@ permalink: /hotline
                         const hotlineCell = row.insertCell(1);
 
                         nameCell.textContent = hotline.name;
-                        hotlineCell.textContent = hotline.hotline;
+                        hotlineCell.textContent = hotline.number;
                     });
                 })
                 .catch(error => {
