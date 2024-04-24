@@ -3,7 +3,6 @@ layout: base
 title: Hotlines
 permalink: /hotline
 ---
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +13,7 @@ permalink: /hotline
 
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f8f9fa; /* Light gray background */
@@ -68,39 +67,31 @@ permalink: /hotline
             background-color: white; /* White background for main content */
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow */
-        }
-
-        .subtitle {
-            margin-top: 30px;
-            text-align: center;
-            color: #6c757d; /* Gray subtitle color */
-        }
-
-        .paragraph {
-            margin-bottom: 20px;
-            color: #343a40; /* Dark gray paragraph text color */
-        }
-
-        #homeButton {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            font-size: 16px;
-            text-decoration: none;
-            color: #343a40; /* Dark gray text color */
-            padding: 5px 10px;
-            border: 1px solid #343a40; /* Dark gray border */
-            border-radius: 4px;
-            background-color: #f8f9fa; /* Light gray background */
+            display: none; /* Initially hidden */
         }
 
         input[type=text] {
-            width: 100%;
+            width: calc(70% - 10px); /* Adjust input width */
             padding: 12px 20px;
             margin: 8px 0;
             box-sizing: border-box;
             border: 1px solid #ced4da; /* Light gray border */
             border-radius: 5px;
+            margin-right: 10px; /* Add margin to the right */
+        }
+
+        button.search-button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff; /* Blue button background */
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        button.search-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
         }
 
         table {
@@ -111,7 +102,8 @@ permalink: /hotline
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow */
         }
 
-        th, td {
+        th,
+        td {
             border: 1px solid #dee2e6; /* Lighter gray border */
             padding: 8px;
             text-align: left;
@@ -139,8 +131,9 @@ permalink: /hotline
         <h1 class='title'>Hotlines:</h1>
     </div>
 
-    <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for hotlines...">
-    <div class="container">
+    <div class="container" id="tableContainer"> <!-- Removed style attribute -->
+        <input type="text" id="searchInput" placeholder="Search for hotlines...">
+        <button class="search-button" onclick="searchHotlines()">Search</button> <!-- Button to trigger search -->
         <table id="hotline-table">
             <thead>
                 <tr>
@@ -155,7 +148,7 @@ permalink: /hotline
     </div>
 
     <script>
-        function searchTable() {
+        function searchHotlines() {
             var input, filter, table, tr, td, i, txtValue;
             input = document.getElementById("searchInput");
             filter = input.value.toUpperCase();
@@ -182,7 +175,7 @@ permalink: /hotline
                     'Content-Type': 'application/json;charset=utf-8'
                 },
             };
-            fetch("http://127.0.0.1:8086/api/hotlines/", options)
+            fetch("http://127.0.0.1:8086/api/hotline/", options)
                 .then(response => {
                     if (response.ok) {
                         return response.json();
@@ -201,6 +194,7 @@ permalink: /hotline
                         nameCell.textContent = hotline.name;
                         hotlineCell.textContent = hotline.number;
                     });
+                    document.getElementById("tableContainer").style.display = "block"; // Show the table
                 })
                 .catch(error => {
                     console.error('Error:', error);
