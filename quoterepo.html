@@ -1,9 +1,9 @@
 ---
 layout: base
 title: Quote Repository (Old)
-permalink: /quote-repo-old/
+permalink: /quote-repo-old
 ---
-
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -131,14 +131,14 @@ permalink: /quote-repo-old/
     </div>
     <div class="container" id="animation">
         <h1>Motivational Quote Repository</h1>
-        <form id="quoteForm">
-            <label for="quote">Motivational Quote:</label>
-            <input type="text" id="quote" name="quote" placeholder="Enter your quote" required>
+        <form id="quoteForm" class="form-control">
+            <label for="qquote">Motivational Quote:</label>
+            <input type="text" id="quotename" name="quotename" placeholder="Enter your quote" required>
 
-            <label for="quoteauthor">Quote By:</label>
+            <label for="qauthor">Quote By:</label>
             <input type="text" id="quoteauthor" name="quoteauthor" placeholder="Enter the quote author" required>
 
-            <label for="opinion">Your Opinion:</label>
+            <label for="qopinion">Your Opinion:</label>
             <textarea id="opinion" name="opinion" placeholder="Write your opinion on the quote" required></textarea>
 
             <input type="submit" value="Submit">
@@ -146,46 +146,76 @@ permalink: /quote-repo-old/
             <!-- View Quotes button -->
             <input type="button" class="view-quotes-button" value="View Quotes" onclick="window.location.href='https://jplip.github.io/self-care-front/view/'">
         </form>
+        <button class="view-quotes-button" onclick="submitQuote()">submit2</button>
+        <p id="error"></p>
+        <div id="data"></div>
     </div>
     <script>
-        document.getElementById('quoteForm').addEventListener('submit', function (event) {
-            event.preventDefault();
-            submitQuote();
-        });
-
         function submitQuote() {
-            const quote = document.getElementById('quote').value;
-            const quoteauthor = document.getElementById('quoteauthor').value;
-            const opinion = document.getElementById('opinion').value;
+            let quotename = document.getElementById('quotename').value;
+            let quoteauthor = document.getElementById('quoteauthor').value;
+            let opinion = document.getElementById('opinion').value;
 
-            if (!quote || !quoteauthor || !opinion) {
+            if (!quotename || !quoteauthor || !opinion) {
                 alert("Please fill in all fields");
                 return;
             }
 
-            const quoteObject = {
-                quote: quote,
+            let quoteObject = {
+                quotename: quotename,
                 quoteauthor: quoteauthor,
-                opinion: opinion
+                opinion: opinion,
             };
-
-            fetch('http://localhost:8086/api/quotes/write', {
+            fetch('http://127.0.0.1:8086/api/quotes/build', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(quoteObject),
+                body: JSON.stringify(quoteObject)
             })
-                .then(response => response.json())
-                .then(data => {
-                    alert(data.message);
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById("error").innerHTML = "Quotes updated!";
+                    fetchQuotes();
+                } else {
+                    return response.json().then(errorData => {
+                        if (errorData && errorData.message) {
+                            document.getElementById("error").innerHTML = errorData.message;
+                        } else {
+                            document.getElementById("error").innerHTML = "Error submitting quote";
+                        }
+                    });
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                document.getElementById("error").innerHTML = "Error submitting quote";
+            });
+        }
+
+        function fetchQuotes() {
+            let options = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+            };
+            fetch("http://127.0.0.1:8086/api/quotes/read", options)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Network response was not ok.');
+                    }
+                 })
+                .then(response => {
+                    let dataContainer = document.getElementById("data");
+                    dataContainer.innerHTML = "";
                 })
                 .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while submitting the quote.');
+                    console.error('Error fetching data:', error);
+                    document.getElementById("error").innerHTML = "Error fetching quotes";
                 });
-
-            document.getElementById('quoteForm').reset();
         }
     </script>
 </body>
