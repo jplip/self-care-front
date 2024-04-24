@@ -1,7 +1,7 @@
 ---
 layout: base
-title: Quote Repository
-permalink: /quote-repo/
+title: Quote Repository (Old)
+permalink: /quote-repo-old/
 ---
 
 <html lang="en">
@@ -128,8 +128,6 @@ permalink: /quote-repo/
 
 <body>
     <a id="homeButton" href="index">Home</a>
-    <div class="background-animation">
-        <img src="enter" alt="Floating GIF">
     </div>
     <div class="container" id="animation">
         <h1>Motivational Quote Repository</h1>
@@ -137,8 +135,8 @@ permalink: /quote-repo/
             <label for="quote">Motivational Quote:</label>
             <input type="text" id="quote" name="quote" placeholder="Enter your quote" required>
 
-            <label for="quote-author">Quote By:</label>
-            <input type="text" id="quote-author" name="quote-author" placeholder="Enter the quote author" required>
+            <label for="quoteauthor">Quote By:</label>
+            <input type="text" id="quoteauthor" name="quoteauthor" placeholder="Enter the quote author" required>
 
             <label for="opinion">Your Opinion:</label>
             <textarea id="opinion" name="opinion" placeholder="Write your opinion on the quote" required></textarea>
@@ -157,21 +155,21 @@ permalink: /quote-repo/
 
         function submitQuote() {
             const quote = document.getElementById('quote').value;
-            const quoteAuthor = document.getElementById('quote-author').value;
+            const quoteauthor = document.getElementById('quoteauthor').value;
             const opinion = document.getElementById('opinion').value;
 
-            if (!quote || !quoteAuthor || !opinion) {
+            if (!quote || !quoteauthor || !opinion) {
                 alert("Please fill in all fields");
                 return;
             }
 
             const quoteObject = {
                 quote: quote,
-                quote_author: quoteAuthor,
+                quoteauthor: quoteauthor,
                 opinion: opinion
             };
 
-            fetch('http://localhost:8086/quote-repository', {
+            fetch('http://localhost:8086/api/quotes/write', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
