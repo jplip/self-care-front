@@ -69,14 +69,14 @@ permalink: /update
 	</div>
 </div>
 
-<script>
-	const apiUrl = "http://127.0.0.1:8086/api/users/";
-	// const apiUrl = "http://127.0.0.1:8240/api/users/";
-    // const apiUrl = "https://devops.nighthawkcodingsociety.com/api/users/";
+<script type="module">
+	import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
+	
+	const url = uri + '/api/users/';
 	let users = [];
 
 	function fetchUsers() {
-		fetch(apiUrl)
+		fetch(url)
 			.then((response) => response.json())
 			.then((response) => {
 				users = response;
@@ -124,7 +124,7 @@ permalink: /update
 			password,
 		};
 
-		fetch(apiUrl, {
+		fetch(url, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -204,7 +204,7 @@ permalink: /update
 			uid,
 		};
 
-		fetch(`${apiUrl}${id}`, {
+		fetch(`${url}${id}`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -227,9 +227,12 @@ permalink: /update
 
 	function deleteUser(id, row) {
 		const confirmation = prompt('Type "DELETE" to confirm.');
+		console.log(id)
+		var data = JSON.stringify(id)
 		if (confirmation === "DELETE") {
-			fetch(`${apiUrl}${id}`, {
+			fetch(`${url + 'delete/'}${id}`, {
 				method: "DELETE",
+				mode: 'cors', // no-cors, *cors, same-origin
 			})
 				.then(() => {
 					row.remove();
