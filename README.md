@@ -1,3 +1,23 @@
+# Exercise/Sleep Tracker 
+
+
+Welcome to the Exercise/Sleep Tracker! This application is designed to help you monitor and track your daily exercise and sleep routines. Whether you're striving to achieve fitness goals or improve your sleep quality, this tracker provides a convenient way to record and visualize your progress over time through graphs. 
+
+
+Exercise Tracking: Log various types of exercises along with their durations and dates.
+Sleep Tracking: Record your nightly sleep duration and quality.
+Data Visualization: View your exercise and sleep data in graphical formats for easy analysis.
+
+
+-sleepgraphs.html formats the data from the server into  bar graphs and color-codes based on quality of sleep. (response)
+
+-exercisegraphs.html formats the data from the surver into bar graphs. 
+
+-AE_exercisesleep.html sends the exercise and sleep data to the surver. 
+
+
+
+
 
 
 
