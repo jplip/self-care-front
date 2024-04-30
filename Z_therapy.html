@@ -1,6 +1,4 @@
 ---
-layout: base
-title: Therapy
 permalink: /therapy
 ---
 
@@ -130,8 +128,116 @@ permalink: /therapy
         border-radius: 4px;
         background-color: #f2f2f2;
     }
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-image: url('e285661a023fb83c8d7f975980422c22.gif');
+        background-size: cover;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 80px;
+        height: 100%;
+        background-color: #303030;
+        overflow: hidden;
+        transition: width 0.3s;
+        z-index: 1;
+    }
+
+    .sidebar.active {
+        width: 200px;
+    }
+
+    .menu-icon {
+        display: block;
+        text-align: center;
+        padding: 20px 0;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .menu-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: none; /* Initially hide menu items */
+    }
+
+    .sidebar.active .menu-list {
+        display: block; /* Display menu items when sidebar is active */
+    }
+
+    .menu-item {
+        padding: 15px 0;
+        color: #fff;
+        text-align: center;
+        transition: background-color 0.3s;
+    }
+
+    .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-control {
+        margin-bottom: 15px;
+    }
+
+    .form-control label {
+        font-weight: bold;
+    }
+
+    .form-control input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .form-control input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+    }
+
+    .form-control input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    .error-message {
+        color: red;
+        margin-top: 5px;
+    }
 </style>
 
+
+<div class="sidebar" id="sidebar">
+    <div class="menu-icon" onclick="toggleSidebar()">
+        <div>&#9776;</div>
+    </div>
+    <ul class="menu-list">
+        <li class="menu-item"><a href="index" style="color: #fff; text-decoration: none;">Home</a></li>
+        <li class="menu-item"><a href="depression" style="color: #fff; text-decoration: none;">Depression</a></li>
+        <li class="menu-item"><a href="stroke" style="color: #fff; text-decoration: none;">Stroke</a></li>
+        <li class="menu-item"><a href="heartattack" style="color: #fff; text-decoration: none;">Heart Attack</a></li>
+        <li class="menu-item"><a href="titanic" style="color: #fff; text-decoration: none;">Titanic</a></li>
+        <li class="menu-item"><a href="diary" style="color: #fff; text-decoration: none;">Diary</a></li>
+        <li class="menu-item"><a href="tracking" style="color: #fff; text-decoration: none;">Exercise and Sleep</a></li>
+    </ul>
+</div>
+<div>
 <body class='sandiego-background'>
     <!-- Home button linking to index.html -->
     <a id="homeButton" href="index">Home</a>
@@ -153,19 +259,9 @@ permalink: /therapy
             <!-- Table body will be populated dynamically -->
         </tbody>
     </table>
+</div>
 
     <script>
-        /* CRD-2.A: Describe the purpose of a computing innovation.
-        /* The purpose of this code is to create a table of therapy locations from the data in the backend and place it on the frontend. 
-        CRD-2.B: Explain how a program or code segment functions.
-        searchTable(): Searches table based on input and iterates through to display the entries that match the input.
-        CRD-2.C: Identify input(s) to a program.
-        Inputs: Words, diary...???
-        CRD-2.D: Identify output(s) produced by a program.
-        Outputs: Table, diary, 
-        CRD-2.E: Develop a program using a development process.
-        CRD-2.F: Design a program and its user interface.
-        CRD-2.G: Describe the purpose of a code segment or program by writing documentation. */
         function searchTable() {
             var input, filter, table, tr, td, i, txtValue;
             input = document.getElementById("searchInput");
