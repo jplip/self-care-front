@@ -161,7 +161,7 @@ permalink: /diary
                     // Clear previous data
                     dataContainer.innerHTML = "";
                     // Split the data by "///" to get individual diary items
-                    let diaryItems = response.split("///");
+                    let diaryItems = response.split("||");
                     // Iterate over each item and create a row for display
                     diaryItems.forEach(item => {
                         let row = document.createElement("div");
