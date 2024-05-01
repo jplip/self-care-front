@@ -40,6 +40,11 @@ permalink: /update
 	section {
 		max-width: 900px;
 	}
+	
+	body {
+    background-image: url('e285661a023fb83c8d7f975980422c22.gif');
+    background-size: cover;
+	}
 </style>
 
 <hr style="margin-top: 10px" />
@@ -230,7 +235,7 @@ permalink: /update
 		console.log(id)
 		var data = JSON.stringify(id)
 		if (confirmation === "DELETE") {
-			fetch(`${url + 'delete/'}${id}`, {
+			fetch(`${url}${id}`, {
 				method: "DELETE",
 				mode: 'cors', // no-cors, *cors, same-origin
 			})
