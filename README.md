@@ -1,17 +1,11 @@
-# Personal Diary/ Therapy Finder
+# User Table
 
-Welcome to the personal diary and therapy finder! If you don't have a personal journal at home, too tired to write, or maybe just too lazy to grab it out, you can just simply type it up on this website. If you're feeling down and in need of support, there are plenty of therapies you can search for in the therapy finder (all of the inputed data currently is just filler data, none of those locations actually exist). The therapy finder will tell you the name of the therapy, the location of the therapy, and also what that location specializes in! 
+This is my user table that gets the user data from the database and then posts it onto a table that has all the users with an update and delete button next to them. These buttons correspond to the user in the respective row and will run the method of either update or delete.
 
-Uses:
-Personal Diary- Record your day writing whatever you want in it and it will display your diary and your previous entries.
-Therapy Finder- A table with various therapy locations 
+This data is meant to be seen by all and only the delete feature is available to the Admins. Anyone besiides the Admins will be given an error when trying to confirm the deletion of a user.
+The update feature allows for all users to be able to change the name or username associated to the account.
 
-
--Z_diary.html: Contains all diary code: CSS, HTML, JavaScript (contains input for user and output)
-
--Z_therapy.html: Contains all therapy finder code (formats data into a table which can be searched through by the user)
-
-
+- BE_update.md: Contains all table code: CSS, HTML, JavaScript
 
 
 
