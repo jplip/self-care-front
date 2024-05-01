@@ -1,9 +1,11 @@
-# Titanic ML
+# User Table
 
-This is my titanic predictor ML that I created where another teammate of mine edited it a few times. In this project I expanded upon the titanic predictor and created it in a way that organizes the the data and also gives your death percentage as well as your survival percentage
+This is my user table that gets the user data from the database and then posts it onto a table that has all the users with an update and delete button next to them. These buttons correspond to the user in the respective row and will run the method of either update or delete.
 
-This ML is meant to be used by all and different data is able to put in depending on the user and their characteristics.
+This data is meant to be seen by all and only the delete feature is available to the Admins. Anyone besides the Admins will be given an error when trying to confirm the deletion of a user.
+The update feature allows for all users to change the name or username associated with the account.
 
+- BE_update.md: Contains all table code: CSS, HTML, JavaScript
 
 
 
