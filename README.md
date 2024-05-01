@@ -1,19 +1,15 @@
-# Exercise/Sleep Tracker 
+# Personal Diary/ Therapy Finder
+
+Welcome to the personal diary and therapy finder! If you don't have a personal journal at home, too tired to write, or maybe just too lazy to grab it out, you can just simply type it up on this website. If you're feeling down and in need of support, there are plenty of therapies you can search for in the therapy finder (all of the inputed data currently is just filler data, none of those locations actually exist). The therapy finder will tell you the name of the therapy, the location of the therapy, and also what that location specializes in! 
+
+Uses:
+Personal Diary- Record your day writing whatever you want in it and it will display your diary and your previous entries.
+Therapy Finder- A table with various therapy locations 
 
 
-Welcome to the Exercise/Sleep Tracker! This application is designed to help you monitor and track your daily exercise and sleep routines. Whether you're striving to achieve fitness goals or improve your sleep quality, this tracker provides a convenient way to record and visualize your progress over time through graphs. 
+-Z_diary.html: Contains all diary code: CSS, HTML, JavaScript (contains input for user and output)
 
-
-Exercise Tracking: Log various types of exercises along with their durations and dates.
-Sleep Tracking: Record your nightly sleep duration and quality.
-Data Visualization: View your exercise and sleep data in graphical formats for easy analysis.
-
-
--sleepgraphs.html formats the data from the server into  bar graphs and color-codes based on quality of sleep. (response)
-
--exercisegraphs.html formats the data from the surver into bar graphs. 
-
--AE_exercisesleep.html sends the exercise and sleep data to the surver. 
+-Z_therapy.html: Contains all therapy finder code (formats data into a table which can be searched through by the user)
 
 
 
