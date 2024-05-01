@@ -2,8 +2,8 @@
 
 This is my user table that gets the user data from the database and then posts it onto a table that has all the users with an update and delete button next to them. These buttons correspond to the user in the respective row and will run the method of either update or delete.
 
-This data is meant to be seen by all and only the delete feature is available to the Admins. Anyone besiides the Admins will be given an error when trying to confirm the deletion of a user.
-The update feature allows for all users to be able to change the name or username associated to the account.
+This data is meant to be seen by all and only the delete feature is available to the Admins. Anyone besides the Admins will be given an error when trying to confirm the deletion of a user.
+The update feature allows for all users to change the name or username associated with the account.
 
 - BE_update.md: Contains all table code: CSS, HTML, JavaScript
 
