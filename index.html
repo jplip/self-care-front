@@ -1,155 +1,151 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Times+New+Roman&display=swap" rel="stylesheet">
 <style>
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Times New Roman', serif;
-    display: flex;
-    align-items: center; /* Center vertically */
-    justify-content: center; /* Center horizontally */
-    min-height: 100vh;
-    position: relative;
-    background-image: url('e285661a023fb83c8d7f975980422c22.gif');
-    background-size: cover;
-}
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Times New Roman', serif;
+        display: flex;
+        align-items: center; /* Center vertically */
+        justify-content: center; /* Center horizontally */
+        min-height: 100vh;
+        position: relative;
+        background-image: url('e285661a023fb83c8d7f975980422c22.gif');
+        background-size: cover;
+    }
 
 
-.top-buttons {
-    text-align: center; /* Align buttons in the center */
-}
+    .top-buttons {
+        text-align: center; /* Align buttons in the center */
+    }
 
 
-.button {
-    padding: 8px 16px;
-    background-color: #fff; /* White color */
-    color: #4CAF50; /* Green color */
-    text-decoration: none;
-    border: 2px solid #4CAF50; /* Green border */
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-}
+    .button {
+        padding: 8px 16px;
+        background-color: #fff; /* White color */
+        color: #4CAF50; /* Green color */
+        text-decoration: none;
+        border: 2px solid #4CAF50; /* Green border */
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+    }
 
 
-.button:hover {
-    background-color: #4CAF50; /* Green color */
-    color: #fff; /* White color */
-}
+    .button:hover {
+        background-color: #4CAF50; /* Green color */
+        color: #fff; /* White color */
+    }
 
 
-.sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 80px;
-    height: 100%;
-    background-color: #303030;
-    overflow: hidden;
-    transition: width 0.3s;
-    z-index: 1;
-}
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 80px;
+        height: 100%;
+        background-color: #303030;
+        overflow: hidden;
+        transition: width 0.3s;
+        z-index: 1;
+    }
 
 
-.sidebar.active {
-    width: 200px;
-}
+    .sidebar.active {
+        width: 200px;
+    }
 
 
-.menu-icon {
-    display: block;
-    text-align: center;
-    padding: 20px 0;
-    color: #fff;
-    cursor: pointer;
-}
+    .menu-icon {
+        display: block;
+        text-align: center;
+        padding: 20px 0;
+        color: #fff;
+        cursor: pointer;
+    }
 
 
-.menu-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: none; /* Initially hide menu items */
-}
+    .menu-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: none; /* Initially hide menu items */
+    }
 
 
-.sidebar.active .menu-list {
-    display: block; /* Display menu items when sidebar is active */
-}
+    .sidebar.active .menu-list {
+        display: block; /* Display menu items when sidebar is active */
+    }
 
 
-.menu-item {
-    padding: 15px 0;
-    color: #fff;
-    text-align: center;
-    transition: background-color 0.3s;
-}
+    .menu-item {
+        padding: 15px 0;
+        color: #fff;
+        text-align: center;
+        transition: background-color 0.3s;
+    }
 
 
-.menu-item:hover {
-    background-color: #444;
-}
+    .menu-item:hover {
+        background-color: #444;
+    }
 
 
-.main-content {
-    text-align: center;
-    flex: 1;
-    padding: 20px;
-    color: #fff; /* White color */
-}
+    .main-content {
+        text-align: center;
+        flex: 1;
+        padding: 20px;
+        color: #fff; /* White color */
+    }
 
 
-.image-container {
-    margin-top: 50px; /* Adjusted margin-top */
-    text-align: center;
-}
+    .image-container {
+        margin-top: 50px; /* Adjusted margin-top */
+        text-align: center;
+    }
 
 
-.image-container table {
-    margin: 0 auto;
-}
+    .image-container table {
+        margin: 0 auto;
+    }
 
 
-.image-container img {
-    width: 300px;
-    height: 300px;
-    margin: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff; /* White background */
-}
+    .image-container img {
+        width: 300px;
+        height: 300px;
+        margin: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #fff; /* White background */
+    }
 
 
-.image-container img:hover {
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-}
+    .image-container img:hover {
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
 
 
-.welcome-text {
-    text-align: center;
-    margin-bottom: 30px;
-}
+    .welcome-text {
+        text-align: center;
+        margin-bottom: 30px;
+    }
 
 
-.welcome-text h1 {
-    font-size: 36px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #4CAF50; /* Green color */
-}
+    .welcome-text h1 {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #4CAF50; /* Green color */
+    }
 
 
-.welcome-text p {
-    font-size: 18px;
-    color: #4CAF50; /* Green color */
-}
+    .welcome-text p {
+        font-size: 18px;
+        color: #4CAF50; /* Green color */
+    }
 </style>
-</head>
-<body>
 
 
 <div class="sidebar" id="sidebar">
@@ -201,17 +197,13 @@ body {
 </div>
 
 
-<script>
-function toggleSidebar() {
-    var sidebar = document.getElementById("sidebar");
-    sidebar.classList.toggle("active");
-}
-</script>
-
-
-</body>
 
 <script>
+    function toggleSidebar() {
+        var sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("active");
+    }
+
     function logout() {
         // Clear local storage
         localStorage.removeItem('loggedInUserName');
@@ -236,5 +228,3 @@ function toggleSidebar() {
         });
     }
 </script>
-
-</html>
