@@ -126,6 +126,11 @@ permalink: /recipe
         #recipeContainer {
             display: none;
         }
+
+        /* Add new style to hide the button initially */
+        #hideButton {
+            display: none;
+        }
     </style>
 </head>
 <body class='sandiego-background'>
@@ -173,6 +178,10 @@ permalink: /recipe
                 <div id="data"></div>
             </div>
         </div>
+
+        <!-- Add the Hide Personal Recipes button -->
+        <button id="hideButton" class="recipe-buttons" onclick="hideRecipes()">Hide Personal Recipes</button>
+    </div>
 
     <script>
         function addStep() {
@@ -247,6 +256,7 @@ permalink: /recipe
                     dataContainer.innerHTML = ""; // Clear previous data
                     if (response.length > 0) {
                         document.getElementById("recipeContainer").style.display = "block"; // Show the container if there are recipes
+                        document.getElementById("hideButton").style.display = "block"; // Show the Hide button
                         let table = document.createElement("table");
                         let headerRow = table.insertRow();
                         let headers = ["Recipe Name", "Healthy Ingredients", "Recipe Steps", "Difficulty"];
@@ -255,6 +265,7 @@ permalink: /recipe
                             header.textContent = headerText;
                             headerRow.appendChild(header);
                         });
+                        
                         response.forEach(item => {
                             let row = table.insertRow();
                             let rowData = [item.recipename, item.healthyingredients, item.recipesteps.split('<br>').map(step => `<li>${step}</li>`).join(''), item.difficulty];
@@ -266,12 +277,18 @@ permalink: /recipe
                         dataContainer.appendChild(table);
                     } else {
                         document.getElementById("recipeContainer").style.display = "none"; // Hide the container if there are no recipes
+                        document.getElementById("hideButton").style.display = "none"; // Hide the button if there are no recipes
                     }
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
                     document.getElementById("error").innerHTML = "Error fetching recipes";
                 });
+        }
+
+        function hideRecipes() {
+            document.getElementById("recipeContainer").style.display = "none"; // Hide the recipe container
+            document.getElementById("hideButton").style.display = "none"; // Hide the button itself
         }
     </script>
 </body>
