@@ -3,6 +3,7 @@ layout: base
 title: Personal Recipes
 permalink: /recipe
 ---
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,6 +55,8 @@ permalink: /recipe
             margin: 20px auto; /* Center the container */
             max-width: 600px; /* Maximum width of the container */
             text-align:center;
+            overflow: auto; /* Enable scrolling */
+            height: 300px; /* Set a fixed height for scrolling */
         }
 
         .recipe-buttons {
@@ -82,6 +85,7 @@ permalink: /recipe
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
+            word-wrap: break-word; /* Break long words */
         }
 
         th {
@@ -101,6 +105,18 @@ permalink: /recipe
         }
         form {
             margin: 15px;
+        }
+
+        /* Style for recipe steps list */
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            text-align: left;
+        }
+
+        li {
+            margin-bottom: 5px;
         }
     </style>
 </head>
@@ -144,7 +160,7 @@ permalink: /recipe
         <button class="recipe-buttons" onclick="fetchRecipe()">Load Personal Recipes</button>
         <p id="error"></p>
         <div class="data-container">
-            <h3 id='subtitle'>Your Recipes:</h2>
+            <h2 id='subtitle'>Your Recipes:</h2>
             <div id="data"></div>
         </div>
     </div>
@@ -158,42 +174,52 @@ permalink: /recipe
         }
 
         function recipe() {
+            // Retrieve input values
             let recipename = document.getElementById("recipename").value;
             let healthyingredients = document.getElementById("healthyingredients").value;
             let recipesteps = Array.from(document.querySelectorAll('.recipestep')).map((input, index) => `${index + 1}. ${input.value}`).join('<br>');
             let difficulty = document.getElementById("difficulty").value;
+
+            // Check if any input is empty
+            if (!recipename || !healthyingredients || !recipesteps || !difficulty) {
+            document.getElementById("error").innerHTML = "Please fill in all fields.";
+            return;
+        }
+
+            // Proceed with the fetch request
             let data = {
-                "recipename": recipename,
-                "healthyingredients": healthyingredients,
-                "recipesteps": recipesteps,
-                "difficulty": difficulty,
-            };
+            "recipename": recipename,
+            "healthyingredients": healthyingredients,
+            "recipesteps": recipesteps,
+            "difficulty": difficulty,
+        };
             fetch('http://127.0.0.1:8086/api/recipes/make', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => {
-                if (response.ok) {
-                    document.getElementById("error").innerHTML = "Recipes updated!";
-                    fetchRecipe();
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+        if (response.ok) {
+            document.getElementById("error").innerHTML = "Recipes updated!";
+            fetchRecipe();
+        } else {
+            return response.json().then(errorData => {
+                if (errorData && errorData.message) {
+                    document.getElementById("error").innerHTML = errorData.message;
                 } else {
-                    return response.json().then(errorData => {
-                        if (errorData && errorData.message) {
-                            document.getElementById("error").innerHTML = errorData.message;
-                        } else {
-                            document.getElementById("error").innerHTML = "Error submitting recipe";
-                        }
-                    });
+                    document.getElementById("error").innerHTML = "Error submitting recipe";
                 }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                document.getElementById("error").innerHTML = "Error submitting recipe";
             });
         }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            document.getElementById("error").innerHTML = "Error submitting recipe";
+        });
+}
+
 
         function fetchRecipe() {
             let options = {
