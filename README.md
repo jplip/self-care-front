@@ -1,22 +1,11 @@
-# Exercise/Sleep Tracker 
+# User Table
 
+This is my user table that gets the user data from the database and then posts it onto a table that has all the users with an update and delete button next to them. These buttons correspond to the user in the respective row and will run the method of either update or delete.
 
-Welcome to the Exercise/Sleep Tracker! This application is designed to help you monitor and track your daily exercise and sleep routines. Whether you're striving to achieve fitness goals or improve your sleep quality, this tracker provides a convenient way to record and visualize your progress over time through graphs. 
+This data is meant to be seen by all and only the delete feature is available to the Admins. Anyone besides the Admins will be given an error when trying to confirm the deletion of a user.
+The update feature allows for all users to change the name or username associated with the account.
 
-
-Exercise Tracking: Log various types of exercises along with their durations and dates.
-Sleep Tracking: Record your nightly sleep duration and quality.
-Data Visualization: View your exercise and sleep data in graphical formats for easy analysis.
-
-
--sleepgraphs.html formats the data from the server into  bar graphs and color-codes based on quality of sleep. (response)
-
--exercisegraphs.html formats the data from the surver into bar graphs. 
-
--AE_exercisesleep.html sends the exercise and sleep data to the surver. 
-
-
-
+- BE_update.md: Contains all table code: CSS, HTML, JavaScript
 
 
 

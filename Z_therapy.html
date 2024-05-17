@@ -1,6 +1,4 @@
 ---
-layout: base
-title: Therapy
 permalink: /therapy
 ---
 
@@ -130,8 +128,116 @@ permalink: /therapy
         border-radius: 4px;
         background-color: #f2f2f2;
     }
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-image: url('e285661a023fb83c8d7f975980422c22.gif');
+        background-size: cover;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 80px;
+        height: 100%;
+        background-color: #303030;
+        overflow: hidden;
+        transition: width 0.3s;
+        z-index: 1;
+    }
+
+    .sidebar.active {
+        width: 200px;
+    }
+
+    .menu-icon {
+        display: block;
+        text-align: center;
+        padding: 20px 0;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .menu-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: none; /* Initially hide menu items */
+    }
+
+    .sidebar.active .menu-list {
+        display: block; /* Display menu items when sidebar is active */
+    }
+
+    .menu-item {
+        padding: 15px 0;
+        color: #fff;
+        text-align: center;
+        transition: background-color 0.3s;
+    }
+
+    .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-control {
+        margin-bottom: 15px;
+    }
+
+    .form-control label {
+        font-weight: bold;
+    }
+
+    .form-control input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .form-control input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+    }
+
+    .form-control input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    .error-message {
+        color: red;
+        margin-top: 5px;
+    }
 </style>
 
+
+<div class="sidebar" id="sidebar">
+    <div class="menu-icon" onclick="toggleSidebar()">
+        <div>&#9776;</div>
+    </div>
+    <ul class="menu-list">
+        <li class="menu-item"><a href="index" style="color: #fff; text-decoration: none;">Home</a></li>
+        <li class="menu-item"><a href="depression" style="color: #fff; text-decoration: none;">Depression</a></li>
+        <li class="menu-item"><a href="stroke" style="color: #fff; text-decoration: none;">Stroke</a></li>
+        <li class="menu-item"><a href="heartattack" style="color: #fff; text-decoration: none;">Heart Attack</a></li>
+        <li class="menu-item"><a href="titanic" style="color: #fff; text-decoration: none;">Titanic</a></li>
+        <li class="menu-item"><a href="diary" style="color: #fff; text-decoration: none;">Diary</a></li>
+        <li class="menu-item"><a href="tracking" style="color: #fff; text-decoration: none;">Exercise and Sleep</a></li>
+    </ul>
+</div>
+<div>
 <body class='sandiego-background'>
     <!-- Home button linking to index.html -->
     <a id="homeButton" href="index">Home</a>
@@ -141,7 +247,7 @@ permalink: /therapy
     </div>
 
     <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for therapy...">
-    <table id="activity-table">
+    <table id="therapy-table">
         <thead>
             <tr>
                 <th>Name</th>
@@ -153,13 +259,14 @@ permalink: /therapy
             <!-- Table body will be populated dynamically -->
         </tbody>
     </table>
+</div>
 
     <script>
         function searchTable() {
             var input, filter, table, tr, td, i, txtValue;
             input = document.getElementById("searchInput");
             filter = input.value.toUpperCase();
-            table = document.getElementById("activity-table");
+            table = document.getElementById("therapy-table");
             tr = table.getElementsByTagName("tr");
 
             for (i = 0; i < tr.length; i++) {
@@ -175,14 +282,14 @@ permalink: /therapy
             }
         }
 
-        function displayActivityTable() {
+        function displayTherapyTable() {
             let options = {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
                 },
             };
-            fetch("http://127.0.0.1:8086/api/activity/", options)
+            fetch("http://127.0.0.1:8086/api/therapy/", options)
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -191,17 +298,17 @@ permalink: /therapy
                 }
             })
             .then(data => {
-                const tableBody = document.querySelector("#activity-table tbody");
+                const tableBody = document.querySelector("#therapy-table tbody");
                 tableBody.innerHTML = ""; // Clear the existing table data
-                data.forEach(activity => {
+                data.forEach(therapy => {
                     const row = tableBody.insertRow();
                     const nameCell = row.insertCell(0);
                     const locationCell = row.insertCell(1);
                     const specialCell = row.insertCell(2);
 
-                    nameCell.textContent = activity.name;
-                    locationCell.textContent = activity.location;
-                    specialCell.textContent = activity.special;
+                    nameCell.textContent = therapy.name;
+                    locationCell.textContent = therapy.location;
+                    specialCell.textContent = therapy.special;
                 });
             })
             .catch(error => {
@@ -209,6 +316,6 @@ permalink: /therapy
                 alert(error);
             });
         }
-        window.onload = displayActivityTable;
+        window.onload = displayTherapyTable;
     </script>
 </body>

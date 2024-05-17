@@ -40,6 +40,11 @@ permalink: /update
 	section {
 		max-width: 900px;
 	}
+	
+	body {
+    background-image: url('e285661a023fb83c8d7f975980422c22.gif');
+    background-size: cover;
+	}
 </style>
 
 <hr style="margin-top: 10px" />

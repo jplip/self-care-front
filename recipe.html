@@ -3,6 +3,7 @@ layout: base
 title: Personal Recipes
 permalink: /recipe
 ---
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,50 +28,50 @@ permalink: /recipe
             background-size: cover;
             background-repeat: no-repeat;
             background-position: top;
-            color: black; /* Black text */
+            color: black;
             padding: 50px 20px;
             text-align: center;
         }
 
         #diary {
-            width: 70%; /* Adjust width as needed */
-            margin: 0 auto; /* Center the textarea */
+            width: 70%;
+            margin: 0 auto;
             padding: 10px;
             border: 1px solid #c29191;
             border-radius: 8px;
             text-align: center;
         }
 
-        /* Center text inside diary-container */
         .diary-container {
             text-align: center;
         }
 
-        /* Style the data container */
         .data-container {
             background-color: white;
-            border: 2px solid #ccc; /* Border style */
-            padding: 20px; /* Padding inside the container */
-            margin: 20px auto; /* Center the container */
-            max-width: 600px; /* Maximum width of the container */
-            text-align:center;
+            border: 2px solid #ccc;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px; /* Increase the max-width */
+            text-align: center;
+            overflow-x: auto; /* Enable horizontal scrolling */
+            overflow-y: auto;
+            height: 350px; /* Increase the height */
         }
 
         .recipe-buttons {
-            padding: 10px 20px; /* Padding around the button text */
-            background-color: #bdc8d4; /* Button background color */
-            color: rgb(0, 0, 0); /* Button text color */
-            border: none; /* Remove button border */
-            border-radius: 5px; /* Rounded corners */
+            padding: 10px 20px;
+            background-color: #bdc8d4;
+            color: rgb(0, 0, 0);
+            border: none;
+            border-radius: 5px;
             width: 700px; 
             margin: 0 auto;
-            cursor: pointer; /* Show pointer cursor on hover */
-            transition: background-color 0.3s ease; /* Smooth transition for background color */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
-        /* Hover effect for the button */
         .recipe-buttons:hover {
-            background-color: #0056b3; /* Darker background color on hover */
+            background-color: #0056b3;
         }
 
         table {
@@ -82,10 +83,16 @@ permalink: /recipe
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
+            word-wrap: break-word;
         }
 
         th {
             background-color: #f2f2f2;
+        }
+
+        #error {
+            color: rgb(71, 32, 32);
+            font-size: 24px;
         }
 
         input {
@@ -99,13 +106,34 @@ permalink: /recipe
         h2 {
             color: white; 
         }
+
         form {
             margin: 15px;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            text-align: left;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+        
+        /* Add new style to hide the container initially */
+        #recipeContainer {
+            display: none;
+        }
+
+        /* Add new style to hide the button initially */
+        #hideButton {
+            display: none;
         }
     </style>
 </head>
 <body class='sandiego-background'>
-    <!-- Home button linking to index.html -->
     <a id="homeButton" href="index" style="position: fixed; top: 20px; left: 20px; font-size: 16px; text-decoration: none; color: #333; padding: 5px 10px; border: 1px solid #ccc; border-radius: 4px; background-color: #f2f2f2;">Home</a>
 
     <div id='diary-title-container'>
@@ -113,7 +141,7 @@ permalink: /recipe
     </div>
     <br>
     <br>
-    <div class="recipe-container">
+
         <h2 id="subtitle">Recipe:</h2>
         <form id="recipeForm" class="form-control">
             <div>
@@ -139,14 +167,20 @@ permalink: /recipe
             </div> 
         </form>
         <button class="recipe-buttons" onclick="recipe()">New Entry</button>
-        <br>
-        <br>
-        <button class="recipe-buttons" onclick="fetchRecipe()">Load Personal Recipes</button>
         <p id="error"></p>
-        <div class="data-container">
-            <h3 id='subtitle'>Your Recipes:</h2>
-            <div id="data"></div>
+        <hr>
+        <button class="recipe-buttons" onclick="fetchRecipe()">Load Personal Recipes</button>
+    </div>
+    <div class="recipe-container">
+        <div id="recipeContainer">
+            <div class="data-container">
+                <h2 id='subtitle'>Your Recipes:</h2>
+                <div id="data"></div>
+            </div>
         </div>
+
+        <!-- Add the Hide Personal Recipes button -->
+        <button id="hideButton" class="recipe-buttons" onclick="hideRecipes()">Hide Personal Recipes</button>
     </div>
 
     <script>
@@ -162,12 +196,19 @@ permalink: /recipe
             let healthyingredients = document.getElementById("healthyingredients").value;
             let recipesteps = Array.from(document.querySelectorAll('.recipestep')).map((input, index) => `${index + 1}. ${input.value}`).join('<br>');
             let difficulty = document.getElementById("difficulty").value;
+
+            if (!recipename || !healthyingredients || !recipesteps || !difficulty) {
+                document.getElementById("error").innerHTML = "Please fill in all fields.";
+                return;
+            }
+
             let data = {
                 "recipename": recipename,
                 "healthyingredients": healthyingredients,
                 "recipesteps": recipesteps,
                 "difficulty": difficulty,
             };
+
             fetch('http://127.0.0.1:8086/api/recipes/make', {
                 method: 'POST',
                 headers: {
@@ -178,7 +219,7 @@ permalink: /recipe
             .then(response => {
                 if (response.ok) {
                     document.getElementById("error").innerHTML = "Recipes updated!";
-                    fetchRecipe();
+
                 } else {
                     return response.json().then(errorData => {
                         if (errorData && errorData.message) {
@@ -211,33 +252,43 @@ permalink: /recipe
                     }
                  })
                 .then(response => {
-                    let table = document.createElement("table");
-                    let headerRow = table.insertRow();
-                    let headers = ["Recipe Name", "Healthy Ingredients", "Recipe Steps", "Difficulty"];
-                    headers.forEach(headerText => {
-                        let header = document.createElement("th");
-                        let textNode = document.createTextNode(headerText);
-                        header.appendChild(textNode);
-                        headerRow.appendChild(header);
-                    });
                     let dataContainer = document.getElementById("data");
-                    dataContainer.innerHTML = "";
-                    response.forEach(item => {
-                        let row = table.insertRow();
-                        let rowData = [item.recipename, item.healthyingredients, item.recipesteps.split('<br>').map(step => `<li>${step}</li>`).join(''), item.difficulty];
-                        rowData.forEach(cellData => {
-                            let cell = row.insertCell();
-                            let textNode = document.createElement('ul');
-                            textNode.innerHTML = cellData;
-                            cell.appendChild(textNode);
+                    dataContainer.innerHTML = ""; // Clear previous data
+                    if (response.length > 0) {
+                        document.getElementById("recipeContainer").style.display = "block"; // Show the container if there are recipes
+                        document.getElementById("hideButton").style.display = "block"; // Show the Hide button
+                        let table = document.createElement("table");
+                        let headerRow = table.insertRow();
+                        let headers = ["Recipe Name", "Healthy Ingredients", "Recipe Steps", "Difficulty"];
+                        headers.forEach(headerText => {
+                            let header = document.createElement("th");
+                            header.textContent = headerText;
+                            headerRow.appendChild(header);
                         });
-                    });
-                    dataContainer.appendChild(table);
+                        
+                        response.forEach(item => {
+                            let row = table.insertRow();
+                            let rowData = [item.recipename, item.healthyingredients, item.recipesteps.split('<br>').map(step => `<li>${step}</li>`).join(''), item.difficulty];
+                            rowData.forEach(cellData => {
+                                let cell = row.insertCell();
+                                cell.innerHTML = cellData;
+                            });
+                        });
+                        dataContainer.appendChild(table);
+                    } else {
+                        document.getElementById("recipeContainer").style.display = "none"; // Hide the container if there are no recipes
+                        document.getElementById("hideButton").style.display = "none"; // Hide the button if there are no recipes
+                    }
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
                     document.getElementById("error").innerHTML = "Error fetching recipes";
                 });
+        }
+
+        function hideRecipes() {
+            document.getElementById("recipeContainer").style.display = "none"; // Hide the recipe container
+            document.getElementById("hideButton").style.display = "none"; // Hide the button itself
         }
     </script>
 </body>

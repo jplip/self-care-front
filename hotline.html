@@ -8,10 +8,11 @@ permalink: /hotline
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotlines</title>
-
     <style>
+        /* Keep your existing CSS styling */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -67,17 +68,15 @@ permalink: /hotline
             background-color: white; /* White background for main content */
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow */
-            display: none; /* Initially hidden */
         }
 
         input[type=text] {
-            width: calc(70% - 10px); /* Adjust input width */
-            padding: 12px 20px;
-            margin: 8px 0;
-            box-sizing: border-box;
+            width: 70%; /* Adjust input width */
+            padding: 12px;
+            margin: 10px 10px 0 0;
             border: 1px solid #ced4da; /* Light gray border */
             border-radius: 5px;
-            margin-right: 10px; /* Add margin to the right */
+            box-sizing: border-box;
         }
 
         button.search-button {
@@ -102,8 +101,7 @@ permalink: /hotline
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow */
         }
 
-        th,
-        td {
+        th, td {
             border: 1px solid #dee2e6; /* Lighter gray border */
             padding: 8px;
             text-align: left;
@@ -121,19 +119,24 @@ permalink: /hotline
 
 <body>
     <!-- Home button linking to index.html -->
-    <a id="homeButton" href="index">Home</a>
+    <a id="homeButton" href="index.html">Home</a>
 
-    <div class='header'>
+    <div class="header">
         <button onclick="window.location.href='contact.html'">Contact Us</button>
     </div>
 
-    <div class='title-container'>
-        <h1 class='title'>Hotlines:</h1>
+    <div class="title-container">
+        <h1 class="title">Hotlines:</h1>
     </div>
 
-    <div class="container" id="tableContainer"> <!-- Removed style attribute -->
+    <!-- Search container -->
+    <div class="container" id="searchContainer">
         <input type="text" id="searchInput" placeholder="Search for hotlines...">
-        <button class="search-button" onclick="searchHotlines()">Search</button> <!-- Button to trigger search -->
+        <button class="search-button" onclick="searchHotlines()">Search</button>
+    </div>
+
+    <!-- Table container -->
+    <div class="container" id="tableContainer">
         <table id="hotline-table">
             <thead>
                 <tr>
@@ -147,35 +150,29 @@ permalink: /hotline
         </table>
     </div>
 
+    <!-- Place the script tag with the function after the button and HTML content -->
     <script>
         function searchHotlines() {
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("searchInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("hotline-table");
-            tr = table.getElementsByTagName("tr");
+            // Get the search input and its value
+            var input = document.getElementById("searchInput");
+            var filter = input.value.trim().toUpperCase();
 
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0]; // Change index to match the column you want to search
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
+            // Check if the input is empty
+            if (filter === "") {
+                alert("Please enter a search term.");
+                return;
             }
-        }
 
-        function displayHotlineTable() {
+            // Define the request options
             let options = {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
-                },
+                }
             };
-            fetch("http://127.0.0.1:8086/api/hotline/", options)
+
+            
+            fetch(`http://127.0.0.1:8086/api/hotline/?search=${filter}`, options)
                 .then(response => {
                     if (response.ok) {
                         return response.json();
@@ -185,23 +182,33 @@ permalink: /hotline
                 })
                 .then(data => {
                     const tableBody = document.querySelector("#hotline-table tbody");
-                    tableBody.innerHTML = ""; // Clear the existing table data
-                    data.forEach(hotline => {
+
+                    // Clear existing table data
+                    tableBody.innerHTML = "";
+
+                    // Filter the data based on the search term (filter)
+                    // In case the API does not return filtered data
+                    const filteredData = data.filter(hotline => hotline.name.toUpperCase().includes(filter));
+
+                    // Populate the table body with the filtered data
+                    filteredData.forEach(hotline => {
                         const row = tableBody.insertRow();
                         const nameCell = row.insertCell(0);
                         const hotlineCell = row.insertCell(1);
 
+                        // Set cell text with hotline name and number
                         nameCell.textContent = hotline.name;
                         hotlineCell.textContent = hotline.number;
                     });
-                    document.getElementById("tableContainer").style.display = "block"; // Show the table
+
+                    // Show the table container
+                    document.getElementById("tableContainer").style.display = "block";
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert(error);
+                    alert('An error occurred while fetching data. Please try again later.');
                 });
         }
-        window.onload = displayHotlineTable;
     </script>
 </body>
 
