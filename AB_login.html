@@ -147,9 +147,9 @@ body {
         })
         .then(response => {
             if (response.ok) {
-                return response.json();
-                window.location.href = '/update';
+                window.location.href = '/self-care-front/';
                 console.log("Good")
+                return response.json()
             } else {
                 if (response.status === 401) {
                     throw new Error('Wrong username or password. Please retype.');

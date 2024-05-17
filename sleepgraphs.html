@@ -1,23 +1,25 @@
 ---
-layout: base
 permalink: /sleepgraph/
-title:  Sleep Graphs
 search_exclude: true
 ---
-<html>
-<meta charset="UTF-8">
-<title>User Sleep Graph</title>
-<!-- Chart.js library -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<style>
-    /* Style the chart container */
-    #sleepChartContainer {
-        width: 2000px;
-        height: 2000px;
-        margin: 20px auto;
-    }
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Sleep Graph</title>
+    <!-- Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Style the chart container */
+        #sleepChartContainer {
+            width: 2000px;
+            height: 2000px;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
 
 <!-- Chart container -->
 <div id="sleepChartContainer">
@@ -25,128 +27,117 @@ search_exclude: true
 </div>
 
 <script>
- // This function calculates the total sleep duration from the provided sleep data
-// It takes an array of sleep data as input
-// Each sleep entry is an object with 'sleepDate' and 'sleepHours' properties
+    // Function to calculate total sleep duration from sleep data
+    function calculateTotalSleepDuration(sleepData) {
+        const totalDurationByDay = {};
 
-function calculateTotalSleepDuration(sleepData) {
-    const totalDurationByDay = {};
+        for (let i = 0; i < sleepData.length; i++) {
+            const entry = sleepData[i];
+            const date = entry.sleepDate;
+            const duration = parseFloat(entry.sleepHours) || 0;
 
-    // Iterate over each sleep entry and accumulate total sleep duration
-    for (let i = 0; i < sleepData.length; i++) {
-        const entry = sleepData[i];
-        const date = entry.sleepDate;
-        const duration = parseFloat(entry.sleepHours) || 0; // Parse hours to a floating point number, default to 0 if not provided
-
-        // Check if entry for this date already exists
-        if (totalDurationByDay[date]) {
-            // Add duration to existing total for this date
-            totalDurationByDay[date] += duration;
-        } else {
-            // Initialize total duration for this date
-            totalDurationByDay[date] = duration;
+            if (totalDurationByDay[date]) {
+                totalDurationByDay[date] += duration;
+            } else {
+                totalDurationByDay[date] = duration;
+            }
         }
+
+        return totalDurationByDay;
     }
 
-    return totalDurationByDay;
-}
+    // Function to determine color based on sleep quality and iterate through the qualities array
 
-// Function to determine color based on sleep quality
-function getColor(quality) {
-    switch (quality.toLowerCase()) {
-        case 'excellent':
-            return 'rgba(75, 192, 192, 0.5)';
-        case 'good':
-            return 'rgba(54, 162, 235, 0.5)';
-        case 'fair':
-            return 'rgba(255, 206, 86, 0.5)';
-        case 'poor':
-            return 'rgba(255, 99, 132, 0.5)';
-        default:
-            return 'rgba(0, 0, 0, 0.5)';
-    }
-}
 
-// Get user ID from Local Storage
-const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
 
-// Fetch sleep data for the specific user from the server API
-fetch(`http://127.0.0.1:8086/api/users/${userIDFromLocalStorage}`)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(userData => {
-        // Log the fetched data to the console for inspection
-        console.log('Fetched User Data:', userData);
 
-        // Extract sleep data from the user's sleep array
-        const sleepData = userData.sleep || [];
 
-        // Calculate the total sleep duration
-        const totalDurationByDay = calculateTotalSleepDuration(sleepData);
-        console.log("Total duration by day:", totalDurationByDay);
-
-        // Extract dates and total sleep hours from the total duration by day object
-        const sleepDates = Object.keys(totalDurationByDay);
-        const sleepHours = Object.values(totalDurationByDay);
-
-        // Determine colors based on sleep quality for each date
-        const colors = [];
-        for (let i = 0; i < sleepDates.length; i++) {
-            const date = sleepDates[i];
-            let quality;
-            for (let j = 0; j < sleepData.length; j++) {
-                const entry = sleepData[j];
-                if (entry.sleepDate === date) {
-                    quality = entry.quality;
-                    break;
+    
+    function getColor(qualities, index) {
+        for (let i = 0; i < qualities.length; i++) {
+            if (i === index) {
+                const quality = qualities[i].toLowerCase();
+                switch (quality) {
+                    case 'excellent':
+                        return 'rgba(75, 192, 192, 0.5)';
+                    case 'good':
+                        return 'rgba(54, 162, 235, 0.5)';
+                    case 'fair':
+                        return 'rgba(255, 206, 86, 0.5)';
+                    case 'poor':
+                        return 'rgba(255, 99, 132, 0.5)';
+                    default:
+                        return 'rgba(0, 0, 0, 0.5)';
                 }
             }
-            colors.push(getColor(quality));
         }
+    }
 
-        // Create the chart using Chart.js
-        const ctx = document.getElementById('sleepChart').getContext('2d');
-        const sleepChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: sleepDates,
-                datasets: [{
-                    label: 'Total Sleep Duration',
-                    data: sleepHours,
-                    backgroundColor: colors,
-                    borderColor: colors.map(color => color.replace('0.5', '1')), // Make border color opaque
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: false, // Ensure responsiveness is turned off
-                maintainAspectRatio: false, // Avoid maintaining aspect ratio
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Sleep (Hours)'
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Date'
+    // Fetch user data and create the chart
+    const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
+    fetch(`http://127.0.0.1:8086/api/users/${userIDFromLocalStorage}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(userData => {
+            console.log('Fetched User Data:', userData);
+            
+            const sleepData = userData.sleep || [];
+            const totalDurationByDay = calculateTotalSleepDuration(sleepData);
+            console.log("Total duration by day:", totalDurationByDay);
+            
+            const sleepDates = Object.keys(totalDurationByDay);
+            const sleepHours = Object.values(totalDurationByDay);
+            
+            // Extract qualities from the sleepData array
+            const sleepQualities = sleepData.map(entry => entry.quality);
+            const colors = [];
+            for (let i = 0; i < sleepDates.length; i++) {
+                const date = sleepDates[i];
+                colors.push(getColor(sleepQualities, i)); // Call getColor function with qualities array and index
+            }
+            
+            const ctx = document.getElementById('sleepChart').getContext('2d');
+            const sleepChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: sleepDates,
+                    datasets: [{
+                        label: 'Total Sleep Duration',
+                        data: sleepHours,
+                        backgroundColor: colors,
+                        borderColor: colors.map(color => color.replace('0.5', '1')),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Sleep (Hours)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
                         }
                     }
                 }
-            }
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
         });
-    })
-    .catch(error => {
-        console.error('Error fetching data:', error);
-        // Handle error if the request fails
-    });
 
 </script>
+</body>
 </html>

@@ -230,7 +230,7 @@ permalink: /update
 		console.log(id)
 		var data = JSON.stringify(id)
 		if (confirmation === "DELETE") {
-			fetch(`${url + 'delete/'}${id}`, {
+			fetch(`${url}${id}`, {
 				method: "DELETE",
 				mode: 'cors', // no-cors, *cors, same-origin
 			})

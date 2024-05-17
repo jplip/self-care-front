@@ -1,13 +1,13 @@
 ---
-layout: base
-title: Exercise/Sleep
 permalink: /tracking/
 --- 
 
 ![Alt text](images/exercise.png)
 <html>
+<style>
+</style>
 <body>
-<div class="purple-form">
+<div class="container">
         <div id="binaryDurationBadge" class="binary-badge"></div>
         <form id="exerciseForm">
             <label for="exerciseType">Exercise Type:</label>
@@ -71,20 +71,18 @@ permalink: /tracking/
                 });
         });
     </script>
-    <iframe src="{{site.baseurl}}/exercisegraph" width="800" height="600" frameborder="0"></iframe>
+    <iframe src="{{site.baseurl}}/exercisegraph" width="400" height="100" frameborder="0"></iframe>
 </body>
 </html>
 
 
-![Alt text](images/sleep.png)
+ ![Alt text](images/sleep.png)
 
 <meta charset="UTF-8">
 <title>Sleep Tracker</title>
 
-![Alt text](legend.png)
-
-<div id="selectedAscii"></div>
-<div class="purple-form">
+ ![Alt text](legend.png)
+<div class="container">
     <form id="sleepForm">
         <label for="sleepHours">Hours of Sleep:</label>
         <input type="number" id="sleepHours" name="sleepHours" placeholder="Enter hours of sleep" required>
@@ -103,8 +101,8 @@ permalink: /tracking/
 </div>
 
 <script>
-    // const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
-    // const userNameFromLocalStorage = localStorage.getItem('loggedInUserName');
+   //const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
+   // const userNameFromLocalStorage = localStorage.getItem('loggedInUserName');
     console.log(userIDFromLocalStorage);
     document.getElementById('sleepForm').addEventListener('submit', function (event) {
         event.preventDefault();
