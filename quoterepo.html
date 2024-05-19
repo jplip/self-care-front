@@ -165,7 +165,7 @@ permalink: /quote-repo-old
                 quoteauthor: quoteauthor,
                 opinion: opinion,
             };
-            fetch('http://127.0.0.1:8086/api/quotes/build', {
+            fetch('http://127.0.0.1:8432/api/quotes/build', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -199,7 +199,7 @@ permalink: /quote-repo-old
                     'Content-Type': 'application/json;charset=utf-8'
                 },
             };
-            fetch("http://127.0.0.1:8086/api/quotes/read", options)
+            fetch("http://127.0.0.1:8432/api/quotes/read", options)
                 .then(response => {
                     if (response.ok) {
                         return response.json();

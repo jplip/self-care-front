@@ -209,7 +209,7 @@ permalink: /recipe
                 "difficulty": difficulty,
             };
 
-            fetch('http://127.0.0.1:8086/api/recipes/make', {
+            fetch('http://127.0.0.1:8432/api/recipes/make', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -243,7 +243,7 @@ permalink: /recipe
                     'Content-Type': 'application/json;charset=utf-8'
                 },
             };
-            fetch("http://127.0.0.1:8086/api/recipes/read", options)
+            fetch("http://127.0.0.1:8432/api/recipes/read", options)
                 .then(response => {
                     if (response.ok) {
                         return response.json();

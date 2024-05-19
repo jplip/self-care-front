@@ -173,7 +173,7 @@ permalink: /stroke
             bmi: form['bmi'].value,
             smoking_status: form['smoking_status'].value
         };
-        fetch('http://localhost:8086/api/stroke/predict', {
+        fetch('http://localhost:8432/api/stroke/predict', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

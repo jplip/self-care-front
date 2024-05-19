@@ -120,7 +120,7 @@ permalink: /depression
             },
             body: JSON.stringify(data)
         };
-        fetch("http://127.0.0.1:8086/api/predict/", options)
+        fetch("http://127.0.0.1:8432/api/predict/", options)
             .then(response => response.json())
             .then(result => {
                 document.getElementById("depressed").innerHTML = result;

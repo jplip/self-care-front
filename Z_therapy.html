@@ -289,7 +289,7 @@ permalink: /therapy
                     'Content-Type': 'application/json;charset=utf-8'
                 },
             };
-            fetch("http://127.0.0.1:8086/api/therapy/", options)
+            fetch("http://127.0.0.1:8432/api/therapy/", options)
             .then(response => {
                 if (response.ok) {
                     return response.json();

@@ -30,7 +30,7 @@ permalink: /qt1
             let data = {
                 qt1name: qt1name,
             };
-            fetch('http://127.0.0.1:8086/api/qt1/make', {
+            fetch('http://127.0.0.1:8432/api/qt1/make', {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {
@@ -65,7 +65,7 @@ permalink: /qt1
                     'Content-Type': 'application/json;charset=utf-8'
                 },
             };
-            fetch("http://127.0.0.1:8086/api/qt1/read", options)
+            fetch("http://127.0.0.1:8432/api/qt1/read", options)
                 .then(response => {
                     if (response.ok) {
                         return response.json();
