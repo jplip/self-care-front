@@ -24,15 +24,15 @@ function handleImageUpload(event) {
 }
 
 function applyFilter(filter) {
-    if (!originalImageData) return;
-
+    // Retrieve the image data from the canvas
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const data = imageData.data;
 
+    // Apply the selected filter to the image data on the canvas
     for (let i = 0; i < data.length; i += 4) {
-        let r = data[i];
-        let g = data[i + 1];
-        let b = data[i + 2];
+        let r = originalImageData.data[i];
+        let g = originalImageData.data[i + 1];
+        let b = originalImageData.data[i + 2];
 
         switch (filter) {
             case 'grayscale':
@@ -51,8 +51,24 @@ function applyFilter(filter) {
                 break;
         }
     }
+
+    // Put the modified image data back to the canvas
     ctx.putImageData(imageData, 0, 0);
+
+    // Convert canvas data to blob and update original image file input
+    canvas.toBlob(function(blob) {
+        const newFile = new File([blob], file.name, { type: 'image/png' });
+        const fileInput = document.getElementById('image');
+        const newFileInput = document.createElement('input');
+        newFileInput.type = 'file';
+        newFileInput.files = [newFile];
+        newFileInput.style.display = 'none';
+        fileInput.parentNode.appendChild(newFileInput);
+        fileInput.parentNode.removeChild(fileInput);
+        document.getElementById('profile-form').appendChild(fileInput);
+    }, 'image/png');
 }
+
 
 function resetImage() {
     if (originalImageData) {
@@ -82,3 +98,4 @@ async function handleSubmit(event) {
     const result = await response.json();
     console.log(result);
 }
+
