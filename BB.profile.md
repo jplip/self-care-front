@@ -63,7 +63,6 @@ permalink: /profile
             <button type="submit">Submit</button>
         </form>
     </div>
-
-    <script src="script.js"></script>
+    <script src="{{site.baseurl}}/assets/script.js"></script>
 </body>
 </html>
