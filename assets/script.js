@@ -1,6 +1,8 @@
 document.getElementById('image').addEventListener('change', handleImageUpload);
 document.getElementById('profile-form').addEventListener('submit', handleSubmit);
 
+const userIDFromLocalStorage = localStorage.getItem('loggedInUserId')
+
 let originalImageData;
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
@@ -90,7 +92,7 @@ async function handleSubmit(event) {
     const image = canvas.toDataURL('image/png');
     formData.append('image', image);
 
-    const response = await fetch('/api/update_profile', {
+    const response = await fetch('/api/users/', {
         method: 'PUT',
         body: formData
     });
