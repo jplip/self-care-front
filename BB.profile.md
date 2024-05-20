@@ -27,18 +27,19 @@ permalink: /profile
     </style>
 </head>
 <body>
+<h1>Welcome, <span id="user-name"></span>!</h1>
     <div class="profile-container">
         <h2>Profile Page</h2>
         <form id="profile-form">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name"><br><br>
 
             <label for="age">Age:</label>
             <input type="number" id="age" name="age"><br><br>
 
-            <label for="gender">Gender:</label>
-            <input type="text" id="gender" name="gender"><br><br>
-
+             <label for="gender">Gender:</label>
+             <select id="gender" name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select><br>
             <label for="bio">Bio:</label>
             <textarea id="bio" name="bio"></textarea><br><br>
 
@@ -63,6 +64,14 @@ permalink: /profile
             <button type="submit">Submit</button>
         </form>
     </div>
+    <script>
+    const userNameFromLocalStorage = localStorage.getItem('loggedInUserName');
+    const userNameElement = document.getElementById('user-name');
+
+    if (userNameFromLocalStorage) {
+        userNameElement.textContent = userNameFromLocalStorage;
+    }
+   </script>
     <script src="{{site.baseurl}}/assets/script.js"></script>
 </body>
 </html>
