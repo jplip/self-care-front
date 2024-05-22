@@ -1,10 +1,12 @@
 ---
 layout: base
 title: View
-permalink: /view/
+permalink: /view
 ---
 
+
 # View Quotes
+
 
 <table>
   <thead>
@@ -14,36 +16,42 @@ permalink: /view/
       <th>Opinion</th>
     </tr>
   </thead>
-  <tbody id="quoteTable">
+  <tbody id="quotes_list">
   </tbody>
 </table>
+
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
       fetchQuotes();
   });
 
+
   function fetchQuotes() {
       fetch("http://127.0.0.1:8086/api/quotes/read")
-          .then(response => {
-              if (!response.ok) {
-                  throw new Error('Network response was not ok.');
-              }
-              return response.json();
+          .then(response => {            
+            if (response.ok) {
+                return response.json();
+                }
+            else {
+                console.error('Fetch response not ok');
+                throw new Error('Fetch response not ok');
+            }
           })
-          .then(data => {
-              renderQuotesTable(data);
+          .then(quotes_json_list => {
+              showQuotesTable(quotes_json_list);
           })
           .catch(error => {
               console.error('Error fetching data:', error);
-              document.getElementById("quoteTable").innerHTML = "Error fetching quotes";
+              document.getElementById("quotes_list").innerHTML = "Error fetching quotes";
           });
   }
 
-  function renderQuotesTable(quotes) {
-      let tableBody = '';
-      quotes.forEach(quote => {
-          tableBody += `
+
+  function showQuotesTable(quotes_json_list) {
+      let tblBody = '';
+      quotes_json_list.forEach(quote => {
+          tblBody += `
               <tr>
                   <td>${quote.quotename}</td>
                   <td>${quote.quoteauthor}</td>
@@ -51,6 +59,6 @@ permalink: /view/
               </tr>
           `;
       });
-      document.getElementById("quoteTable").innerHTML = tableBody;
+      document.getElementById("quotes_list").innerHTML = tblBody;
   }
 </script>

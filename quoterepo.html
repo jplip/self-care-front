@@ -1,7 +1,7 @@
 ---
 layout: base
-title: Quote Repository (Old)
-permalink: /quote-repo-old
+title: Quote Repository
+permalink: /quoterepo
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -39,6 +39,12 @@ permalink: /quote-repo-old
             color: #333;
         }
 
+        h2 {
+            font-size: 2.0rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
         label {
             font-weight: bold;
             font-size: 1.1rem;
@@ -56,7 +62,8 @@ permalink: /quote-repo-old
             resize: none;
         }
 
-        input[type="submit"] {
+        input[type="submit"],
+        .quotes-button {
             background-color: #8455a5;
             color: white;
             cursor: pointer;
@@ -66,10 +73,12 @@ permalink: /quote-repo-old
             font-size: 1.1rem;
             transition: background-color 0.3s ease;
             margin-right: 10px;
+            margin-top: 20px;
         }
 
-        input[type="submit"]:hover {
-            background-color: #8455a5;
+        input[type="submit"]:hover,
+        .quotes-button:hover {
+            background-color: #684085;
         }
 
         .error-message {
@@ -107,31 +116,45 @@ permalink: /quote-repo-old
             opacity: 0.5;
         }
 
-        /* Style for the "View Quotes" button */
-        .view-quotes-button {
-            background-color: #8455a5;
-            color: white;
-            cursor: pointer;
-            padding: 14px 20px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            transition: background-color 0.3s ease;
+        .rating {
+            display: flex;
+            justify-content: center;
+            direction: rtl;
             margin-top: 20px;
         }
 
-        .view-quotes-button:hover {
-            background-color: #684085;
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            font-size: 3rem;
+            color: #ccc;
+            cursor: pointer;
+            padding: 0 0.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .rating label::before {
+            content: '★';
+        }
+
+        .rating input:checked ~ label {
+            color: #ffcc00;
+        }
+
+        .rating label:hover,
+        .rating label:hover ~ label {
+            color: #ff69b4;
         }
     </style>
 </head>
 
 <body>
     <a id="homeButton" href="index">Home</a>
-    </div>
-    <div class="container" id="animation">
-        <h1>Motivational Quote Repository</h1>
-        <form id="quoteForm" class="form-control">
+    <div class="container">
+        <h2>Motivational Quote Repository</h2>
+        <form id="quoteForm" autocomplete="off">
             <label for="qquote">Motivational Quote:</label>
             <input type="text" id="quotename" name="quotename" placeholder="Enter your quote" required>
 
@@ -141,80 +164,67 @@ permalink: /quote-repo-old
             <label for="qopinion">Your Opinion:</label>
             <textarea id="opinion" name="opinion" placeholder="Write your opinion on the quote" required></textarea>
 
-            <button class="view-quotes-button" onclick="submitQuote()">Submit!</button>
+            <label for="ratingg">Quote Rating:</label>
+            <div class="rating">
+                <input type="radio" name="star" id="star1" value="5"><label for="star1" title="5 stars"></label>
+                <input type="radio" name="star" id="star2" value="4"><label for="star2" title="4 stars"></label>
+                <input type="radio" name="star" id="star3" value="3"><label for="star3" title="3 stars"></label>
+                <input type="radio" name="star" id="star4" value="2"><label for="star4" title="2 stars"></label>
+                <input type="radio" name="star" id="star5" value="1"><label for="star5" title="1 star"></label>
+            </div>
 
-            <!-- View Quotes button -->
-            <input type="button" class="view-quotes-button" value="View Quotes" onclick="window.location.href='https://jplip.github.io/self-care-front/view/'">
+            <button class="quotes-button" type="button" onclick="submitQuote()">Submit</button>
+            <!-- View Quotes -->
+            <input type="button" class="quotes-button" value="View Quotes" onclick="window.location.href='view'">
         </form>
-        <p id="error"></p>
-        <div id="data"></div>
     </div>
     <script>
-        function submitQuote() {
-            let quotename = document.getElementById('quotename').value;
-            let quoteauthor = document.getElementById('quoteauthor').value;
-            let opinion = document.getElementById('opinion').value;
+        // This is the JavaScript part of the frontend.
+        // File name: quoterepo.html
 
-            if (!quotename || !quoteauthor || !opinion) {
-                alert("Please fill in all fields");
-                return;
+        // Function to submit a new quote
+        function submitQuote() {
+            // Retrieving the values entered by the user for the quote, author, and opinion fields
+            let _quotename = document.getElementById('quotename').value;
+            let _quoteauthor = document.getElementById('quoteauthor').value;
+            let _opinion = document.getElementById('opinion').value;
+            let _rating = document.querySelector('input[name="star"]:checked') ? document.querySelector('input[name="star"]:checked').value : null;
+
+            // Checking if any of the fields are left empty
+            if (!_quotename || !_quoteauthor || !_opinion || !_rating) {
+                // Alerting the user to fill in all the fields if any are left empty
+                alert("Please fill in all fields and provide a rating");
+                return; // Exiting the function early if any fields are empty
             }
 
-            let quoteObject = {
-                quotename: quotename,
-                quoteauthor: quoteauthor,
-                opinion: opinion,
+            // Creating an object to store the submitted quote data
+            let quote_object = {
+                "quotename": _quotename,
+                "quoteauthor": _quoteauthor,
+                "opinion": _opinion,
+                "rating": _rating,
             };
-            fetch('http://127.0.0.1:8432/api/quotes/build', {
+
+            // Sending a POST request to a server endpoint with the quote data
+            fetch('http://127.0.0.1:8086/api/quotes/make', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(quoteObject)
+                body: JSON.stringify(quote_object) // Converting the JavaScript object to JSON format
             })
             .then(response => {
-                if (response.ok) {
-                    document.getElementById("error").innerHTML = "Quotes updated!";
-                    fetchQuotes();
-                } else {
-                    return response.json().then(errorData => {
-                        if (errorData && errorData.message) {
-                            document.getElementById("error").innerHTML = errorData.message;
-                        } else {
-                            document.getElementById("error").innerHTML = "Error submitting quote";
-                        }
-                    });
-                }
+                // Handling the response from the server
+                return response.json(); // Parsing the response as JSON
+            })
+            .then(response_json => {
+                // Displaying an alert to the user upon successful submission of the quote
+                alert("Quote Submitted Successfully");
             })
             .catch(error => {
-                console.error("Error:", error);
-                document.getElementById("error").innerHTML = "Error submitting quote";
+                // Handling any errors that occur during the submission process
+                alert("Quote Submission Failed");
             });
-        }
-
-        function fetchQuotes() {
-            let options = {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-            };
-            fetch("http://127.0.0.1:8432/api/quotes/read", options)
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        throw new Error('Network response was not ok.');
-                    }
-                 })
-                .then(response => {
-                    let dataContainer = document.getElementById("data");
-                    dataContainer.innerHTML = "";
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                    document.getElementById("error").innerHTML = "Error fetching quotes";
-                });
         }
     </script>
 </body>
