@@ -85,6 +85,8 @@ body {
         };
         fetch('https://well.stu.nighthawkcodingsociety.com/api/users/authenticate', {
             method: 'POST',
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'default',
             headers: {
                 'Content-Type': 'application/json'
             },
