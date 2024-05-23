@@ -75,6 +75,8 @@ body {
 <div id="userDisplayName"></div>
 
 <script>
+    import { uri, options } from './config.js';
+
     document.getElementById('loginForm').addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent form submission
         const uid = document.getElementById('uid').value;
@@ -83,21 +85,16 @@ body {
             uid: uid,
             password: password
         };
-        fetch('https://well.stu.nighthawkcodingsociety.com/api/users/authenticate', {
+    
+        fetch(`${uri}/api/users/authenticate`, {
+            ...options,
             method: 'POST',
-            mode: 'cors', // no-cors, *cors, same-origin
-            cache: 'default',
-            headers: {
-                'Content-Type': 'application/json'
-            },
             body: JSON.stringify(loginData),
-            credentials: 'include'
         })
         .then(response => {
             if (response.ok) {
                 window.location.href = '/self-care-front/';
-                console.log("Good")
-                return response.json()
+                return response.json();
             } else {
                 if (response.status === 401) {
                     throw new Error('Wrong username or password. Please retype.');
@@ -112,21 +109,20 @@ body {
             const loggedInUserName = data.name;
             const loggedInUserId = data.id;
             console.log(loggedInUserName);
-            console.log(loggedInUserName);
+            console.log(loggedInUserId);
             localStorage.setItem('loggedInUserName', loggedInUserName);
             localStorage.setItem('loggedInUserId', loggedInUserId);
             document.getElementById('userDisplayName').textContent = `Welcome, ${loggedInUserName}!`;
             document.getElementById('loginForm').style.display = 'none';
-            const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
-            console.log(userIDFromLocalStorage);
             document.getElementById('updateButton').style.display = 'block';
         })
         .catch(error => {
             document.getElementById('error').textContent = error.message;
         });
     });
+    
     function toggleSidebar() {
         var sidebar = document.getElementById("sidebar");
         sidebar.classList.toggle("active");
     }
-</script>
+    
