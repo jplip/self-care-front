@@ -67,13 +67,15 @@ permalink: /kpop
 
 <div class="container">
     <div class="key-box">
-        <h2>Song: <span id="card-song"></span></h2>
+        <!-- Left container holding all info data about song -->
+        <h2>Song: <span id="card-song"></span></h2> 
         <h2>Artist: <span id="card-artist"></span></h2>
         <h2>Album: <span id="card-album"></span></h2>
         <h2>Genre: <span id="card-genre"></span></h2>
         <h2>Time: <span id="card-time"></span></h2>
     </div>
     <div class="card">
+        <!-- Where the image is displayed with button to search -->
         <div class="card-title">Song Pile</div>
         <button class="generate-button" onclick="generateCard()">Generate Song</button>
         <div id="table-container"></div>
@@ -88,18 +90,20 @@ permalink: /kpop
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
+                //grabs data from backend
                 const cardSong = data.song;
                 const cardArtist = data.artist;
                 const cardAlbum = data.album;
                 const cardGenre = data.genre;
                 const cardTime = data.time;
 
+                //define data to be used in container
                 document.getElementById('card-song').textContent = cardSong;
                 document.getElementById('card-artist').textContent = cardArtist;
                 document.getElementById('card-album').textContent = cardAlbum;
                 document.getElementById('card-genre').textContent = cardGenre;
                 document.getElementById('card-time').textContent = cardTime;
-                const imgURL = data.icon; // Assuming the API response has a "quote" property.
+                const imgURL = data.icon;
                 const img = document.createElement('img');
                 img.src = imgURL;
                 document.getElementById('random-image').src = imgURL;
