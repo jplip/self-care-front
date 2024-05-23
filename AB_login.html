@@ -75,7 +75,7 @@ body {
 <div id="userDisplayName"></div>
 
 <script>
-    import { uri, options } from './config.js';
+    import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
 
     document.getElementById('loginForm').addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent form submission
@@ -86,7 +86,7 @@ body {
             password: password
         };
     
-        fetch(`${uri}/api/users/authenticate`, {
+        fetch('https://well.stu.nighthawkcodingsociety.com/api/users/authenticate', {
             ...options,
             method: 'POST',
             body: JSON.stringify(loginData),
