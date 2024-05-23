@@ -1,0 +1,95 @@
+---
+permalink: /edit
+---
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-image: url('e285661a023fb83c8d7f975980422c22.gif');
+        background-size: cover;
+    }
+    .card {
+        width: 400px;
+        background: #fff;
+        padding: 40px;
+        border-radius: 15px;
+        text-align: center;
+        color: #333;
+    }
+    .card h1 {
+        font-weight: 500;
+        color: #000;;
+    }
+    .card p {
+        font-size: 22px;
+    }
+    .card img{
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        margin-top: 40px;
+        margin-bottom: 30px;
+    }
+    .submit-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+    }
+    .submit-button:hover {
+            background-color: #0056b3;
+        }
+    #update-image {
+        display: block;
+        width: 200px;
+        background: #e3362c;
+        color: #fff;
+        padding: 12px;
+        margin: 10px auto;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    input {
+        display: none;
+    }
+</style>
+
+{% include sidebar.html %}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+</head>
+<body>
+    <div class="card">
+        <h1>Edit Profile</h1>
+        <form action="#" method="post">
+            <label for="bio">Bio:</label><br>
+            <textarea id="bio" name="bio" class="bio-input" rows="4" cols="50"></textarea><br>
+            <img src="images/profile.webp" id="pfp">
+            <label id='update-image' for="input-image">Update Image</label>
+            <input id='input-image'type="file" accept="image/jpeg, image/jpg, image/png">
+            <br><br>
+            <button type="submit" class="submit-button" onclick="save()">Save Changes</button>
+        </form>
+    </div>
+</body>
+</html>
+<script>
+    let pfp = document.getElementById('pfp');
+    let inputImg = document.getElementById('input-image');
+
+    inputImg.onchange = function() {
+        pfp.src = URL.createObjectURL(inputImg.files[0]);
+    }
+</script>

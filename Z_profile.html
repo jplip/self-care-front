@@ -1,0 +1,121 @@
+---
+permalink: /profile
+---
+<style>
+    .background {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .card {
+        width: 400px;
+        background: #fff;
+        padding: 40px;
+        border-radius: 15px;
+        text-align: center;
+        color: #333;
+    }
+    .card h1 {
+        font-weight: 500;
+        color: #000;;
+    }
+    .card p {
+        font-size: 22px;
+    }
+    .card img{
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        margin-top: 40px;
+        margin-bottom: 30px;
+    }
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-image: url('e285661a023fb83c8d7f975980422c22.gif');
+        background-size: cover;
+    }
+    #edit {
+        display: block;
+        width: 200px;
+        background: #1e4f2b; /* Dark forest green */
+        color: #fff;
+        padding: 12px;
+        margin: 10px auto;
+        border-radius: 5px;
+        cursor: pointer;
+        border: none; /* Remove the border */
+    }
+</style>
+
+{% include sidebar.html %}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+</head>
+<body>
+    <div class="background">
+        <div class="card">
+            <h1 id="name">Name</h1>
+            <p id="bio">Bio</p>
+            <img src="images/profile.webp">
+            <button id='edit' onclick="edit()">Edit Profile</button>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    function edit() {
+        window.location.href = '/edit';
+    }
+    function loadName() {
+        let name = document.getElementById('name')
+        name.textContent = '';
+        name.textContent = `${loggedInUserName}`;
+    }
+    function loadBio() {
+        let options = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                credentials: 'include'
+            };
+            fetch("http://127.0.0.1:8432/api/users/bio", options)
+            // Local: http://127.0.0.1:8010/api/users/diary
+            // Deployed: https://SanDiegoTravel.stu.nighthawkcodingsociety.com/api/users/diary
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Network response was not ok.');
+                    }
+                })
+                .then(response => {
+                    let bio = document.getElementById("bio");
+                    // Clear previous data
+                    bio.innerHTML = response.trim(); // Paste fetched data directly into the bio element
+                })
+                .catch(error => {
+                    console.error('Error fetching diary:', error);
+                    // Handle error
+                });
+    }
+    function loadPFP() {
+        qdqdqdd
+    }
+    window.onload = loadData() {
+        loadName();
+        loadBio();
+        loadPFP();
+    };
+</script>
