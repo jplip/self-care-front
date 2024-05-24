@@ -68,14 +68,14 @@ permalink: /profile
             <h1 id="name">Name</h1>
             <p id="bio">Bio</p>
             <img src="images/profile.webp">
-            <button id='edit' onclick="edit()">Edit Profile</button>
+            <a id='edit' href="http://127.0.0.1:4100/self-care-front/edit">Edit Profile</a>
         </div>
     </div>
 </body>
 </html>
 <script>
     function edit() {
-        window.location.href = '/edit';
+        window.location.href = 'http://127.0.0.1:4100/self-care-front/edit';
     }
     function loadName() {
         let name = document.getElementById('name')
@@ -119,6 +119,6 @@ permalink: /profile
         loadBio();
         loadPFP();
     };
-    
+
     window.onload = loadData()
 </script>
