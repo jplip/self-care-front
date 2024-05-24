@@ -14,6 +14,7 @@ permalink: /view
       <th>Quote</th>
       <th>Author</th>
       <th>Opinion</th>
+      <th>Rating</th>
     </tr>
   </thead>
   <tbody id="quotes_list">
@@ -56,6 +57,7 @@ permalink: /view
                   <td>${quote.quotename}</td>
                   <td>${quote.quoteauthor}</td>
                   <td>${quote.opinion}</td>
+                  <td>${quote.rating}</td>
               </tr>
           `;
       });
