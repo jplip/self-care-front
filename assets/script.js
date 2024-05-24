@@ -1,7 +1,7 @@
 document.getElementById('image').addEventListener('change', handleImageUpload);
 document.getElementById('profile-form').addEventListener('submit', handleSubmit);
 
-const userIDFromLocalStorage = localStorage.getItem('loggedInUserId')
+const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
 
 let originalImageData;
 const canvas = document.getElementById('canvas');
@@ -26,11 +26,9 @@ function handleImageUpload(event) {
 }
 
 function applyFilter(filter) {
-    // Retrieve the image data from the canvas
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const data = imageData.data;
 
-    // Apply the selected filter to the image data on the canvas
     for (let i = 0; i < data.length; i += 4) {
         let r = originalImageData.data[i];
         let g = originalImageData.data[i + 1];
@@ -54,23 +52,8 @@ function applyFilter(filter) {
         }
     }
 
-    // Put the modified image data back to the canvas
     ctx.putImageData(imageData, 0, 0);
-
-    // Convert canvas data to blob and update original image file input
-    canvas.toBlob(function(blob) {
-        const newFile = new File([blob], file.name, { type: 'image/png' });
-        const fileInput = document.getElementById('image');
-        const newFileInput = document.createElement('input');
-        newFileInput.type = 'file';
-        newFileInput.files = [newFile];
-        newFileInput.style.display = 'none';
-        fileInput.parentNode.appendChild(newFileInput);
-        fileInput.parentNode.removeChild(fileInput);
-        document.getElementById('profile-form').appendChild(fileInput);
-    }, 'image/png');
 }
-
 
 function resetImage() {
     if (originalImageData) {
@@ -81,23 +64,63 @@ function resetImage() {
 async function handleSubmit(event) {
     event.preventDefault();
 
-    const formData = new FormData();
-    formData.append('name', document.getElementById('name').value);
-    formData.append('age', document.getElementById('age').value);
-    formData.append('gender', document.getElementById('gender').value);
-    formData.append('bio', document.getElementById('bio').value);
-    formData.append('exerciseGoals', document.getElementById('exerciseGoals').value);
-    formData.append('sleepGoals', document.getElementById('sleepGoals').value);
+    const formData = {
+        id: "1",
+        age: document.getElementById('age').value,
+        gender: document.getElementById('gender').value,
+        bio: document.getElementById('bio').value,
+        exerciseGoals: document.getElementById('exerciseGoals').value,
+        sleepGoals: document.getElementById('sleepGoals').value,
+    };
 
-    const image = canvas.toDataURL('image/png');
-    formData.append('image', image);
+    canvas.toBlob(async (blob) => {
+        try {
+            const base64String = await blobToBase64(blob);
+            formData.image_path = base64String;
 
-    const response = await fetch('/api/users/', {
-        method: 'PUT',
-        body: formData
-    });
+            const response = await fetch('http://127.0.0.1:8432/api/users/1', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
 
-    const result = await response.json();
-    console.log(result);
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Server error: ${errorText}`);
+            }
+
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+                const result = await response.json();
+                console.log(result);
+            } else {
+                const resultText = await response.text();
+                throw new Error(`Unexpected response type: ${resultText}`);
+            }
+        } catch (error) {
+            console.error('Error during form submission:', error);
+        }
+    }, 'image/png');
 }
+
+// Helper function to convert Blob to Base64 string
+async function blobToBase64(blob) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = function() {
+            const base64String = btoa(reader.result);
+            resolve(base64String);
+        };
+        reader.onerror = function() {
+            reject(new Error('Error reading blob'));
+        };
+        reader.readAsBinaryString(blob);
+    });
+}
+
+
+
+// Call the async function
 
