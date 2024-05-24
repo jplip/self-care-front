@@ -76,7 +76,7 @@ permalink: /profile
     async function fetchAndDisplayImage() {
             try {
                 // Fetch JSON response
-                const response = await fetch('http://127.0.0.1:8432/api/users/1'); // Updated API endpoint
+                const response = await fetch(`http://127.0.0.1:8432/api/users/${userIDFromLocalStorage}`); // Updated API endpoint
                 if (!response.ok) {
                     throw new Error('Failed to fetch image: ' + response.status + ' ' + response.statusText);
                 }

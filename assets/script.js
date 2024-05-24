@@ -65,7 +65,7 @@ async function handleSubmit(event) {
     event.preventDefault();
 
     const formData = {
-        id: "1",
+        id: userIDFromLocalStorage,
         age: document.getElementById('age').value,
         gender: document.getElementById('gender').value,
         bio: document.getElementById('bio').value,
@@ -78,7 +78,7 @@ async function handleSubmit(event) {
             const base64String = await blobToBase64(blob);
             formData.image_path = base64String;
 
-            const response = await fetch('http://127.0.0.1:8432/api/users/1', {
+            const response = await fetch(`http://127.0.0.1:8432/api/users/${userIDFromLocalStorage}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
