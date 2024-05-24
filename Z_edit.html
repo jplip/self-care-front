@@ -37,22 +37,22 @@ permalink: /edit
         margin-bottom: 30px;
     }
     .submit-button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #08d101;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
     }
     .submit-button:hover {
-            background-color: #0056b3;
+            background-color: #51b300;
         }
     #update-image {
         display: block;
         width: 200px;
-        background: #e3362c;
+        background: #1e4f2b;
         color: #fff;
         padding: 12px;
         margin: 10px auto;
@@ -61,6 +61,19 @@ permalink: /edit
     }
     input {
         display: none;
+    }
+    .filter-buttons {
+        margin-top: 10px;
+    }
+    .filter-buttons button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #1c7a09;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
     }
 </style>
 
@@ -77,9 +90,15 @@ permalink: /edit
             <label for="bio">Bio:</label><br>
             <textarea id="bio" name="bio" class="bio-input" rows="4" cols="50"></textarea><br>
             <img src="images/profile.webp" id="pfp">
-            <label id='update-image' for="input-image">Update Image</label>
+            <label id='update-image' for="input-image">Upload Image</label>
             <input id='input-image'type="file" accept="image/jpeg, image/jpg, image/png">
             <br><br>
+            <div class="filter-buttons">
+                <button type="button" onclick="applyFilter('grayscale')">Grayscale</button>
+                <button type="button" onclick="applyFilter('invert')">Invert</button>
+                <button type="button" onclick="applyFilter('sepia')">Sepia</button>
+                <button type="button" onclick="resetImage()">Reset</button>
+            </div><br><br>
             <button type="submit" class="submit-button" onclick="save()">Save Changes</button>
         </form>
     </div>
@@ -118,7 +137,6 @@ permalink: /edit
                         // Handle successful submission
                         document.getElementById("error").innerHTML = "Diary updated!";
                         // Fetch updated images after submission
-                        fetchDiary()
                     } else {
                         // Handle submission error
                         return response.json().then(errorData => {
@@ -132,7 +150,7 @@ permalink: /edit
                 })
                 .catch(error => {
                     console.error("Error:", error);
-                    document.getElementById("error").innerHTML = "Error submitting diary";
+                    document.getElementById("error").innerHTML = "Error upadting profile.";
                 });
         }
 </script>
