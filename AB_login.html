@@ -85,7 +85,7 @@ import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
             uid: uid,
             password: password
         }; // data why is it
-        fetch(uri+'api/users/authenticate', {
+        fetch(' http://127.0.0.1:8432' +'api/users/authenticate', {
             ...options,
             method: 'POST',
             body: JSON.stringify(loginData),
