@@ -27,7 +27,7 @@ search_exclude: true
     const userIDFromLocalStorage = localStorage.getItem('loggedInUserId'); 
     console.log(userIDFromLocalStorage)
     // Fetch exercise data for the specific user from the server API
-    fetch(`http://127.0.0.1:8432/api/users/${userIDFromLocalStorage}`)
+    fetch(`https://well.stu.nighthawkcodingsociety.com/api/users/${userIDFromLocalStorage}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
