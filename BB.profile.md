@@ -32,7 +32,7 @@ permalink: /profile
         <h2>Profile Page</h2>
         <div id="image-container"></div>
         <form id="profile-form">
-
+        
             <label for="age">Age:</label>
             <input type="number" id="age" name="age"><br><br>
 
