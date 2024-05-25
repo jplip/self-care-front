@@ -19,7 +19,8 @@ permalink: /tracking/
             <input type="submit" value="Submit">
         </form>
     </div>
-    <script>
+    <script type="module">
+    import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
         const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
         console.log(userIDFromLocalStorage);
         const userNameFromLocalStorage = localStorage.getItem('loggedInUserName');
@@ -29,6 +30,7 @@ permalink: /tracking/
             const duration = document.getElementById('duration').value;
             const exerciseDate = document.getElementById('exerciseDate').value;
             fetch(`https://well.stu.nighthawkcodingsociety.com/api/users/${userIDFromLocalStorage}`)
+                 ...options,
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
@@ -51,7 +53,8 @@ permalink: /tracking/
                         "sleep": originalSleepData
                     };
                     var jsonData = JSON.stringify(data2);
-                    fetch(`http://127.0.0.1:8432/api/users/${userIDFromLocalStorage}`, {
+                    fetch(`https://well.stu.nighthawkcodingsociety.com/api/users/${userIDFromLocalStorage}`, {
+                        ...options,
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'
@@ -100,7 +103,8 @@ permalink: /tracking/
     </form>
 </div>
 
-<script>
+<script type="module">
+    import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
    //const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
    // const userNameFromLocalStorage = localStorage.getItem('loggedInUserName');
     console.log(userIDFromLocalStorage);
@@ -109,7 +113,7 @@ permalink: /tracking/
         const sleepHours = document.getElementById('sleepHours').value;
         const quality = document.getElementById('quality').value;
         const sleepDate = document.getElementById('sleepDate').value;
-        fetch(`http://127.0.0.1:8432/api/users/${userIDFromLocalStorage}`)
+        fetch(`https://well.stu.nighthawkcodingsociety.com/api/users/${userIDFromLocalStorage}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
@@ -134,7 +138,8 @@ permalink: /tracking/
                         "sleep": updatedSleepData
                     };
                     var jsonData = JSON.stringify(data2);
-                    fetch(`http://127.0.0.1:8432/api/users/${userIDFromLocalStorage}`, {
+                    fetch(`https://well.stu.nighthawkcodingsociety.com/api/users/${userIDFromLocalStorage}`, {
+                        ...options,
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'

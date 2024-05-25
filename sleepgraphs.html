@@ -26,7 +26,8 @@ search_exclude: true
     <canvas id="sleepChart"></canvas>
 </div>
 
-<script>
+<script type="module">
+    import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
     // Function to calculate total sleep duration from sleep data
     function calculateTotalSleepDuration(sleepData) {
         const totalDurationByDay = {};
