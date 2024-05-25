@@ -1,7 +1,7 @@
 ---
 layout: base
 title: Profile
-permalink: /profile
+permalink: /profiley
 ---
 <html lang="en">
 <head>
