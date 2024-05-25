@@ -105,7 +105,7 @@ permalink: /tracking/
 
 <script type="module">
     import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
-   //const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
+    const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
    // const userNameFromLocalStorage = localStorage.getItem('loggedInUserName');
     console.log(userIDFromLocalStorage);
     document.getElementById('sleepForm').addEventListener('submit', function (event) {
