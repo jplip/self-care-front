@@ -1,3 +1,6 @@
+
+import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
+
 document.getElementById('image').addEventListener('change', handleImageUpload);
 document.getElementById('profile-form').addEventListener('submit', handleSubmit);
 
@@ -78,7 +81,8 @@ async function handleSubmit(event) {
             const base64String = await blobToBase64(blob);
             formData.image_path = base64String;
 
-            const response = await fetch(`http://127.0.0.1:8432/api/users/${userIDFromLocalStorage}`, {
+            const response = await fetch(`https://well.stu.nighthawkcodingsociety.com/api/users/${userIDFromLocalStorage}`, {
+                ...options,
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
