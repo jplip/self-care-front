@@ -3,7 +3,7 @@
 
 export var uri;
 if (location.hostname === "localhost") {
-        uri = "";
+        uri = "https://well.stu.nighthawkcodingsociety.com/";
 } else if (location.hostname === "127.0.0.1") {
         uri = "https://well.stu.nighthawkcodingsociety.com/";
 } else {
