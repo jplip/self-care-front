@@ -30,7 +30,6 @@ permalink: /tracking/
             const duration = document.getElementById('duration').value;
             const exerciseDate = document.getElementById('exerciseDate').value;
             fetch(`https://well.stu.nighthawkcodingsociety.com/api/users/${userIDFromLocalStorage}`)
-                 ...options,
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
