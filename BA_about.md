@@ -13,7 +13,8 @@ We plan to have:
 - JWT Admin
 - JWT Register
 - Grab Decoded User ID/With JWT
-- Grab Decoded User Name
+- Grab Decoded User Name333333
+
 - Profile
 - Exercise 
 - Sleep
