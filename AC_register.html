@@ -92,7 +92,9 @@ permalink: /registration
     </form>
 </div>
 
-<script>
+<script type="module">
+    import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
+
     document.getElementById('registrationForm').addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent form submission
         const name = document.getElementById('name').value;
@@ -111,7 +113,8 @@ permalink: /registration
             password: password,
         };
         
-        fetch('https://well.stu.nighthawkcodingsociety.com/api/users/create', {
+        fetch(uri+'api/users/create', {
+            ...options,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
