@@ -103,7 +103,7 @@ permalink: /tracking/
 </div>
 
 <script type="module">
-    import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
+import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
     const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
    const userNameFromLocalStorage = localStorage.getItem('loggedInUserName');
     console.log(userIDFromLocalStorage);

@@ -247,7 +247,8 @@
 
 
 
-<script>
+<script type="module">
+    import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
     function toggleSidebar() {
         var sidebar = document.getElementById("sidebar");
         sidebar.classList.toggle("active");
@@ -260,7 +261,8 @@
 
 
         // Make a fetch request to clear cookies
-        fetch('http://127.0.0.1:8086/api/users/logout', {
+        fetch('https://well.stu.nighthawkcodingsociety.com/api/users/logout', {
+            ...options,
             method: 'POST',
             credentials: 'include'
         })
