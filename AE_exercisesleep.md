@@ -28,7 +28,7 @@ permalink: /tracking/
             const exerciseType = document.getElementById('exerciseType').value;
             const duration = document.getElementById('duration').value;
             const exerciseDate = document.getElementById('exerciseDate').value;
-            fetch(`http://127.0.0.1:8432/api/users/${userIDFromLocalStorage}`)
+            fetch(`https://well.stu.nighthawkcodingsociety.com/api/users/${userIDFromLocalStorage}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
