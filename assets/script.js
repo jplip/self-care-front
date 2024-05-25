@@ -1,6 +1,8 @@
 document.getElementById('image').addEventListener('change', handleImageUpload);
 document.getElementById('profile-form').addEventListener('submit', handleSubmit);
 
+const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
+
 let originalImageData;
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
@@ -24,15 +26,13 @@ function handleImageUpload(event) {
 }
 
 function applyFilter(filter) {
-    if (!originalImageData) return;
-
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const data = imageData.data;
 
     for (let i = 0; i < data.length; i += 4) {
-        let r = data[i];
-        let g = data[i + 1];
-        let b = data[i + 2];
+        let r = originalImageData.data[i];
+        let g = originalImageData.data[i + 1];
+        let b = originalImageData.data[i + 2];
 
         switch (filter) {
             case 'grayscale':
@@ -51,6 +51,7 @@ function applyFilter(filter) {
                 break;
         }
     }
+
     ctx.putImageData(imageData, 0, 0);
 }
 
@@ -63,22 +64,63 @@ function resetImage() {
 async function handleSubmit(event) {
     event.preventDefault();
 
-    const formData = new FormData();
-    formData.append('name', document.getElementById('name').value);
-    formData.append('age', document.getElementById('age').value);
-    formData.append('gender', document.getElementById('gender').value);
-    formData.append('bio', document.getElementById('bio').value);
-    formData.append('exerciseGoals', document.getElementById('exerciseGoals').value);
-    formData.append('sleepGoals', document.getElementById('sleepGoals').value);
+    const formData = {
+        id: userIDFromLocalStorage,
+        age: document.getElementById('age').value,
+        gender: document.getElementById('gender').value,
+        bio: document.getElementById('bio').value,
+        exerciseGoals: document.getElementById('exerciseGoals').value,
+        sleepGoals: document.getElementById('sleepGoals').value,
+    };
 
-    const image = canvas.toDataURL('image/png');
-    formData.append('image', image);
+    canvas.toBlob(async (blob) => {
+        try {
+            const base64String = await blobToBase64(blob);
+            formData.image_path = base64String;
 
-    const response = await fetch('/api/update_profile', {
-        method: 'PUT',
-        body: formData
-    });
+            const response = await fetch(`http://127.0.0.1:8432/api/users/${userIDFromLocalStorage}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
 
-    const result = await response.json();
-    console.log(result);
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Server error: ${errorText}`);
+            }
+
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+                const result = await response.json();
+                console.log(result);
+            } else {
+                const resultText = await response.text();
+                throw new Error(`Unexpected response type: ${resultText}`);
+            }
+        } catch (error) {
+            console.error('Error during form submission:', error);
+        }
+    }, 'image/png');
 }
+
+// Helper function to convert Blob to Base64 string
+async function blobToBase64(blob) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = function() {
+            const base64String = btoa(reader.result);
+            resolve(base64String);
+        };
+        reader.onerror = function() {
+            reject(new Error('Error reading blob'));
+        };
+        reader.readAsBinaryString(blob);
+    });
+}
+
+
+
+// Call the async function
+

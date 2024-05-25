@@ -27,18 +27,20 @@ permalink: /profile
     </style>
 </head>
 <body>
+<h1>Welcome, <span id="user-name"></span>!</h1>
     <div class="profile-container">
         <h2>Profile Page</h2>
+        <div id="image-container"></div>
         <form id="profile-form">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name"><br><br>
 
             <label for="age">Age:</label>
             <input type="number" id="age" name="age"><br><br>
 
-            <label for="gender">Gender:</label>
-            <input type="text" id="gender" name="gender"><br><br>
-
+             <label for="gender">Gender:</label>
+             <select id="gender" name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select><br>
             <label for="bio">Bio:</label>
             <textarea id="bio" name="bio"></textarea><br><br>
 
@@ -63,7 +65,64 @@ permalink: /profile
             <button type="submit">Submit</button>
         </form>
     </div>
+    <script>
+    const userNameFromLocalStorage = localStorage.getItem('loggedInUserName');
+    const userNameElement = document.getElementById('user-name');
 
-    <script src="script.js"></script>
+    if (userNameFromLocalStorage) {
+        userNameElement.textContent = userNameFromLocalStorage;
+    }
+
+    async function fetchAndDisplayImage() {
+            try {
+                // Fetch JSON response
+                const response = await fetch(`http://127.0.0.1:8432/api/users/${userIDFromLocalStorage}`); // Updated API endpoint
+                if (!response.ok) {
+                    throw new Error('Failed to fetch image: ' + response.status + ' ' + response.statusText);
+                }
+                const data = await response.json();
+                const base64String = data.image_path;
+
+                // Log the received base64 string for debugging
+                console.log('Received base64 string:', base64String);
+
+                // Validate base64 string format
+                if (!base64String || !/^[A-Za-z0-9+/=]+$/.test(base64String)) {
+                    throw new Error('Received string is not a valid base64 encoded string');
+                }
+
+                // Convert base64 string to blob
+                const byteCharacters = atob(base64String);
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                const blob = new Blob([byteArray], { type: 'image/png' }); // Adjust the type if needed
+
+                // Create image element and display the blob
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(blob);
+
+                // Append image to a container
+                const imageContainer = document.getElementById('image-container');
+                imageContainer.appendChild(img);
+            } catch (error) {
+                console.error('Error fetching image:', error);
+            }
+        }
+
+        // Call the async function when the DOM content is loaded
+        document.addEventListener('DOMContentLoaded', fetchAndDisplayImage);
+        
+
+        // Call the async function when the DOM content is loaded
+        document.addEventListener('DOMContentLoaded', fetchAndDisplayImage);
+
+
+    document.addEventListener('DOMContentLoaded', fetchAndDisplayImage)
+
+   </script>
+    <script src="{{site.baseurl}}/assets/script.js"></script>
 </body>
 </html>
