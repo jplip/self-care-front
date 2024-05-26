@@ -67,6 +67,7 @@ permalink: /profiley
     </div>
     <script>
     const userNameFromLocalStorage = localStorage.getItem('loggedInUserName');
+    const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
     const userNameElement = document.getElementById('user-name');
 
     if (userNameFromLocalStorage) {
