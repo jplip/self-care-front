@@ -1,10 +1,6 @@
 
-import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
 
 document.getElementById('image').addEventListener('change', handleImageUpload);
-document.getElementById('profile-form').addEventListener('submit', handleSubmit);
-
-const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
 
 let originalImageData;
 const canvas = document.getElementById('canvas');
@@ -64,50 +60,7 @@ function resetImage() {
     }
 }
 
-async function handleSubmit(event) {
-    event.preventDefault();
 
-    const formData = {
-        id: userIDFromLocalStorage,
-        age: document.getElementById('age').value,
-        gender: document.getElementById('gender').value,
-        bio: document.getElementById('bio').value,
-        exerciseGoals: document.getElementById('exerciseGoals').value,
-        sleepGoals: document.getElementById('sleepGoals').value,
-    };
-
-    canvas.toBlob(async (blob) => {
-        try {
-            const base64String = await blobToBase64(blob);
-            formData.image_path = base64String;
-
-            const response = await fetch(`https://well.stu.nighthawkcodingsociety.com/api/users/${userIDFromLocalStorage}`, {
-                ...options,
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
-
-            if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`Server error: ${errorText}`);
-            }
-
-            const contentType = response.headers.get('content-type');
-            if (contentType && contentType.includes('application/json')) {
-                const result = await response.json();
-                console.log(result);
-            } else {
-                const resultText = await response.text();
-                throw new Error(`Unexpected response type: ${resultText}`);
-            }
-        } catch (error) {
-            console.error('Error during form submission:', error);
-        }
-    }, 'image/png');
-}
 
 // Helper function to convert Blob to Base64 string
 async function blobToBase64(blob) {

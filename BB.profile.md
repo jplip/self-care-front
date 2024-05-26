@@ -32,10 +32,8 @@ permalink: /profiley
         <h2>Profile Page</h2>
         <div id="image-container"></div>
         <form id="profile-form">
-        
             <label for="age">Age:</label>
             <input type="number" id="age" name="age"><br><br>
-
              <label for="gender">Gender:</label>
              <select id="gender" name="gender" required>
                 <option value="male">Male</option>
@@ -43,36 +41,76 @@ permalink: /profiley
             </select><br>
             <label for="bio">Bio:</label>
             <textarea id="bio" name="bio"></textarea><br><br>
-
             <label for="exerciseGoals">Exercise Goals:</label>
             <input type="text" id="exerciseGoals" name="exerciseGoals"><br><br>
-
             <label for="sleepGoals">Sleep Goals:</label>
             <input type="text" id="sleepGoals" name="sleepGoals"><br><br>
-
             <label for="image">Profile Image:</label>
             <input type="file" id="image" accept="image/*"><br><br>
-
             <canvas id="canvas" class="profile-image"></canvas><br><br>
-
             <div class="filter-buttons">
                 <button type="button" onclick="applyFilter('grayscale')">Grayscale</button>
                 <button type="button" onclick="applyFilter('invert')">Invert</button>
                 <button type="button" onclick="applyFilter('sepia')">Sepia</button>
                 <button type="button" onclick="resetImage()">Reset</button>
             </div><br><br>
-
             <button type="submit">Submit</button>
         </form>
     </div>
-    <script>
+   <script type="module">
+    import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
     const userNameFromLocalStorage = localStorage.getItem('loggedInUserName');
     const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
     const userNameElement = document.getElementById('user-name');
+    
 
     if (userNameFromLocalStorage) {
         userNameElement.textContent = userNameFromLocalStorage;
     }
+    async function handleSubmit(event) {
+    event.preventDefault();
+
+    const formData = {
+        id: userIDFromLocalStorage,
+        age: document.getElementById('age').value,
+        gender: document.getElementById('gender').value,
+        bio: document.getElementById('bio').value,
+        exerciseGoals: document.getElementById('exerciseGoals').value,
+        sleepGoals: document.getElementById('sleepGoals').value,
+    };
+
+    canvas.toBlob(async (blob) => {
+        try {
+            const base64String = await blobToBase64(blob);
+            formData.image_path = base64String;
+
+            const response = await fetch(`https://well.stu.nighthawkcodingsociety.com/api/users/${userIDFromLocalStorage}`, {
+                ...options,
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Server error: ${errorText}`);
+            }
+
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+                const result = await response.json();
+                console.log(result);
+            } else {
+                const resultText = await response.text();
+                throw new Error(`Unexpected response type: ${resultText}`);
+            }
+        } catch (error) {
+            console.error('Error during form submission:', error);
+        }
+    }, 'image/png');
+}
 
     async function fetchAndDisplayImage() {
             try {
@@ -115,13 +153,7 @@ permalink: /profiley
 
         // Call the async function when the DOM content is loaded
         document.addEventListener('DOMContentLoaded', fetchAndDisplayImage);
-        
-
-        // Call the async function when the DOM content is loaded
-        document.addEventListener('DOMContentLoaded', fetchAndDisplayImage);
-
-
-    document.addEventListener('DOMContentLoaded', fetchAndDisplayImage)
+        document.getElementById('profile-form').addEventListener('submit', handleSubmit);
 
    </script>
     <script src="{{site.baseurl}}/assets/script.js"></script>
