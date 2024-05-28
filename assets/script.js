@@ -64,38 +64,6 @@ function applyFilter(filter, ...args) {
 }
 
 
-function applyBlurFilter(data, i, blurRadius) {
-    const blurRadius = 3; // You can adjust the blur radius
-    let totalR = 0, totalG = 0, totalB = 0, count = 0;
-    for (let dx = -blurRadius; dx <= blurRadius; dx++) {
-        for (let dy = -blurRadius; dy <= blurRadius; dy++) {
-            const x = i / 4 % canvas.width + dx;
-            const y = Math.floor(i / 4 / canvas.width) + dy;
-            if (x >= 0 && x < canvas.width && y >= 0 && y < canvas.height) {
-                const index = (y * canvas.width + x) * 4;
-                totalR += data[index];
-                totalG += data[index + 1];
-                totalB += data[index + 2];
-                count++;
-            }
-        }
-    }
-    data[i] = totalR / count;
-    data[i + 1] = totalG / count;
-    data[i + 2] = totalB / count;
-}
-
-function adjustBrightness(data, i, amount) {
-    data[i] += amount; // Red
-    data[i + 1] += amount; // Green
-    data[i + 2] += amount; // Blue
-}
-
-function applyColorizeFilter(data, i, redAmount, greenAmount, blueAmount) {
-    data[i] += redAmount; // Red
-    data[i + 1] += greenAmount; // Green
-    data[i + 2] += blueAmount; // Blue
-}
 
 function resetImage() {
     if (originalImageData) {
