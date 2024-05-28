@@ -69,7 +69,7 @@ permalink: /profiley
    }
    async function handleSubmit(event) {
    event.preventDefault();
-   window.location.reload()
+
 
 
    const formData = {
