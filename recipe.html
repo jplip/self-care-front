@@ -6,290 +6,593 @@ permalink: /recipe
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Recipes</title>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Personal Recipes</title>
+        <style>
+            body {
+                font-family: "Arial", sans-serif;
+                margin: 0;
+                padding: 0;
+                background-image: url("https://files.catbox.moe/1m85ow.png");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: top;
+                text-align: center;
+                color: #333;
+            }
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-image: url("https://files.catbox.moe/1m85ow.png");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: top;
-            text-align: center;
-        }
+            h1,
+            h2,
+            h4 {
+                font-family: "Georgia", serif;
+            }
 
-        #diary-title-container {
-            background-color: rgb(192, 175, 132);
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: top;
-            color: black;
-            padding: 50px 20px;
-            text-align: center;
-        }
+            #diary-title-container {
+                background-color: rgba(192, 175, 132, 0.8);
+                padding: 50px 20px;
+                text-align: center;
+                border-bottom: 3px solid #c29191;
+            }
 
-        #diary {
-            width: 70%;
-            margin: 0 auto;
-            padding: 10px;
-            border: 1px solid #c29191;
-            border-radius: 8px;
-            text-align: center;
-        }
+            #diary-title-container h1 {
+                margin: 0;
+                font-size: 3em;
+                color: #333;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            }
 
-        .diary-container {
-            text-align: center;
-        }
+            #diary {
+                width: 70%;
+                margin: 20px auto;
+                padding: 20px;
+                border: 1px solid #c29191;
+                border-radius: 10px;
+                background-color: rgba(255, 255, 255, 0.9);
+                text-align: left;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            }
 
-        .data-container {
-            background-color: white;
-            border: 2px solid #ccc;
-            padding: 20px;
-            margin: 20px auto;
-            max-width: 800px; /* Increase the max-width */
-            text-align: center;
-            overflow-x: auto; /* Enable horizontal scrolling */
-            overflow-y: auto;
-            height: 350px; /* Increase the height */
-        }
+            .data-container {
+                background-color: white;
+                border: 2px solid #ccc;
+                padding: 20px;
+                margin: 20px auto;
+                max-width: 800px;
+                text-align: center;
+                overflow: auto;
+                height: 350px;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            }
 
-        .recipe-buttons {
-            padding: 10px 20px;
-            background-color: #bdc8d4;
-            color: rgb(0, 0, 0);
-            border: none;
-            border-radius: 5px;
-            width: 700px; 
-            margin: 0 auto;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+            .recipe-buttons {
+                padding: 15px 30px;
+                background-color: #4caf50;
+                color: white;
+                border: none;
+                border-radius: 30px;
+                width: 300px;
+                margin: 20px auto;
+                cursor: pointer;
+                transition: background-color 0.3s ease, transform 0.3s ease;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+            select#tagSearch option {
+                padding: 5px 0; /* Add padding to create space between options */
+                font-size: 1em;
+                border: 2px solid black;
+            }
 
-        .recipe-buttons:hover {
-            background-color: #0056b3;
-        }
+            select#tagSearch {
+                width: 70%;
+                padding: 40px;
+                font-size: 1em;
+                border: 2px solid #4caf50;
+                border-radius: 5px;
+                background-color: white;
+                color: #333;
+                appearance: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                cursor: pointer;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+            select#tagSearch:hover,
+            select#tagSearch:focus {
+                border-color: #45a049;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-            word-wrap: break-word;
-        }
+            select#tagSearch option {
+                font-size: 1em;
+            }
 
-        th {
-            background-color: #f2f2f2;
-        }
+            .recipe-buttons:hover {
+                background-color: #45a049;
+                transform: scale(1.05);
+            }
 
-        #error {
-            color: rgb(71, 32, 32);
-            font-size: 24px;
-        }
+            .recipe-buttons:focus {
+                outline: none;
+            }
+            .recipe-buttons {
+                padding: 10px 20px;
+                background-color: #4caf50;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                width: 300px;
+                margin: 10px auto;
+                cursor: pointer;
+                transition: background-color 0.3s ease, transform 0.3s ease;
+            }
 
-        input {
-            margin: 6px;
-            background-color: #ffffff;
-            padding: 5px;
-            text-align: center;
-            border: 2px solid rgb(65, 101, 117);
-        }
+            .recipe-buttons:hover {
+                background-color: #45a049;
+                transform: scale(1.05);
+            }
 
-        h2 {
-            color: white; 
-        }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 20px 0;
+            }
 
-        form {
-            margin: 15px;
-        }
+            h4 {
+                text-align: center !important;
+            }
 
-        ul {
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
-            text-align: left;
-        }
+            th,
+            td {
+                border: 1px solid #ddd;
+                padding: 12px;
+                text-align: left;
+                word-wrap: break-word;
+            }
 
-        li {
-            margin-bottom: 5px;
-        }
-        
-        /* Add new style to hide the container initially */
-        #recipeContainer {
-            display: none;
-        }
+            th {
+                background-color: #f2f2f2;
+                font-weight: bold;
+            }
 
-        /* Add new style to hide the button initially */
-        #hideButton {
-            display: none;
-        }
-    </style>
-</head>
-<body class='sandiego-background'>
-    <a id="homeButton" href="index" style="position: fixed; top: 20px; left: 20px; font-size: 16px; text-decoration: none; color: #333; padding: 5px 10px; border: 1px solid #ccc; border-radius: 4px; background-color: #f2f2f2;">Home</a>
+            #error {
+                color: rgb(71, 32, 32);
+                font-size: 24px;
+                margin-top: 10px;
+            }
 
-    <div id='diary-title-container'>
-        <h1 class='title'>Personal Recipes</h1>
-    </div>
-    <br>
-    <br>
+            input,
+            select {
+                margin: 6px;
+                padding: 10px;
+                text-align: center;
+                border: 2px solid rgb(65, 101, 117);
+                border-radius: 4px;
+                width: calc(100% - 24px);
+                max-width: 500px;
+            }
+
+            label {
+                display: block;
+                margin: 10px 0 5px;
+                text-align: left;
+            }
+
+            h2 {
+                color: white;
+                background-color: rgba(0, 0, 0, 0.5);
+                padding: 10px;
+                border-radius: 5px;
+            }
+
+            form {
+                margin: 15px auto;
+                max-width: 600px;
+                padding: 20px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            ul {
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+                text-align: left;
+            }
+
+            li {
+                margin-bottom: 5px;
+            }
+
+            #recipeContainer {
+                display: none;
+                text-align: center;
+            }
+
+            #hideButton {
+                display: none;
+            }
+
+            #homeButton {
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                font-size: 16px;
+                text-decoration: none;
+                color: #333;
+                padding: 5px 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                background-color: #f2f2f2;
+            }
+
+            /* Custom checkbox styles */
+            .tag-checkbox-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                margin: 10px 0;
+            }
+
+            .tag-checkbox {
+                position: relative;
+                margin: 5px;
+            }
+
+            .tag-checkbox input[type="checkbox"] {
+                display: none;
+            }
+
+            .tag-checkbox label {
+                padding: 10px 15px;
+                border: 2px solid #4caf50;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease, color 0.3s ease;
+            }
+
+            .tag-checkbox input[type="checkbox"]:checked + label {
+                background-color: #4caf50;
+                color: white;
+            }
+        </style>
+    </head>
+    <body class="sandiego-background">
+        <a id="homeButton" href="index">Home</a>
+
+        <div id="diary-title-container">
+            <h1 class="title">Personal Recipes</h1>
+        </div>
+        <br />
+        <br />
 
         <h2 id="subtitle">Recipe:</h2>
         <form id="recipeForm" class="form-control">
             <div>
                 <label for="recipename">Recipe Name:</label>
-                <input type="text" id="recipename" name="recipename" required>
-            </div>  
+                <input type="text" id="recipename" name="recipename" required />
+            </div>
             <div>
                 <label for="healthyingredients">Healthy Ingredients:</label>
-                <input type="text" id="healthyingredients" name="healthyingredients" required>
-            </div>  
+                <input type="text" id="healthyingredients" name="healthyingredients" required />
+            </div>
             <div id="stepsContainer">
                 <label for="recipesteps">Steps of Recipe:</label>
                 <div id="stepInputs">
                     <div>
-                        <input type="text" class="recipestep" name="recipestep" required>
+                        <input type="text" class="recipestep" name="recipestep" required />
                     </div>
                 </div>
                 <button type="button" onclick="addStep()">Add Step</button>
-            </div>  
+            </div>
             <div>
                 <label for="difficulty">Difficulty of Recipe:</label>
-                <input type="text" id="difficulty" name="difficulty" required>
-            </div> 
+                <input type="text" id="difficulty" name="difficulty" required />
+            </div>
+            <div>
+                <label for="tags">Tags:</label>
+                <div class="tag-checkbox-container">
+                    <div class="tag-checkbox">
+                        <input type="checkbox" id="tag-vegan" name="tags" value="vegan" />
+                        <label for="tag-vegan">Vegan</label>
+                    </div>
+                    <div class="tag-checkbox">
+                        <input type="checkbox" id="tag-vegetarian" name="tags" value="vegetarian" />
+                        <label for="tag-vegetarian">Vegetarian</label>
+                    </div>
+                    <div class="tag-checkbox">
+                        <input type="checkbox" id="tag-meat" name="tags" value="meat" />
+                        <label for="tag-meat">Meat</label>
+                    </div>
+                    <div class="tag-checkbox">
+                        <input type="checkbox" id="tag-healthy" name="tags" value="healthy" />
+                        <label for="tag-healthy">Healthy</label>
+                    </div>
+                    <div class="tag-checkbox">
+                        <input type="checkbox" id="tag-quick" name="tags" value="quick" />
+                        <label for="tag-quick">Quick</label>
+                    </div>
+                    <div class="tag-checkbox">
+                        <input type="checkbox" id="tag-asian" name="tags" value="asian" />
+                        <label for="tag-asian">Asian</label>
+                    </div>
+                    <div class="tag-checkbox">
+                        <input type="checkbox" id="tag-allergen-friendly" name="tags" value="allergen-friendly" />
+                        <label for="tag-allergen-friendly">Allergen-friendly</label>
+                    </div>
+                    <div class="tag-checkbox">
+                        <input type="checkbox" id="tag-dairy-free" name="tags" value="dairy-free" />
+                        <label for="tag-dairy-free">Dairy-free</label>
+                    </div>
+                    <div class="tag-checkbox">
+                        <input type="checkbox" id="tag-lunch" name="tags" value="lunch" />
+                        <label for="tag-lunch">Lunch</label>
+                    </div>
+                    <div class="tag-checkbox">
+                        <input type="checkbox" id="tag-breakfast" name="tags" value="breakfast" />
+                        <label for="tag-breakfast">Breakfast</label>
+                    </div>
+                    <div class="tag-checkbox">
+                        <input type="checkbox" id="tag-cost-effective" name="tags" value="cost-effective" />
+                        <label for="tag-cost-effective">Cost-effective</label>
+                    </div>
+                    <div class="tag-checkbox">
+                        <input type="checkbox" id="tag-dairy" name="tags" value="dairy" />
+                        <label for="tag-dairy">Dairy</label>
+                    </div>
+                </div>
+            </div>
         </form>
         <button class="recipe-buttons" onclick="recipe()">New Entry</button>
         <p id="error"></p>
-        <hr>
+        <hr />
         <button class="recipe-buttons" onclick="fetchRecipe()">Load Personal Recipes</button>
-    </div>
-    <div class="recipe-container">
+        <div class="recipe-container">
+            <div>
+                <h4><label for="tagSearch">Search by Tag:</label></h4>
+                <select id="tagSearch" name="tagSearch" multiple> </select>
+                <!-- Add a search button -->
+                <button class="recipe-buttons" onclick="filterRecipes()">Search</button>
+            </div>
+        </div>
+
         <div id="recipeContainer">
             <div class="data-container">
-                <h2 id='subtitle'>Your Recipes:</h2>
+                <h2 id="subtitle">Your Recipes:</h2>
                 <div id="data"></div>
             </div>
         </div>
 
-        <!-- Add the Hide Personal Recipes button -->
         <button id="hideButton" class="recipe-buttons" onclick="hideRecipes()">Hide Personal Recipes</button>
-    </div>
 
-    <script>
-        function addStep() {
-            const stepsContainer = document.getElementById("stepInputs");
-            const newStepInput = document.createElement("div");
-            newStepInput.innerHTML = `<input type="text" class="recipestep" name="recipestep" required>`;
-            stepsContainer.appendChild(newStepInput);
-        }
-
-        function recipe() {
-            let recipename = document.getElementById("recipename").value;
-            let healthyingredients = document.getElementById("healthyingredients").value;
-            let recipesteps = Array.from(document.querySelectorAll('.recipestep')).map((input, index) => `${index + 1}. ${input.value}`).join('<br>');
-            let difficulty = document.getElementById("difficulty").value;
-
-            if (!recipename || !healthyingredients || !recipesteps || !difficulty) {
-                document.getElementById("error").innerHTML = "Please fill in all fields.";
-                return;
+        <script>
+            function addStep() {
+                const stepsContainer = document.getElementById("stepInputs");
+                const newStepInput = document.createElement("div");
+                newStepInput.innerHTML = `<input type="text" class="recipestep" name="recipestep" required>`;
+                stepsContainer.appendChild(newStepInput);
             }
 
-            let data = {
-                "recipename": recipename,
-                "healthyingredients": healthyingredients,
-                "recipesteps": recipesteps,
-                "difficulty": difficulty,
-            };
+            function recipe() {
+                let recipename = document.getElementById("recipename").value;
+                let healthyingredients = document.getElementById("healthyingredients").value;
+                let recipesteps = Array.from(document.querySelectorAll(".recipestep"))
+                    .map((input, index) => `${index + 1}. ${input.value}`)
+                    .join("<br>");
+                let difficulty = document.getElementById("difficulty").value;
 
-            fetch('http://127.0.0.1:8432/api/recipes/make', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => {
-                if (response.ok) {
-                    document.getElementById("error").innerHTML = "Recipes updated!";
+                // Collect selected tags and join them into a single string separated by commas
+                let tags = Array.from(document.querySelectorAll('input[name="tags"]:checked'))
+                    .map((checkbox) => checkbox.value)
+                    .join(","); // Join tags with commas
 
-                } else {
-                    return response.json().then(errorData => {
-                        if (errorData && errorData.message) {
-                            document.getElementById("error").innerHTML = errorData.message;
-                        } else {
-                            document.getElementById("error").innerHTML = "Error submitting recipe";
-                        }
-                    });
+                if (!recipename || !healthyingredients || !recipesteps || !difficulty) {
+                    document.getElementById("error").innerHTML = "Please fill in all fields.";
+                    return;
                 }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                document.getElementById("error").innerHTML = "Error submitting recipe";
-            });
-        }
 
-        function fetchRecipe() {
-            let options = {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-            };
-            fetch("http://127.0.0.1:8432/api/recipes/read", options)
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        throw new Error('Network response was not ok.');
-                    }
-                 })
-                .then(response => {
-                    let dataContainer = document.getElementById("data");
-                    dataContainer.innerHTML = ""; // Clear previous data
-                    if (response.length > 0) {
-                        document.getElementById("recipeContainer").style.display = "block"; // Show the container if there are recipes
-                        document.getElementById("hideButton").style.display = "block"; // Show the Hide button
-                        let table = document.createElement("table");
-                        let headerRow = table.insertRow();
-                        let headers = ["Recipe Name", "Healthy Ingredients", "Recipe Steps", "Difficulty"];
-                        headers.forEach(headerText => {
-                            let header = document.createElement("th");
-                            header.textContent = headerText;
-                            headerRow.appendChild(header);
-                        });
-                        
-                        response.forEach(item => {
-                            let row = table.insertRow();
-                            let rowData = [item.recipename, item.healthyingredients, item.recipesteps.split('<br>').map(step => `<li>${step}</li>`).join(''), item.difficulty];
-                            rowData.forEach(cellData => {
-                                let cell = row.insertCell();
-                                cell.innerHTML = cellData;
-                            });
-                        });
-                        dataContainer.appendChild(table);
-                    } else {
-                        document.getElementById("recipeContainer").style.display = "none"; // Hide the container if there are no recipes
-                        document.getElementById("hideButton").style.display = "none"; // Hide the button if there are no recipes
-                    }
+                let data = {
+                    recipename: recipename,
+                    healthyingredients: healthyingredients,
+                    recipesteps: recipesteps,
+                    difficulty: difficulty,
+                    tags: tags, // Include tags as a single string separated by commas
+                };
+
+                // Send data to backend
+                fetch("http://127.0.0.1:8432/api/recipes/make", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
                 })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                    document.getElementById("error").innerHTML = "Error fetching recipes";
-                });
-        }
+                    .then((response) => {
+                        if (response.ok) {
+                            document.getElementById("error").innerHTML = "Recipes updated!";
+                        } else {
+                            return response.json().then((errorData) => {
+                                if (errorData && errorData.message) {
+                                    document.getElementById("error").innerHTML = errorData.message;
+                                } else {
+                                    document.getElementById("error").innerHTML = "Error submitting recipe";
+                                }
+                            });
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                        document.getElementById("error").innerHTML = "Error submitting recipe";
+                    });
+            }
 
-        function hideRecipes() {
-            document.getElementById("recipeContainer").style.display = "none"; // Hide the recipe container
-            document.getElementById("hideButton").style.display = "none"; // Hide the button itself
-        }
-    </script>
-</body>
+            function fetchRecipe() {
+                let options = {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json;charset=utf-8",
+                    },
+                };
+                fetch("http://127.0.0.1:8432/api/recipes/read", options)
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            throw new Error("Network response was not ok.");
+                        }
+                    })
+                    .then((response) => {
+                        let dataContainer = document.getElementById("data");
+                        dataContainer.innerHTML = ""; // Clear previous data
+                        if (response.length > 0) {
+                            document.getElementById("recipeContainer").style.display = "block"; // Show the container if there are recipes
+                            document.getElementById("hideButton").style.display = "block"; // Show the Hide button
+
+                            let table = document.createElement("table");
+                            let headerRow = table.insertRow();
+                            let headers = ["Recipe Name", "Healthy Ingredients", "Recipe Steps", "Difficulty", "Tags"];
+                            headers.forEach((headerText) => {
+                                let header = document.createElement("th");
+                                header.textContent = headerText;
+                                headerRow.appendChild(header);
+                            });
+
+                            response.forEach((item) => {
+                                let row = table.insertRow();
+                                let rowData = [
+                                    item.recipename,
+                                    item.healthyingredients,
+                                    item.recipesteps
+                                        .split("<br>")
+                                        .map((step) => `<li>${step}</li>`)
+                                        .join(""),
+                                    item.difficulty,
+                                    item.tags
+                                        .split(",")
+                                        .map((tag) => `<span class="tag">${tag}</span>`)
+                                        .join(", "), // Convert tags string to list and format them with commas
+                                ];
+                                rowData.forEach((cellData) => {
+                                    let cell = row.insertCell();
+                                    cell.innerHTML = cellData;
+                                });
+                            });
+
+                            dataContainer.appendChild(table);
+                        } else {
+                            document.getElementById("recipeContainer").style.display = "none"; // Hide the container if there are no recipes
+                            document.getElementById("hideButton").style.display = "none"; // Hide the button if there are no recipes
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching data:", error);
+                        document.getElementById("error").innerHTML = "Error fetching recipes";
+                    });
+            }
+
+            function hideRecipes() {
+                document.getElementById("recipeContainer").style.display = "none"; // Hide the recipe container
+                document.getElementById("hideButton").style.display = "none"; // Hide the button itself
+            }
+
+            // Function to populate the select element with predefined tags
+            function populateTags() {
+                const tagSelect = document.getElementById("tagSearch");
+                const tagCheckboxes = document.querySelectorAll('input[name="tags"]');
+                tagCheckboxes.forEach((tagCheckbox) => {
+                    const option = document.createElement("option");
+                    option.value = tagCheckbox.value.toLowerCase();
+                    option.textContent = tagCheckbox.value;
+                    tagSelect.appendChild(option);
+                });
+            }
+
+            // Call the function to populate the select element
+            populateTags();
+
+            // Function to filter recipes based on the selected tag
+            // Function to filter recipes based on the selected tags
+            function filterRecipes() {
+                let selectedTags = Array.from(document.querySelectorAll("#tagSearch option:checked"))
+                    .map((option) => option.value.toLowerCase()) // Collect selected tags
+                    .join(","); // Join tags with commas
+
+                // Send a POST request to the backend with the comma-separated tags string
+                fetch("http://127.0.0.1:8432/api/recipes/search", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json;charset=utf-8",
+                    },
+                    body: JSON.stringify({ tags: selectedTags }), // Send selectedTags as a string
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            throw new Error("Network response was not ok.");
+                        }
+                    })
+                    .then((data) => {
+                        // Populate the table with the fetched recipes
+                        populateRecipeTable(data);
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching data:", error);
+                        document.getElementById("error").innerHTML = "Error fetching recipes";
+                    });
+            }
+
+            // Function to populate the table with fetched recipes
+            function populateRecipeTable(recipes) {
+                const dataContainer = document.getElementById("data");
+                const recipeContainer = document.getElementById("recipeContainer");
+
+                if (recipes.length > 0) {
+                    // Create table
+                    let table = document.createElement("table");
+                    let headerRow = table.insertRow();
+                    let headers = ["Recipe Name", "Healthy Ingredients", "Recipe Steps", "Difficulty", "Tags"];
+                    headers.forEach((headerText) => {
+                        let header = document.createElement("th");
+                        header.textContent = headerText;
+                        headerRow.appendChild(header);
+                    });
+
+                    // Populate table with recipes
+                    recipes.forEach((recipe) => {
+                        let row = table.insertRow();
+                        let rowData = [
+                            recipe.recipename,
+                            recipe.healthyingredients,
+                            recipe.recipesteps
+                                .split("<br>")
+                                .map((step) => `<li>${step}</li>`)
+                                .join(""),
+                            recipe.difficulty,
+                            recipe.tags
+                                .split(",")
+                                .map((tag) => `<span class="tag">${tag}</span>`)
+                                .join(", "), // Convert tags string to list and format them with commas
+                        ];
+                        rowData.forEach((cellData) => {
+                            let cell = row.insertCell();
+                            cell.innerHTML = cellData;
+                        });
+                    });
+
+                    // Replace existing output in recipeContainer
+                    recipeContainer.innerHTML = "";
+                    recipeContainer.appendChild(table);
+                } else {
+                    // Show error message if no recipes found
+                    document.getElementById("error").innerHTML = "No recipes found for the selected tags.";
+                    recipeContainer.innerHTML = "";
+                }
+            }
+        </script>
+    </body>
 </html>
