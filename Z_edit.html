@@ -1,113 +1,144 @@
 ---
 permalink: /edit
 ---
-<style>
-    body {
-        font-family: 'Poppins', sans-serif;
-        background-color: #f2f2f2;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-image: url('e285661a023fb83c8d7f975980422c22.gif');
-        background-size: cover;
-    }
-    .card {
-        width: 400px;
-        background: #fff;
-        padding: 40px;
-        border-radius: 15px;
-        text-align: center;
-        color: #333;
-    }
-    .card h1 {
-        font-weight: 500;
-        color: #000;;
-    }
-    .card p {
-        font-size: 22px;
-    }
-    .card img{
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-        margin-top: 40px;
-        margin-bottom: 30px;
-    }
-    .submit-button {
-        padding: 10px 20px;
-        font-size: 16px;
-        background-color: #08d101;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-    .submit-button:hover {
-            background-color: #08af02;
-    }
-    #update-image {
-        display: block;
-        width: 200px;
-        background: #1e4f2b;
-        color: #fff;
-        padding: 12px;
-        margin: 10px auto;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    input {
-        display: none;
-    }
-    .filter-buttons {
-        margin-top: 10px;
-    }
-    .filter-buttons button {
-        padding: 10px 20px;
-        font-size: 16px;
-        background-color: #1c7a09;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-    .filter-buttons button:hover {
-            background-color: #124d06;
-    }
-</style>
-
-{% include sidebar.html %}
-
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px; /* Adjusted padding */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('e285661a023fb83c8d7f975980422c22.gif');
+            background-size: cover;
+        }
+        .profile-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 15px;
+            text-align: center;
+            color: #333;
+            padding: 20px; /* Adjusted padding */
+        }
+        .profile-container h2 {
+            font-weight: 500;
+            color: #000;
+            margin-bottom: 20px; /* Decreased margin */
+        }
+        .profile-container textarea.bio-input {
+            width: 100%;
+            resize: none;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px; /* Decreased margin */
+        }
+        .profile-container img.profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-top: 20px; /* Decreased margin */
+            margin-bottom: 20px; /* Decreased margin */
+        }
+        .filter-buttons {
+            display: flex; /* Added display property */
+            justify-content: center; /* Added justify-content property */
+        }
+        .filter-buttons button {
+            padding: 10px 15px; /* Adjusted padding */
+            font-size: 16px;
+            background-color: #1c7a09;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 0 5px; /* Adjusted margin */
+        }
+        .filter-buttons button:hover {
+            background-color: #124d06;
+        }
+        .submit-button {
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #08d101;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .submit-button:hover {
+            background-color: #08af02;
+        }
+        #update-image {
+            display: block;
+            width: 200px;
+            background: #1e4f2b;
+            color: #fff;
+            padding: 12px;
+            margin: 10px auto;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="file"] {
+            display: none;
+        }
+    </style>
+
+    <!-- Include the sidebar HTML -->
+    {% include sidebar.html %}
 </head>
 <body>
-    <div class="card">
-        <h1>Edit Profile</h1>
-        <form action="#" method="post">
+    <div class="profile-container">
+        <h2>Edit Profile</h2>
+        <form id="profile-form" action="#" method="post">
+            <label for="age">Age:</label><br>
+            <input type="number" id="age" name="age"><br><br>
+            <label for="gender">Gender:</label><br>
+            <select id="gender" name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select><br><br>
             <label for="bio">Bio:</label><br>
-            <textarea id="bio" name="bio" class="bio-input" rows="4" cols="50"></textarea><br>
-            <img src="images/profile.webp" id="pfp">
+            <textarea id="bio" name="bio" class="bio-input" rows="4" cols="50"></textarea><br><br>
+            <label for="exerciseGoals">Exercise Goals:</label><br>
+            <input type="text" id="exerciseGoals" name="exerciseGoals"><br><br>
+            <label for="sleepGoals">Sleep Goals:</label><br>
+            <input type="text" id="sleepGoals" name="sleepGoals"><br><br>
+            <label for="image">Profile Image:</label><br>
+            <img src="images/profile.webp" id="pfp" class="profile-image">
             <label id='update-image' for="input-image">Upload Image</label>
-            <input id='input-image'type="file" accept="image/jpeg, image/jpg, image/png">
-            <br><br>
+            <input id='input-image' type="file" accept="image/jpeg, image/jpg, image/png">
+            <canvas id="canvas" class="profile-image"></canvas>
             <div class="filter-buttons">
                 <button type="button" onclick="applyFilter('grayscale')">Grayscale</button>
                 <button type="button" onclick="applyFilter('invert')">Invert</button>
                 <button type="button" onclick="applyFilter('sepia')">Sepia</button>
                 <button type="button" onclick="resetImage()">Reset</button>
             </div><br><br>
-            <button type="submit" class="submit-button" onclick="save()">Save Changes</button>
+            <button type="submit" class="submit-button">Save Changes</button>
         </form>
     </div>
 </body>
 </html>
-<script>
+<script type="module">
+    import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
+    const userNameFromLocalStorage = localStorage.getItem('loggedInUserName');
+    const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
+    const userNameElement = document.getElementById('user-name');
+    if (userNameFromLocalStorage) {
+        userNameElement.textContent = userNameFromLocalStorage;
+    }
+
     let pfp = document.getElementById('pfp');
     let inputImg = document.getElementById('input-image');
 
@@ -115,45 +146,49 @@ permalink: /edit
         pfp.src = URL.createObjectURL(inputImg.files[0]);
     }
 
-    function save() {
-            // Get the text content from the textarea
-            let text = document.getElementById("bio").value;
-            // Create an object with the text data and a unique UID (timestamp)
-            let data = {
-                "profile": text
-            };
-            // Configure fetch options
-            let options = {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify(data),
-                credentials: 'include'
-            };
-            // Send the text data to the backend
-            fetch('http://127.0.0.1:8432/api/users/bio', options)
-            // LocaL: http://127.0.0.1:8010/api/users/diary
-            // Deployed: https://SanDiegoTravel.stu.nighthawkcodingsociety.com/api/users/diary
-                .then(response => {
-                    if (response.ok) {
-                        // Handle successful submission
-                        document.getElementById("error").innerHTML = "Diary updated!";
-                        // Fetch updated images after submission
-                    } else {
-                        // Handle submission error
-                        return response.json().then(errorData => {
-                            if (errorData && errorData.message) {
-                                document.getElementById("error").innerHTML = errorData.message;
-                            } else {
-                                document.getElementById("error").innerHTML = "Error submitting diary";
-                            }
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                    document.getElementById("error").innerHTML = "Error upadting profile.";
+    async function handleSubmit(event) {
+        event.preventDefault();
+
+        const formData = {
+            id: userIDFromLocalStorage,
+            age: document.getElementById('age').value,
+            gender: document.getElementById('gender').value,
+            bio: document.getElementById('bio').value,
+            exerciseGoals: document.getElementById('exerciseGoals').value,
+            sleepGoals: document.getElementById('sleepGoals').value,
+        };
+
+        canvas.toBlob(async (blob) => {
+            try {
+                const base64String = await blobToBase64(blob);
+                formData.image_path = base64String;
+
+                const response = await fetch(`https://well.stu.nighthawkcodingsociety.com/api/users/${userIDFromLocalStorage}`, {
+                    ...options,
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
                 });
-        }
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`Server error: ${errorText}`);
+                }
+
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    const result = await response.json();
+                    console.log(result);
+                } else {
+                    const resultText = await response.text();
+                    throw new Error(`Unexpected response type: ${resultText}`);
+                }
+            } catch (error) {
+                console.error('Error during form submission:', error);
+            }
+        }, 'image/png');
+    }
 </script>
+<script src="{{site.baseurl}}/assets/script.js"></script>
