@@ -3,11 +3,7 @@ layout: base
 title: Profile
 permalink: /profiley
 ---
----
-layout: base
-title: Profile
-permalink: /profiley
----
+
 <html lang="en">
 <head>
    <meta charset="UTF-8">
