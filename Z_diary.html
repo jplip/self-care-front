@@ -138,8 +138,7 @@ permalink: /diary
     </div>
 </div>
 
-<script type="module">
-    import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
+<script>
         const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
         console.log(userIDFromLocalStorage);
         const userNameFromLocalStorage = localStorage.getItem('loggedInUserName');
@@ -192,16 +191,16 @@ permalink: /diary
                         "name": userNameFromLocalStorage,
                         "diary": text,
                     };
-                    fetch(`http://127.0.0.1:8432/api/users/${userIDFromLocalStorage}`, {
-                        // LocaL: http://127.0.0.1:8432
-                        // Deployed: https://well.stu.nighthawkcodingsociety.com
-                        ...options,
+                    let options = {
                         method: 'PUT',
                         headers: {
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/json;charset=utf-8'
                         },
-                        body: JSON.stringify(data)
-                    })
+                        body: JSON.stringify(data),
+                    };
+                    fetch(`http://127.0.0.1:8432/api/users/${userIDFromLocalStorage}`, options)
+                        // LocaL: http://127.0.0.1:8432
+                        // Deployed: https://well.stu.nighthawkcodingsociety.com
                     .then(response => {
                     if (response.ok) {
                         // Handle successful submission
