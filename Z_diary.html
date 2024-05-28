@@ -139,89 +139,77 @@ permalink: /diary
 </div>
 
 <script>
-        const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
-        console.log(userIDFromLocalStorage);
-        const userNameFromLocalStorage = localStorage.getItem('loggedInUserName');
+const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
+console.log(userIDFromLocalStorage);
+const userNameFromLocalStorage = localStorage.getItem('loggedInUserName');
 
-        function fetchDiary() {
-            fetch(`http://127.0.0.1:8432/api/users/${userIDFromLocalStorage}`)
-            // LocaL: http://127.0.0.1:8432
-            // Deployed: https://well.stu.nighthawkcodingsociety.com
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        let dataContainer = document.getElementById("data");
-                        // Clear previous data
-                        dataContainer.innerHTML = "";
+function fetchDiary() {
+    fetch(`http://127.0.0.1:8432/api/users/${userIDFromLocalStorage}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            let dataContainer = document.getElementById("data");
 
-                        // Check if data.diary exists
-                        if (data.diary) {
-                            // Split the diary data by "||" to get individual diary items
-                            let diaryItems = data.diary.split("||");
-                            // Iterate over each item and create a row for display
-                            diaryItems.forEach(item => {
-                                let row = document.createElement("div");
-                                row.textContent = item.trim(); // Trim to remove any extra whitespace
-                                // Append row to the container
-                                dataContainer.appendChild(row);
-                            });
-                        } else {
-                            // Handle case where data.diary is not present
-                            let errorMessage = document.createElement("div");
-                            errorMessage.textContent = "No diary data found.";
-                            dataContainer.appendChild(errorMessage);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
+            // Set innerHTML to data.diary directly
+            let diary = data.diary;
 
-                }
-                function diary() {
-                    // Get the text content from the textarea
-                    let text = document.getElementById("diary").value;
-                    // Create an object with the text data and a unique UID (timestamp)
-                    let data = {
-                        "id": userIDFromLocalStorage,
-                        "name": userNameFromLocalStorage,
-                        "diary": text,
-                    };
-                    let options = {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json;charset=utf-8'
-                        },
-                        body: JSON.stringify(data),
-                    };
-                    fetch(`http://127.0.0.1:8432/api/users/${userIDFromLocalStorage}`, options)
-                        // LocaL: http://127.0.0.1:8432
-                        // Deployed: https://well.stu.nighthawkcodingsociety.com
-                    .then(response => {
-                    if (response.ok) {
-                        // Handle successful submission
-                        document.getElementById("error").innerHTML = "Diary updated!";
-                        // Fetch updated images after submission
-                        fetchDiary()
+            let itineraryItems = diary.split("||");
+
+            itineraryItems.forEach(item => {
+                let row = document.createElement("div");
+                row.textContent = item.trim(); // Trim to remove any extra whitespace
+                // Append row to the container
+                dataContainer.appendChild(row);
+            }); // <-- Added closing parenthesis and curly brace here
+        })
+        .catch(error => {
+        console.error('Error fetching diary:', error);
+        // Handle error
+    });
+}
+
+function diary() {
+    // Get the text content from the textarea
+    let text = document.getElementById("diary").value;
+    // Create an object with the text data and a unique UID (timestamp)
+    let data = {
+        "id": userIDFromLocalStorage,
+        "name": userNameFromLocalStorage,
+        "diary": text,
+    };
+    let options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(data),
+    };
+    fetch(`http://127.0.0.1:8432/api/users/${userIDFromLocalStorage}`, options)
+        .then(response => {
+            if (response.ok) {
+                // Handle successful submission
+                document.getElementById("error").innerHTML = "Diary updated!";
+                // Fetch updated images after submission
+                fetchDiary();
+            } else {
+                // Handle submission error
+                return response.json().then(errorData => {
+                    if (errorData && errorData.message) {
+                        document.getElementById("error").innerHTML = errorData.message;
                     } else {
-                        // Handle submission error
-                        return response.json().then(errorData => {
-                            if (errorData && errorData.message) {
-                                document.getElementById("error").innerHTML = errorData.message;
-                            } else {
-                                document.getElementById("error").innerHTML = "Error submitting diary";
-                            }
-                        });
+                        document.getElementById("error").innerHTML = "Error submitting diary";
                     }
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                    document.getElementById("error").innerHTML = "Error submitting diary";
                 });
-        }
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            document.getElementById("error").innerHTML = "Error submitting diary";
+        });
+}
 
 </script>
