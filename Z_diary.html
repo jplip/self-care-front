@@ -145,7 +145,8 @@ permalink: /diary
             let text = document.getElementById("diary").value;
             // Create an object with the text data and a unique UID (timestamp)
             let data = {
-                "diary": text
+                "id": userIDFromLocalStorage,
+                "diary": text,
             };
             // Configure fetch options
             let options = {
@@ -157,7 +158,7 @@ permalink: /diary
                 credentials: 'include'
             };
             // Send the text data to the backend
-            fetch('http://127.0.0.1:8432/api/users/diary', options)
+            fetch(`https://well.stu.nighthawkcodingsociety.com/api/users/diary/${userIDFromLocalStorage}`, options)
             // LocaL: http://127.0.0.1:8010/api/users/diary
             // Deployed: https://SanDiegoTravel.stu.nighthawkcodingsociety.com/api/users/diary
                 .then(response => {
@@ -191,7 +192,7 @@ permalink: /diary
                 },
                 credentials: 'include'
             };
-            fetch("http://127.0.0.1:8432/api/users/diary", options)
+            fetch(`https://well.stu.nighthawkcodingsociety.com/api/users/diary/${userIDFromLocalStorage}`, options)
             // Local: http://127.0.0.1:8010/api/users/diary
             // Deployed: https://SanDiegoTravel.stu.nighthawkcodingsociety.com/api/users/diary
                 .then(response => {
