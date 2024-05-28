@@ -144,7 +144,9 @@ console.log(userIDFromLocalStorage);
 const userNameFromLocalStorage = localStorage.getItem('loggedInUserName');
 
 function fetchDiary() {
-    fetch(`http://127.0.0.1:8432/api/users/${userIDFromLocalStorage}`)
+    fetch(`https://well.stu.nighthawkcodingsociety.com/api/users/${userIDFromLocalStorage}`)
+    // Local: http://127.0.0.1:8432
+    // Deployed: 
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -188,7 +190,7 @@ function diary() {
         },
         body: JSON.stringify(data),
     };
-    fetch(`http://127.0.0.1:8432/api/users/${userIDFromLocalStorage}`, options)
+    fetch(`https://well.stu.nighthawkcodingsociety.com/api/users/${userIDFromLocalStorage}`, options)
         .then(response => {
             if (response.ok) {
                 // Handle successful submission
