@@ -4,140 +4,160 @@ permalink: /kpop
 
 {% include sidebar.html %}
 
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: black;
+        color: white;
+        background-image: url('e285661a023fb83c8d7f975980422c22.gif');
+        background-size: cover;
+    }
 
+    .container {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+    }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: black;
-            color: white;
-            background-image: url('e285661a023fb83c8d7f975980422c22.gif');
-            background-size: cover;
-        }
+    .key-box {
+        width: 400px;
+        background-color: #8FBC8F; /* Soothing green color */
+        border-radius: 10px;
+        padding: 20px;
+        margin-right: 20px;
+        color: #333; /* Dark text color for readability */
+        overflow-wrap: break-word; /* Ensures long words break */
+        word-break: break-word; /* Ensures words break at the boundary */
+    }    
 
-        .container {
-            display: flex;
-            flex-direction: row;
-            align-items: flex-start;
-        }
+    .card {
+        width: 400px;
+        height: 500px;
+        background-color: #8FBC8F; /* Soothing green color */
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center align content horizontally */
+        justify-content: center; /* Center align content vertically */
+    }
 
-        .key-box {
-            width: 300px;
-            background-color: #8FBC8F; /* Soothing green color */
-            border-radius: 10px;
-            padding: 20px;
-            margin-right: 20px;
-            color: #333; /* Dark text color for readability */
-        }
+    .card-title {
+        background-color: #4F7942; /* Darker green color */
+        color: white;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 18px;
+    }
 
-        .card {
-            width: 400px;
-            height: 400px;
-            background-color: #8FBC8F; /* Soothing green color */
-            border-radius: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Center align content horizontally */
-            justify-content: center; /* Center align content vertically */
-        }
+    .card img {
+        max-width: 256px;
+        max-height: 256px;
+        margin-top: 20px; /* Add some space above the image */
+    }
 
-        .card-title {
-            background-color: #4F7942; /* Darker green color */
-            color: white;
-            border-radius: 10px;
-            padding: 10px;
-            font-size: 18px;
-        }
+    .generate-button {
+        background-color: #383c3e;
+        color: rgb(255, 255, 255);
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: background-color 0.3s;
+    }
 
-        .card img {
-            max-width: 256px;
-            max-height: 256px;
-            margin-top: 20px; /* Add some space above the image */
-        }
+    .generate-button:hover {
+        background-color: #262829; /* hover */
+    }
 
-        .generate-button {
-            background-color: #383c3e;
-            color: rgb(255, 255, 255);
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: background-color 0.3s;
-        }
+    #genre {
+        color: black; /* Changes the text color of the select box */
+    }
 
-        .generate-button:hover {
-            background-color: #262829; /* hover */
-        }
-    </style>
+    h3 {
+        color: black;
+        text-shadow: 
+            -1px -1px 0 white,  
+             1px -1px 0 white,
+            -1px  1px 0 white,
+             1px  1px 0 white; 
+    }
+</style>
 
-    <div class="dropdown">
-        <div class="dropbtn"> Profile /div>
-        <div class="dropdown-content">
-            <a href="profile">Profile</a>
-            <a onclick="logout()">Log Out</a>
-        </div>
+<div class="dropdown">
+    <div class="dropbtn"> Profile /div>
+    <div class="dropdown-content">
+        <a href="profile">Profile</a>
+        <a onclick="logout()">Log Out</a>
     </div>
-</head>
-<body>
-    <div class="container">
-        <div class="key-box">
-            <!-- Left container holding all info data about song -->
-            <h2>Song: <span id="card-song"></span></h2> 
-            <h2>Artist: <span id="card-artist"></span></h2>
-            <h2>Album: <span id="card-album"></span></h2>
-            <h2>Genre: <span id="card-genre"></span></h2>
-            <h2>Time: <span id="card-time"></span></h2>
-        </div>
-        <div class="card">
-            <!-- Where the image is displayed with button to search -->
-            <div class="card-title">Song Pile</div>
-            <button class="generate-button" onclick="generateCard()">Generate Song</button>
-            <div id="table-container"></div>
-            <img id="random-image" src="">
-        </div>
+</div>
+
+<h3>Pick a genre</h3>
+<select name="genre" id="genre" required style="color: black;">
+    <option value="">Select...</option> <!-- Changed placeholder text -->
+    <option value="pop">Pop</option>
+    <option value="rnb">R&B</option>
+    <option value="rock">Rock</option>
+    <option value="jazz_pop">Jazz/Pop</option>
+    <option value="rnb_pop">R&B/Pop</option>
+</select>
+
+<div class="container">
+    <div class="key-box">
+        <!-- Left container holding all info data about song -->
+        <h2>Song: <span id="card-song"></span></h2> 
+        <h2>Artist: <span id="card-artist"></span></h2>
+        <h2>Album: <span id="card-album"></span></h2>
+        <h2>Genre: <span id="card-genre"></span></h2>
+        <h2>Time: <span id="card-time"></span></h2>
+        <h2>Audio: <span id="card-audio"></span></h2>
     </div>
+    <div class="card">
+        <!-- Where the image is displayed with button to search -->
+        <div class="card-title">Song Pile</div>
+        <button class="generate-button" onclick="generateCard()">Generate Song</button>
+        <div id="table-container"></div>
+        <img id="random-image" src="">
+    </div>
+</div>
 
-    <script>
-        function generateCard() {
-            const imageContainer = document.getElementById('image-container');
-            const apiUrl = 'http://127.0.0.1:8432/api/kpop/random';
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    //grabs data from backend
-                    const cardSong = data.song;
-                    const cardArtist = data.artist;
-                    const cardAlbum = data.album;
-                    const cardGenre = data.genre;
-                    const cardTime = data.time;
+<script>
+    function generateCard() {
+        const selectedGenre = document.getElementById('genre').value;
+        const apiUrl = `http://127.0.0.1:8432/api/kpop/random?genre=${selectedGenre}`;
+        
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                // Grabs data from backend
+                const cardSong = data.song;
+                const cardArtist = data.artist;
+                const cardAlbum = data.album;
+                const cardGenre = data.genre;
+                const cardTime = data.time;
+                const imgURL = data.icon;
+                const cardAudio = data.audio;
 
-                    //define data to be used in container
-                    document.getElementById('card-song').textContent = cardSong;
-                    document.getElementById('card-artist').textContent = cardArtist;
-                    document.getElementById('card-album').textContent = cardAlbum;
-                    document.getElementById('card-genre').textContent = cardGenre;
-                    document.getElementById('card-time').textContent = cardTime;
-                    const imgURL = data.icon;
-                    document.getElementById('random-image').src = imgURL;
-                })
-                .catch(error => {
-                    const errorMessage = document.createElement('div');
-                    errorMessage.textContent = 'Failed to fetch image. Please try again later.';
-                    console.error('Error:', error);
-                    document.getElementById('table-container').appendChild(errorMessage);
-                });
-        }
-    </script>
-</body>
-</html>
+                // Define data to be used in container
+                document.getElementById('card-song').textContent = cardSong;
+                document.getElementById('card-artist').textContent = cardArtist;
+                document.getElementById('card-album').textContent = cardAlbum;
+                document.getElementById('card-genre').textContent = cardGenre;
+                document.getElementById('card-time').textContent = cardTime;
+                document.getElementById('random-image').src = imgURL;
+                document.getElementById('card-audio').textContent = cardAudio;
+            })
+            .catch(error => {
+                const errorMessage = document.createElement('div');
+                console.error('Error:', error);
+                document.getElementById('table-container').appendChild(errorMessage);
+            });
+    }
+</script>
