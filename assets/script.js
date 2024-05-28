@@ -1,6 +1,6 @@
 
 
-document.getElementById('upload-image').addEventListener('change', handleImageUpload);
+// document.getElementById('upload-image').addEventListener('change', handleImageUpload);
 
 let originalImageData;
 const canvas = document.getElementById('canvas');
