@@ -197,9 +197,6 @@ permalink: /tasks
     </div>
     
     <button class="recipe-buttons" onclick="sortTasks()">Sort</button>
-    
-    
-
     <div class="recipe-container">
         <div id="recipeContainer">
             <div class="data-container">
@@ -241,7 +238,7 @@ let data = {
     "taskpriority": taskpriority,
 };
 
-fetch('http://127.0.0.1:8086/api/tasks/create', {
+fetch('http://127.0.0.1:8432/api/tasks/create', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -274,7 +271,7 @@ let options = {
         'Content-Type': 'application/json;charset=utf-8'
     },
 };
-fetch("http://127.0.0.1:8086/api/tasks/read", options)
+fetch("http://127.0.0.1:8432/api/tasks/read", options)
     .then(response => {
         if (response.ok) {
             return response.json();
