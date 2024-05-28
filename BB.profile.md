@@ -63,14 +63,13 @@ permalink: /profiley
    const userNameFromLocalStorage = localStorage.getItem('loggedInUserName');
    const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
    const userNameElement = document.getElementById('user-name');
-  
-
 
    if (userNameFromLocalStorage) {
        userNameElement.textContent = userNameFromLocalStorage;
    }
    async function handleSubmit(event) {
    event.preventDefault();
+   window.location.reload()
 
 
    const formData = {
