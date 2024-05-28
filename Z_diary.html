@@ -138,6 +138,100 @@ permalink: /diary
     </div>
 </div>
 
+<script type="module">
+    import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
+        const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
+        console.log(userIDFromLocalStorage);
+        const userNameFromLocalStorage = localStorage.getItem('loggedInUserName');
+
+        function fetchDiary() {
+            fetch(`http://127.0.0.1:8432/api/users/${userIDFromLocalStorage}`)
+            // LocaL: http://127.0.0.1:8432
+            // Deployed: https://well.stu.nighthawkcodingsociety.com
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        let dataContainer = document.getElementById("data");
+                        // Clear previous data
+                        dataContainer.innerHTML = "";
+
+                        // Check if data.diary exists
+                        if (data.diary) {
+                            // Split the diary data by "||" to get individual diary items
+                            let diaryItems = data.diary.split("||");
+                            // Iterate over each item and create a row for display
+                            diaryItems.forEach(item => {
+                                let row = document.createElement("div");
+                                row.textContent = item.trim(); // Trim to remove any extra whitespace
+                                // Append row to the container
+                                dataContainer.appendChild(row);
+                            });
+                        } else {
+                            // Handle case where data.diary is not present
+                            let errorMessage = document.createElement("div");
+                            errorMessage.textContent = "No diary data found.";
+                            dataContainer.appendChild(errorMessage);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+
+                }
+                function diary() {
+                    // Get the text content from the textarea
+                    let text = document.getElementById("diary").value;
+                    // Create an object with the text data and a unique UID (timestamp)
+                    let data = {
+                        "id": userIDFromLocalStorage,
+                        "name": userNameFromLocalStorage,
+                        "diary": text,
+                    };
+                    fetch(`http://127.0.0.1:8432/api/users/${userIDFromLocalStorage}`, {
+                        // LocaL: http://127.0.0.1:8432
+                        // Deployed: https://well.stu.nighthawkcodingsociety.com
+                        ...options,
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    .then(response => {
+                    if (response.ok) {
+                        // Handle successful submission
+                        document.getElementById("error").innerHTML = "Diary updated!";
+                        // Fetch updated images after submission
+                        fetchDiary()
+                    } else {
+                        // Handle submission error
+                        return response.json().then(errorData => {
+                            if (errorData && errorData.message) {
+                                document.getElementById("error").innerHTML = errorData.message;
+                            } else {
+                                document.getElementById("error").innerHTML = "Error submitting diary";
+                            }
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    document.getElementById("error").innerHTML = "Error submitting diary";
+                });
+        }
+
+</script>
+
+
+
+
+
+
     <script>
         //Updating text
         function diary() {
@@ -146,6 +240,7 @@ permalink: /diary
             // Create an object with the text data and a unique UID (timestamp)
             let data = {
                 "id": userIDFromLocalStorage,
+                "name": userNameFromLocalStorage,
                 "diary": text,
             };
             // Configure fetch options
@@ -158,7 +253,7 @@ permalink: /diary
                 credentials: 'include'
             };
             // Send the text data to the backend
-            fetch(`https://well.stu.nighthawkcodingsociety.com/api/users/diary/${userIDFromLocalStorage}`, options)
+            fetch(`https://well.stu.nighthawkcodingsociety.com/api/users/${userIDFromLocalStorage}`, options)
             // LocaL: http://127.0.0.1:8010/api/users/diary
             // Deployed: https://SanDiegoTravel.stu.nighthawkcodingsociety.com/api/users/diary
                 .then(response => {
@@ -192,7 +287,7 @@ permalink: /diary
                 },
                 credentials: 'include'
             };
-            fetch(`https://well.stu.nighthawkcodingsociety.com/api/users/diary/${userIDFromLocalStorage}`, options)
+            fetch(`https://well.stu.nighthawkcodingsociety.com/api/users/${userIDFromLocalStorage}`, options)
             // Local: http://127.0.0.1:8010/api/users/diary
             // Deployed: https://SanDiegoTravel.stu.nighthawkcodingsociety.com/api/users/diary
                 .then(response => {
