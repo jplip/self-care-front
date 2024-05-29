@@ -114,31 +114,6 @@ permalink: /profiley
    }, 'image/png');
 }
 
- async function fetchAndDisplayUserDetails() {
-        try {
-            const response = await fetch(`https://well.stu.nighthawkcodingsociety.com/api/users/${userIDFromLocalStorage}`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch user details: ' + response.status + ' ' + response.statusText);
-            }
-            const data = await response.json();
-
-            // Update the form fields with fetched data
-            document.getElementById('age').value = data.age;
-            document.getElementById('gender').value = data.gender;
-            document.getElementById('bio').value = data.bio;
-            document.getElementById('exerciseGoals').value = data.exerciseGoals;
-            document.getElementById('sleepGoals').value = data.sleepGoals;
-
-            // Display user details in the div
-            const userDetailsDiv = document.getElementById('user-details');
-            userDetailsDiv.innerHTML = `
-                <p>Age: ${data.age}</p>
-                <p>Gender: ${data.gender}</p>
-                <p>Bio: ${data.bio}</p>
-                <p>Exercise Goals: ${data.exerciseGoals}</p>
-                <p>Sleep Goals: ${data.sleepGoals}</p>
-            `;
-
    async function fetchAndDisplayImage() {
            try {
                // Fetch JSON response
