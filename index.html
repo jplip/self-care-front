@@ -195,7 +195,7 @@
         <a onclick="logout()">Log Out</a>
     </div>
 </div>
-
+<!-- 
 
 <div class="sidebar" id="sidebar">
     <div class="menu-icon" onclick="toggleSidebar()">
@@ -212,7 +212,7 @@
         <li class="menu-item"><a href="tracking" style="color: #fff; text-decoration: none;">Exercise and Sleep</a></li>
         <li class="menu-item"><a href="kpop" style="color: #fff; text-decoration: none;">Music</a></li>
     </ul>
-</div>
+</div> -->
 
 
 <div class="main-content">
@@ -251,12 +251,7 @@
 
 
 <script type="module">
-    import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
-    function toggleSidebar() {
-        var sidebar = document.getElementById("sidebar");
-        sidebar.classList.toggle("active");
-    }
-
+    import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js'
     function logout() {
         // Clear local storage
         localStorage.removeItem('loggedInUserName');
@@ -280,5 +275,9 @@
         .catch(error => {
             console.error('Logout error:', error);
         });
+    }
+    function toggleSidebar() {
+        var sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("active");
     }
 </script>
