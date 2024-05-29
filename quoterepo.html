@@ -149,7 +149,6 @@ permalink: /quoterepo
         }
     </style>
 </head>
-
 <body>
     <a id="homeButton" href="index">Home</a>
     <div class="container">
@@ -174,30 +173,21 @@ permalink: /quoterepo
             </div>
 
             <button class="quotes-button" type="button" onclick="submitQuote()">Submit</button>
-            <!-- View Quotes -->
             <input type="button" class="quotes-button" value="View Quotes" onclick="window.location.href='view'">
         </form>
     </div>
     <script>
-        // This is the JavaScript part of the frontend.
-        // File name: quoterepo.html
-
-        // Function to submit a new quote
         function submitQuote() {
-            // Retrieving the values entered by the user for the quote, author, and opinion fields
             let _quotename = document.getElementById('quotename').value;
             let _quoteauthor = document.getElementById('quoteauthor').value;
             let _opinion = document.getElementById('opinion').value;
             let _rating = document.querySelector('input[name="star"]:checked') ? document.querySelector('input[name="star"]:checked').value : null;
 
-            // Checking if any of the fields are left empty
             if (!_quotename || !_quoteauthor || !_opinion || !_rating) {
-                // Alerting the user to fill in all the fields if any are left empty
                 alert("Please fill in all fields and provide a rating");
-                return; // Exiting the function early if any fields are empty
+                return;
             }
 
-            // Creating an object to store the submitted quote data
             let quote_object = {
                 "quotename": _quotename,
                 "quoteauthor": _quoteauthor,
@@ -205,28 +195,21 @@ permalink: /quoterepo
                 "rating": _rating,
             };
 
-            // Sending a POST request to a server endpoint with the quote data
-            fetch('http://127.0.0.1:8086/api/quotes/make', {
+            fetch('http://127.0.0.1:8432/api/quotes/make', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(quote_object) // Converting the JavaScript object to JSON format
+                body: JSON.stringify(quote_object)
             })
-            .then(response => {
-                // Handling the response from the server
-                return response.json(); // Parsing the response as JSON
-            })
+            .then(response => response.json())
             .then(response_json => {
-                // Displaying an alert to the user upon successful submission of the quote
                 alert("Quote Submitted Successfully");
             })
             .catch(error => {
-                // Handling any errors that occur during the submission process
                 alert("Quote Submission Failed");
             });
         }
     </script>
 </body>
-
 </html>
