@@ -63,15 +63,11 @@ permalink: /profiley
    const userNameFromLocalStorage = localStorage.getItem('loggedInUserName');
    const userIDFromLocalStorage = localStorage.getItem('loggedInUserId');
    const userNameElement = document.getElementById('user-name');
-
    if (userNameFromLocalStorage) {
        userNameElement.textContent = userNameFromLocalStorage;
    }
    async function handleSubmit(event) {
    event.preventDefault();
-
-
-
    const formData = {
        id: userIDFromLocalStorage,
        age: document.getElementById('age').value,
@@ -80,7 +76,6 @@ permalink: /profiley
        exerciseGoals: document.getElementById('exerciseGoals').value,
        sleepGoals: document.getElementById('sleepGoals').value,
    };
-
 
    canvas.toBlob(async (blob) => {
        try {
@@ -136,6 +131,7 @@ permalink: /profiley
 
                // Validate base64 string format
                if (!base64String || !/^[A-Za-z0-9+/=]+$/.test(base64String)) {
+                    console.log('Received base64 string:', base64String);
                    throw new Error('Received string is not a valid base64 encoded string');
                }
 
