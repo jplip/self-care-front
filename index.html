@@ -251,6 +251,10 @@
 
 
 <script type="module">
+    function toggleSidebar() {
+        var sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("active");
+    }
     import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js'
     function logout() {
         // Clear local storage
@@ -276,8 +280,5 @@
             console.error('Logout error:', error);
         });
     }
-    function toggleSidebar() {
-        var sidebar = document.getElementById("sidebar");
-        sidebar.classList.toggle("active");
-    }
+    
 </script>
