@@ -1,13 +1,44 @@
-# User Table
+# Self-Care Project
 
-This is my user table that gets the user data from the database and then posts it onto a table that has all the users with an update and delete button next to them. These buttons correspond to the user in the respective row and will run the method of either update or delete.
+Welcome to our Self-Care Project! This project is designed to help you prioritize your well-being and practice self-care in various aspects of your life. Developed with care by our team, this project offers a range of features to support your mental, physical, and emotional health.
 
-This data is meant to be seen by all and only the delete feature is available to the Admins. Anyone besides the Admins will be given an error when trying to confirm the deletion of a user.
-The update feature allows for all users to change the name or username associated with the account.
+## Overview
 
-- BE_update.md: Contains all table code: CSS, HTML, JavaScript
+Our Self-Care Project includes several features to help you nurture and prioritize your well-being:
 
+### Personal Diary
 
+Take a moment to reflect and journal your thoughts, feelings, and experiences in our personal diary feature. Writing regularly in your diary can help you process emotions, track your progress, and cultivate mindfulness in your daily life.
+
+### Sleep and Exercise Tracker
+
+Monitor your sleep patterns and exercise routines with our sleep and exercise tracker. By keeping track of your sleep quality and physical activity, you can identify patterns, set goals, and make informed decisions to improve your overall health and well-being.
+
+### Nearby Therapy Locations
+
+Find nearby therapy locations and mental health resources with our interactive map feature. Access information about therapists, counseling centers, support groups, and other mental health services in your area to support your emotional wellness.
+
+### Recipe Repository
+
+Explore and add your favorite recipes to our recipe repository. Sharing and trying new recipes can be a fun and rewarding way to nourish your body and indulge in self-care through cooking and eating delicious meals.
+
+### Inspirational Quotes
+
+Discover a collection of inspirational quotes to uplift and motivate you on your self-care journey. Bookmark your favorite quotes and revisit them whenever you need a dose of encouragement and positivity.
+
+### Machine Learning Predictors
+
+Utilize our machine learning predictors to gain insights into your health and well-being:
+
+- **Stroke Predictor:** Assess your risk of stroke based on various health factors and lifestyle choices. Our predictor analyzes data to provide personalized insights and recommendations for stroke prevention.
+  
+- **Depression Predictor:** Evaluate your likelihood of experiencing depression based on your mental health history and behavioral patterns. Our predictor offers insights and resources to support mental health awareness and management.
+  
+- **Titanic Predictor:** Explore the famous Titanic dataset and predict survival outcomes using machine learning algorithms. Learn about data analysis and predictive modeling while exploring this historical event.
+
+## Usage
+
+To access our Self-Care Project, simply visit our website or download the project files to your device. Each feature is accessible through an intuitive user interface, making it easy for you to navigate and explore the different tools and resources available.
 
 
 
